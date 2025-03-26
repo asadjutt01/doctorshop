@@ -1,0 +1,27 @@
+<svg id="fb" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="60.38" height="60.38" viewBox="0 0 60.38 60.38">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.459" y1="0.155" x2="0.544" y2="0.845" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#1677f1"/>
+      <stop offset="0.206" stop-color="#176ee9"/>
+      <stop offset="0.46" stop-color="#1d55d3"/>
+      <stop offset="0.735" stop-color="#252eb0"/>
+      <stop offset="1" stop-color="#2b189c"/>
+    </linearGradient>
+    <clipPath id="clip-path">
+      <path id="Path_2132" data-name="Path 2132" d="M30.19,0A30.19,30.19,0,1,0,60.38,30.191,30.189,30.189,0,0,0,30.19,0Z" fill="url(#linear-gradient)"/>
+    </clipPath>
+    <clipPath id="clip-path-2">
+      <rect id="Rectangle_1068" data-name="Rectangle 1068" width="60.38" height="60.38" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="Group_2696" data-name="Group 2696" transform="translate(0 0)">
+    <g id="Group_2695" data-name="Group 2695" clip-path="url(#clip-path)">
+      <rect id="Rectangle_1067" data-name="Rectangle 1067" width="85.391" height="85.391" transform="translate(-30.19 30.19) rotate(-45)" fill="url(#linear-gradient)"/>
+    </g>
+  </g>
+  <g id="Group_2698" data-name="Group 2698" transform="translate(0 0)">
+    <g id="Group_2697" data-name="Group 2697" clip-path="url(#clip-path-2)">
+      <path id="Path_2133" data-name="Path 2133" d="M29.339,47.11V30.285H34.95l1.067-6.96H29.339V18.809c0-1.9.932-3.76,3.923-3.76H36.3V9.124a36.952,36.952,0,0,0-5.39-.471c-5.5,0-9.093,3.334-9.093,9.368v5.3H15.7v6.96h6.114V47.11Z" transform="translate(4.19 2.309)" fill="#fff"/>
+    </g>
+  </g>
+</svg>

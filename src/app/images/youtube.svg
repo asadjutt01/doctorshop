@@ -1,0 +1,24 @@
+<svg id="youtube" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="60.38" height="60.38" viewBox="0 0 60.38 60.38">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.548" y1="0.16" x2="0.471" y2="0.84" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="red"/>
+      <stop offset="1" stop-color="#9b0000"/>
+    </linearGradient>
+    <clipPath id="clip-path">
+      <path id="Path_2152" data-name="Path 2152" d="M30.19,0A30.19,30.19,0,1,0,60.38,30.191,30.189,30.189,0,0,0,30.19,0Z" fill="url(#linear-gradient)"/>
+    </clipPath>
+    <clipPath id="clip-path-2">
+      <rect id="Rectangle_1082" data-name="Rectangle 1082" width="60.38" height="60.38" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="Group_2731" data-name="Group 2731" transform="translate(0 0)">
+    <g id="Group_2730" data-name="Group 2730" clip-path="url(#clip-path)">
+      <rect id="Rectangle_1081" data-name="Rectangle 1081" width="85.391" height="85.391" transform="translate(-30.19 30.19) rotate(-45)" fill="url(#linear-gradient)"/>
+    </g>
+  </g>
+  <g id="Group_2733" data-name="Group 2733" transform="translate(0 0)">
+    <g id="Group_2732" data-name="Group 2732" clip-path="url(#clip-path-2)">
+      <path id="Path_2153" data-name="Path 2153" d="M41.583,22.164a6.435,6.435,0,0,0-6.435-6.435H18.692a6.435,6.435,0,0,0-6.435,6.435v7.657a6.435,6.435,0,0,0,6.435,6.435H35.147a6.435,6.435,0,0,0,6.435-6.435Zm-9.677,4.4-7.379,3.651c-.289.156-1.272-.053-1.272-.383V22.342c0-.333.991-.542,1.281-.378L31.6,25.808c.3.168.608.6.308.759" transform="translate(3.27 4.197)" fill="#fff"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,914 @@
+@import url("https://site-assets.fontawesome.com/releases/v6.1.1/css/all.css");
+
+$primary: #005eb8;
+$succcess: #009639;
+$bg-light: #f7f7f7;
+$bg-xtralight: #f5f5f5;
+$shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
+@font-face {
+  font-family: "Poppins";
+  src: url("../fonts/Poppins-Regular.ttf");
+}
+
+@font-face {
+  font-family: "Poppins-ExtraBold";
+  src: url("../fonts/Poppins-ExtraBold.ttf");
+}
+@font-face {
+  font-family: "Poppins-Medium";
+  src: url("../fonts/Poppins-Medium.ttf");
+}
+@font-face {
+  font-family: "Poppins-Bold";
+  src: url("../fonts/Poppins-Bold.ttf");
+}
+@font-face {
+  font-family: "Poppins-SemiBold";
+  src: url("../fonts/Poppins-SemiBold.ttf");
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-20%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0%);
+  }
+}
+@keyframes fadeInbottom {
+  0% {
+    opacity: 0;
+    transform: translateY(20%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0%);
+  }
+}
+@keyframes fadeLeftToRight {
+  0% {
+    opacity: 0;
+    transform: translateX(-20%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0%);
+  }
+}
+.hidden {
+  display: none;
+}
+.sidebar {
+  width: 240px;
+  // height: calc(100vh - 65px);
+  background-color: white;
+  box-shadow: 0px 4px 6px #00000029;
+  display: flex;
+  flex-direction: column;
+  //   padding: 8px;
+  .sidebar-list {
+    padding: 24px 0;
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    list-style: none !important;
+    gap: 4px;
+  }
+}
+.sidebar-item {
+  // padding-left: 16px;
+  // padding-top: 8px;
+  // padding-bottom: 8px;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+
+  .side-button {
+    width: 100%;
+    text-align: start;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: inherit;
+    padding-left: 16px; 
+    padding-top: 8px; 
+    padding-bottom: 8px;
+  }
+}
+.side-selected {
+  background-color: #eeeeee;
+  color: #005eb8;
+  font-family: "Poppins-Medium";
+  font-weight: bold;
+}
+.side-unselected {
+  background-color: transparent;
+  font-family: "Poppins";
+  color: #000000;
+}
+
+.panel-layout {
+  min-height: calc(100vh - 120px);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  top: 85px;
+  background-color: #f7f7f9;
+}
+.user-panel-page {
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* shadow-lg */
+  border-radius: 2px; /* rounded-sm */
+  opacity: 1; /* opacity-100 */
+  margin: 16px; /* m-4 */
+  padding: 12px; /* p-5 */
+  display: flex;
+  flex-direction: column;
+  // align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  width: 100%;
+  background-color: #ffffff;
+}
+
+// .user-panel-page-card {
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   justify-content: space-between;
+//   gap: 20px;
+//   width: 100%;
+//   padding: 20px;
+//   background-color: #ffffff;
+//   border-radius: 6px;
+//   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+// }
+
+.tab-selected {
+  border: none;
+  outline: none;
+  background-color: #005eb8;
+  color: white;
+  border-radius: 23px;
+  padding: 4px 10px;
+}
+.tab-unselected {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  color: #000000;
+}
+
+// detail page tabs
+.tabs-container-dashboard {
+  // background-color: #fbfbfb; /* Adds background color to the main div */
+  padding: 17px; /* Adds smaller padding around the tabs container */
+  border-radius: 10px; /* Optional: Adds a subtle rounded corner effect to the container */
+
+  .custom-tabs {
+    border-bottom: 1px solid #707070;
+    display: flex;
+    gap: 10px;
+    .nav-item {
+      // margin-right: 10px; /* Adds gap between tabs */
+      margin-bottom: 12px;
+
+      .nav-link {
+        background-color: transparent;
+        border: none;
+        padding: 5px 15px; /* Reduced padding for smaller tabs */
+        border-radius: 20px;
+        transition: background-color 0.3s, color 0.3s;
+        font-family: "Poppins-Medium";
+        font-size: 16px !important;
+        color: #000000 !important;
+        font-weight: 500 !important;
+
+        &:hover {
+          text-decoration: none;
+          color: #005eb8;
+        }
+
+        &.active {
+          background-color: #005eb8;
+          color: #ffffff !important;
+          // font-weight: bold;
+          border: none; /* Removes borders */
+          // border-radius: 20px; /* Ensures round edges for the active tab */
+        }
+      }
+    }
+  }
+
+  .custom-tab-content {
+    padding: 15px 0px; /* Adjusts padding inside the tab content */
+
+    border-radius: 10px; /* Optional: Adds rounded corners to the content area */
+    /* Optional: Adds a subtle shadow to the content area */
+
+    h3 {
+      font-size: 1.25rem;
+      color: #333;
+    }
+
+    p {
+      // color: #6c757d;
+      line-height: 1.6;
+    }
+
+    ul {
+      padding-left: 20px;
+      list-style-type: disc;
+
+      li {
+        margin-bottom: 10px;
+        // color: #6c757d;
+      }
+    }
+
+    blockquote {
+      margin: 20px 0;
+      padding: 10px 20px;
+      background-color: #f8f9fa;
+      border-left: 4px solid #007bff;
+      font-style: italic;
+      // color: #6c757d;
+    }
+  }
+}
+.table-search-input {
+  border-radius: 2px; /* rounded-sm */
+  padding: 6px; /* py-2 (top & bottom) and pl-8 pr-4 (left & right) */
+  padding-left: 30px;
+  border: 2px solid #f3f3f3; /* border-2 and border-white-light */
+  background-color: #eee; /* bg-[#eee] */
+  width: 16rem; /* w-64 */
+  margin-bottom: 15px;
+  color: #000000;
+}
+
+.table-search-icon {
+  position: absolute; /* absolute */
+  left: 8px; /* left-2 (2 * 4px = 8px) */
+  top: 10px; /* top-2.5 (2.5 * 4px = 10px) */
+  height: 20px; /* h-5 (5 * 4px = 20px) */
+  width: 20px; /* w-5 (5 * 4px = 20px) */
+  font-weight: 100; /* font-thin */
+  color: #6b7280; /* text-gray-500 (Hex for Tailwind's gray-500) */
+}
+.rdt_Table {
+  // border: 1px solid #707070 !important;
+  min-height: 300px !important;
+}
+
+.table-with-paggination-container {
+  border: 1px solid #707070 !important;
+}
+
+.rdt_Table {
+  outline-style: none !important;
+}
+
+.dAkvEn:hover {
+  outline-style: none !important;
+}
+.table-paggination-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  background-color: #005eb8;
+  border-radius: 100%;
+  border: none;
+  width: 26px;
+  height: 26px;
+  cursor: pointer;
+  font-size: 14px;
+}
+.table-paggination-button-active {
+  color: #005eb8;
+}
+
+.rdt_TableHeadRow {
+  font-family: "Poppins-Medium";
+}
+
+// .tabs-header-button {
+//   font-family: "Poppins-Medium";
+//   font-size: 16px !important;
+//   color: #000000 !important;
+//   font-weight: 500 !important;
+// }
+
+.simple-bg-gray-hover:hover {
+  background-color: #eeeeee;
+}
+
+.pharmaceutical-warning {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 25px;
+  background-color: #ffd6d6;
+  border-radius: 10px;
+  .register-warning-note {
+    font-family: "Poppins";
+    font-weight: normal;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 0.875rem !important;
+  }
+  .register-warning-pill {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #d65d5d;
+    padding: 2px 20px;
+    border-radius: 18px;
+    font-size: 0.875rem !important;
+    font-family: "Poppins";
+    font-weight: normal;
+    color: #ffffff;
+    text-align: center;
+  }
+}
+
+.cart-item-whishlist {
+  padding: 12px 0px;
+  border-top: 1px solid #707070;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  // margin-right: 10px;
+  .cart-item__content {
+    display: flex;
+    justify-content: space-between;
+    // align-items: center;
+    width: 100%;
+  }
+  .cart-item__details {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    width: 60%;
+    .cart-item__info {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      width: fit-content;
+    }
+    .cart-item__image-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #f7f7f9;
+      border-radius: 4px;
+      padding: 10px;
+      .remove-item-btn {
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        rotate: 45deg;
+      }
+      .cart-item__image {
+        width: 60px;
+        height: 60px;
+        border-radius: 4px;
+      }
+    }
+    .cart-item__info {
+      display: flex;
+      flex-direction: column;
+      width: 70%;
+      .cart-item__info-container {
+        display: flex;
+        justify-content: space-between;
+        .cart-item__info__title {
+          font-size: 1rem;
+          font-family: "Poppins";
+          font-weight: 600;
+        }
+        .cart-item__info-button-pharma {
+          background-color: #00bf73;
+          color: #ffffff;
+          border: none;
+          border-radius: 4px;
+          padding: 2px 6px;
+          font-size: 0.75rem;
+          min-width: fit-content;
+          max-height: fit-content;
+          font-family: "Poppins";
+          cursor: pointer;
+        }
+      }
+
+      .cart-item__info-section {
+        display: grid;
+        grid-template-columns: 2fr 2fr !important;
+        width: 100%;
+        font-size: 0.75rem !important;
+        row-gap: 4px;
+        column-gap: 12px;
+
+        .cart-item__info-section-detail {
+          display: flex;
+          justify-content: space-between;
+          row-gap: 4px;
+          .cart-item__info-section-detail-key {
+            color: #575757;
+            font-family: "Poppins-Medium";
+            width: 100%;
+          }
+          .cart-item__info-section-detail-value {
+            color: #959595;
+            font-family: "Poppins";
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+  .cart-item__price-section-view {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+  }
+  .cart-item__price-section {
+    text-align: right;
+    // width: 25%;
+    display: flex;
+    flex-direction: column;
+    // gap: 8px;
+    // margin-right: 10px;
+    align-items: flex-end;
+    font-family: "Poppins-Medium";
+    .cart-item__price {
+      font-size: 1.6rem;
+      font-weight: 600;
+
+      color: $primary;
+    }
+    .cart-item__price-section-inc-vat {
+      font-size: 0.75rem;
+      font-weight: bold;
+      font-family: "Poppins";
+    }
+    .cart-item__quantity {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #707070;
+      border-radius: 6px;
+      font-size: 1rem;
+      max-width: fit-content;
+      .cart-item__quantity-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        border: none;
+        background-color: transparent;
+      }
+      .cart-item__quantity-qty {
+        font-size: 0.9rem;
+      }
+    }
+  }
+  .view-product-btn-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .view-product-btn {
+      background-color: $primary;
+      color: #ffffff;
+      border: none;
+      border-radius: 10px;
+      padding: 8px 18px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+  }
+}
+.userDetailsContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.user-panel-Button {
+  background-color: $primary;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  padding: 8px 28px;
+  font-size: 0.875rem;
+  // min-width: 250px;
+  // max-width: 40%;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #0056b3;
+  }
+}
+.user-panel-deliveryAddress {
+  .user-panel-deliveryAddress__header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  .user-panel-deliveryAddress-card-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    width: 100%;
+    .user-panel-deliveryAddress-card {
+      width: 100%;
+      padding: 16px;
+      background-color: #f5f5f5;
+      border-radius: 6px;
+
+      .address-card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .address-text {
+          font-size: 1rem;
+          font-family: "Poppins-Medium";
+          font-weight: 500;
+        }
+      }
+      .address-card-container {
+        margin-top: 16px;
+        display: flex;
+        gap: 16px;
+        flex-direction: column;
+        .address-card-section {
+          display: flex;
+          flex-direction: column;
+          gap: 16px;
+          .address-card-label {
+            font-weight: 500;
+            color: #000000;
+            font-family: "Poppins";
+            margin-right: 10px;
+            // min-width: 200px; // Adjust width to align labels
+          }
+          .address-card-value {
+            color: #000000;
+            font-family: "Poppins";
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+          }
+        }
+
+        .address-card-row {
+          display: flex;
+          justify-content: space-between;
+          gap: 20px;
+          .address-card-label {
+            font-weight: 500;
+            color: #000000;
+            font-family: "Poppins";
+            font-size: 0.875rem;
+            margin-right: 10px;
+            // min-width: 200px; // Adjust width to align labels
+          }
+          .address-card-value {
+            color: #000000;
+            font-family: "Poppins";
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+          }
+        }
+      }
+    }
+  }
+}
+
+.nav-categories-section {
+  display: none !important;
+  max-height: 75vh;
+  overflow-y: scroll;
+  animation: fadeLeftToRight 0.3s ease-in-out;
+}
+.nav-categories-section-list {
+  animation: fadeLeftToRight 0.3s ease-in-out;
+}
+.swiper-slide-header-bottom {
+  height: 100 !important;
+  margin: 0px !important;
+}
+.header-bottom-nav-link-text-view-all {
+  display: flex;
+  gap: 10px;
+  color: $primary;
+  font-family: "Poppins-Medium";
+  font-weight: 500;
+  align-items: center;
+}
+.form-input-container-dashboard {
+  display: none;
+}
+.dashboard-select {
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* shadow-lg */
+  border-radius: 2px;
+  .css-1dimb5e-singleValue,
+  .css-1jqq78o-placeholder {
+    color: $primary !important;
+    font-family: "Poppins-Medium";
+    font-weight: 600;
+  }
+}
+.css-1u9des2-indicatorSeparator {
+  display: none;
+}
+.addtocart .cart .cart__total .cart__total-items {
+  font-size: 1.1rem !important;
+}
+.cart-item
+  .cart-item__content
+  .cart-item__details
+  .cart-item__info
+  .cart-item__info-section
+  .cart-item__info-section-detail
+  .cart-item__info-section-detail-key {
+  width: 100%;
+}
+.cart-item
+  .cart-item__content
+  .cart-item__details
+  .cart-item__info
+  .cart-item__info-section
+  .cart-item__info-section-detail
+  .cart-item__info-section-detail-value {
+  width: 100%;
+  margin-left: 6px;
+}
+
+.primary-text {
+  color: $primary !important;
+}
+.bg-disabled {
+  background-color: light-dark(rgba(239, 239, 239, 0.3), rgba(59, 59, 59, 0.3));
+  color: light-dark(rgb(84, 84, 84), rgb(170, 170, 170));
+  cursor: not-allowed;
+}
+.cart-summary__delivery_time {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #d4d4d4;
+  font-size: 0.75rem;
+  border-radius: 6px;
+  padding: 6px;
+  font-family: "Poppins-Medium";
+  font-weight: 500;
+}
+.PhoneInputCountrySelect:disabled {
+  opacity: 0 !important;
+}
+.bg-white {
+  background-color: white !important;
+}
+.detailsRow {
+  display: flex;
+  gap: 16px;
+  flex-direction: column;
+
+  width: 60%;
+  .detailsItem {
+    display: flex;
+    justify-content: space-between;
+    // gap: 20px;
+    .detailsItem-label {
+      font-weight: 500;
+      width: 50%;
+      color: #000000;
+      font-family: "Poppins";
+      // min-width: 200px; // Adjust width to align labels
+    }
+    .detailsItem-value {
+      width: 50%;
+      font-weight: 500;
+      color: #000000;
+      font-family: "Poppins";
+      // min-width: 200px; // Adjust width to align labels
+    }
+  }
+}
+
+@media only screen and (max-width: 990px) {
+  .sidebar {
+    display: none;
+  }
+  .panel-layout {
+    display: flex;
+    flex-direction: column;
+  }
+  .user-panel-page {
+    width: auto;
+  }
+  .form-input-container-dashboard {
+    // box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* shadow-lg */
+    // border-radius: 2px; /* rounded-sm */
+    display: block;
+    opacity: 1; /* opacity-100 */
+    margin: 16px; /* m-4 */
+    margin-bottom: 0px;
+  }
+  .tabs-container-dashboard {
+    padding: 0px;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .nav-categories-section {
+    display: block !important;
+  }
+  .user-panel-page {
+    padding: 8px;
+  }
+  .table-search-input {
+    padding: 4px; /* py-2 (top & bottom) and pl-8 pr-4 (left & right) */
+    padding-left: 30px;
+    width: 14rem; /* w-64 */
+    font-size: 0.875rem;
+  }
+
+  .table-search-icon {
+    top: 8px; /* top-2.5 (2.5 * 4px = 10px) */
+    height: 18px; /* h-5 (5 * 4px = 20px) */
+    width: 18px; /* w-5 (5 * 4px = 20px) */
+    color: #6b7280; /* text-gray-500 (Hex for Tailwind's gray-500) */
+    font-family: "Poppins" !important;
+  }
+  .rdt_TableHeadRow {
+    flex-basis: 0;
+    padding: 0px 8px !important;
+    font-size: 0.75rem !important;
+    font-family: "Poppins" !important;
+  }
+  .rdt_TableCol {
+    flex-basis: 0 !important;
+    padding-left: 8px !important;
+    padding-right: 0px !important;
+    font-size: 0.75rem !important;
+    font-family: "Poppins" !important;
+  }
+  .rdt_TableRow {
+    flex-basis: 0 !important;
+    padding-left: 8px !important;
+    padding-right: 0px !important;
+    font-size: 0.75rem !important;
+    font-family: "Poppins" !important;
+  }
+  .rdt_TableCell {
+    flex-basis: 0 !important;
+    padding-left: 8px !important;
+    padding-right: 0px !important;
+    font-size: 0.75rem !important;
+    font-family: "Poppins" !important;
+  }
+  .table_rowsPerPage {
+    font-size: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-family: "Poppins" !important;
+  }
+  .cart-item-whishlist {
+    gap: 10px;
+  }
+  .cart-item-whishlist
+    .cart-item__details
+    .cart-item__info
+    .cart-item__info-section {
+    grid-template-columns: 1fr !important;
+  }
+  .cart-item-whishlist .cart-item__price-section-view {
+    flex-direction: column-reverse;
+    align-items: flex-end;
+  }
+  .cart-item-whishlist .cart-item__details {
+    width: auto;
+    gap: 8px;
+    min-height: 100% !important;
+  }
+  .cart-item-whishlist
+    .cart-item__details
+    .cart-item__info
+    .cart-item__info-container {
+    flex-direction: column;
+  }
+  .cart-item-whishlist .cart-item__details .cart-item__image-container {
+    padding: 4px;
+  }
+  .cart-item-whishlist .view-product-btn-container .view-product-btn {
+    padding: 4px 10px;
+    font-size: 0.7rem;
+    flex-shrink: 0;
+    border-radius: 4px;
+  }
+  .cart-item__info-container .cart-item__info-button-pharma {
+    font-size: 0.6rem !important;
+    flex-shrink: 0;
+  }
+  .cart-item-whishlist .cart-item__details .cart-item__info {
+    height: 100%;
+  }
+  .cart-item-whishlist .cart-item__content {
+    gap: 8px;
+  }
+  .cart-item__info-container .cart-item__info__title {
+    font-size: 0.8rem !important;
+  }
+  .cart-item-whishlist
+    .cart-item__details
+    .cart-item__image-container
+    .cart-item__image {
+    width: 55px;
+    height: 55px;
+  }
+  .cart-item-whishlist .cart-item__price-section .cart-item__price {
+    font-size: 1.3rem;
+  }
+
+  .userDetailsContainer {
+    flex-direction: column-reverse;
+    align-items: flex-end;
+    justify-content: space-between;
+    .detailsSection {
+      width: 100%;
+      padding: 10px;
+      gap: 0px;
+      .detailItem {
+        width: 50%;
+        .detailItem-label {
+          font-size: 0.75rem;
+          margin-right: 0px;
+        }
+        .detailItem-value {
+          font-size: 0.75rem;
+        }
+      }
+    }
+  }
+  .user-panel-Button {
+    font-size: 0.75rem;
+    padding: 6px 24px;
+  }
+  .user-panel-deliveryAddress {
+    .user-panel-deliveryAddress-card-container {
+      flex-direction: column;
+    }
+  }
+
+  .user-panel-deliveryAddress
+    .user-panel-deliveryAddress-card-container
+    .user-panel-deliveryAddress-card
+    .address-card-container
+    .address-card-row
+    .address-card-value,
+  .address-card-label {
+    font-size: 0.7rem;
+  }
+
+  .detailsRow {
+    width: 100%;
+    margin-top: 10px;
+    .detailsItem {
+      .detailsItem-label {
+        font-size: 0.7rem !important;
+      }
+      .detailsItem-value {
+        font-size: 0.7rem !important;
+      }
+    }
+  }
+}
+@media only screen and (max-width: 640px) {
+  .tabs-container-dashboard {
+    .custom-tabs {
+      gap: 2px;
+      .nav-item {
+        .nav-link {
+          background-color: transparent;
+          border: none;
+          padding: 2px 10px;
+          border-radius: 6px;
+          font-weight: 400;
+          font-size: 0.7rem !important;
+        }
+      }
+    }
+  }
+}

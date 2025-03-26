@@ -1,0 +1,25 @@
+<svg id="Pin" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="60.38" height="60.38" viewBox="0 0 60.38 60.38">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.523" y1="0.154" x2="0.431" y2="0.826" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#ff4c3c"/>
+      <stop offset="0.44" stop-color="#ef083d"/>
+      <stop offset="1" stop-color="#ee023e"/>
+    </linearGradient>
+    <clipPath id="clip-path">
+      <path id="Path_2146" data-name="Path 2146" d="M30.19,0A30.19,30.19,0,1,0,60.38,30.191,30.189,30.189,0,0,0,30.19,0Z" fill="url(#linear-gradient)"/>
+    </clipPath>
+    <clipPath id="clip-path-2">
+      <rect id="Rectangle_1078" data-name="Rectangle 1078" width="60.38" height="60.38" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="Group_2721" data-name="Group 2721" transform="translate(0 0)">
+    <g id="Group_2720" data-name="Group 2720" clip-path="url(#clip-path)">
+      <rect id="Rectangle_1077" data-name="Rectangle 1077" width="85.391" height="85.391" transform="translate(-30.19 30.19) rotate(-45)" fill="url(#linear-gradient)"/>
+    </g>
+  </g>
+  <g id="Group_2723" data-name="Group 2723" transform="translate(0 0)">
+    <g id="Group_2722" data-name="Group 2722" clip-path="url(#clip-path-2)">
+      <path id="Path_2147" data-name="Path 2147" d="M24.422,32.75c-.028.094-.053.172-.073.251-1.195,4.681-1.328,5.72-2.555,7.894a24.464,24.464,0,0,1-1.974,2.949c-.082.106-.16.243-.324.209-.18-.038-.194-.2-.214-.345a25.243,25.243,0,0,1-.257-4.284c.062-1.87.294-2.512,2.7-12.652a.7.7,0,0,0-.056-.422,7.128,7.128,0,0,1-.187-4.739c1.091-3.458,5.012-3.723,5.7-.87.422,1.766-.7,4.075-1.553,7.489-.711,2.816,2.606,4.819,5.44,2.763,2.613-1.9,3.628-6.44,3.434-9.662-.38-6.421-7.421-7.81-11.889-5.741-5.122,2.368-6.286,8.717-3.974,11.618.294.369.519.594.423.969-.149.58-.281,1.165-.441,1.744a.619.619,0,0,1-.915.409,5.243,5.243,0,0,1-2.138-1.6c-1.964-2.432-2.526-7.242.071-11.314,2.877-4.511,8.228-6.337,13.113-5.783,5.835.664,9.524,4.65,10.214,9.173.314,2.061.087,7.141-2.8,10.732-3.327,4.126-8.721,4.4-11.209,1.867-.193-.194-.346-.422-.533-.654" transform="translate(3.706 3.078)" fill="#fff" fill-rule="evenodd"/>
+    </g>
+  </g>
+</svg>
