@@ -167,24 +167,24 @@ const MyOrders = () => {
   }, []);
 
 
-  const getOrderDetail = async () => {
+  // const getOrderDetail = async () => {
 
-    try {
-      const response: any = await Service.Orders_Methods.getCancelOrders();
+  //   try {
+  //     const response: any = await Service.Orders_Methods.getCancelOrders();
 
-      console.log("Orders Data >>>>>>", response);
+  //     console.log("Orders Data >>>>>>", response);
 
-      if (response) {
-        setcanceledData(response.orders); // Assuming response contains an 'orders' array
-      } else {
-        console.log("No orders received.");
-      }
-    } catch (err) {
-      console.error("Error fetching orders:", err);
-    } finally {
+  //     if (response) {
+  //       setcanceledData(response.orders); // Assuming response contains an 'orders' array
+  //     } else {
+  //       console.log("No orders received.");
+  //     }
+  //   } catch (err) {
+  //     console.error("Error fetching orders:", err);
+  //   } finally {
 
-    }
-  };
+  //   }
+  // };
 
 
 

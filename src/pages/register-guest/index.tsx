@@ -8,7 +8,7 @@ import { validateEmail, validatePhoneNumber, validateRequired } from "@/validati
 import LabeledSelect from "@/components/LabeledSelect/LabeledSelect";
 import { Option } from "@/types/types";
 import Switch from "@/components/Switch";
-import SwitchSingle from "@/components/SwitchSingle";
+import SwitchSingle from "@/components/SwitchSingle" ;
 import Link from "next/link";
 import Checkbox from "@/components/CheckBox/CheckBox";
 import Stepper from "@/components/Stepper/Stepper";
