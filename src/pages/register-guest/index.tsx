@@ -8,7 +8,7 @@ import { validateEmail, validatePhoneNumber, validateRequired } from "@/validati
 import LabeledSelect from "@/components/LabeledSelect/LabeledSelect";
 import { Option } from "@/types/types";
 import Switch from "@/components/Switch";
-import SwitchSingle from "@/components/SwitchSingle" ;
+import SwitchSingle from "@/components/SwitchSingle";
 import Link from "next/link";
 import Checkbox from "@/components/CheckBox/CheckBox";
 import Stepper from "@/components/Stepper/Stepper";
@@ -133,14 +133,14 @@ export default function Index() {
 
             const response: any = await Service.Auth_Methods.guest_user_pharma(formData);
             console.log("Response:", response?.id);
-      setItem("user_id", response?.id);
+      setItem("user_id", response?.user_id);
        setItem("user_type", response?.user_type);
       setItem("authToken", response.token);
             dispatch(login({ user: response, token: response.token }));
             if (query?.fromcheckout === "true") {
                 const temp_user_id: any = getItem("temp_user_id");
                 const formData = new FormData();
-                formData.append("user_id", response.user?.id);
+                formData.append("user_id", response?.user_id);
                 formData.append("temp_user_id", temp_user_id);
                 const tempResponse: any = await Service.Cart_Method.tempUserIdUpdate(
                   formData
@@ -175,7 +175,7 @@ export default function Index() {
     const add_delivrey_adress = async () => {
         try {
             const formData = new FormData();
-            const user_id: any = getItem("user_id");
+          
             formData.append("credit_id", user_id);
             formData.append("post_code", postCode || "");
             formData.append("address1", addressLine1 || "");
@@ -194,14 +194,14 @@ export default function Index() {
             const response = await Service.Customer_Address_Method.addadress_customer(formData);
             console.log("Response:", response);
             if (query?.fromcheckout === "true") {
-                const temp_user_id: any = getItem("temp_user_id");
-                const user_id: any = getItem("user_id");
-                const formData = new FormData();
-                formData.append("user_id", user_id);
-                formData.append("temp_user_id", temp_user_id);
-                const tempResponse: any = await Service.Cart_Method.tempUserIdUpdate(
-                  formData
-                );
+                // const temp_user_id: any = getItem("temp_user_id");
+                // const user_id: any = getItem("user_id");
+                // const formData = new FormData();
+                // formData.append("user_id", user_id);
+                // formData.append("temp_user_id", temp_user_id);
+                // const tempResponse: any = await Service.Cart_Method.tempUserIdUpdate(
+                //   formData
+                // );
                 // Success alert
                 setToastType("success"); // Toast: Success
                 setToastMessage("Address Added Successfully! Your delivery address has been saved.");

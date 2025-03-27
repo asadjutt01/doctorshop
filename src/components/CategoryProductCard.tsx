@@ -39,7 +39,8 @@ interface CategoryProductCardProps {
   onAddToCartClick?: (product: Product) => void;
   selectedCategory: any;
   selectedSubCategory: any;
-  selectedSubSubCategory: any;
+  selectedSubSubCategory?: any;
+  navigatetoProductdirectly?:boolean;
 }
 
 const CategoryProductCard: React.FC<CategoryProductCardProps> = ({
@@ -49,6 +50,7 @@ const CategoryProductCard: React.FC<CategoryProductCardProps> = ({
   selectedCategory,
   selectedSubCategory,
   selectedSubSubCategory,
+  navigatetoProductdirectly = false,
 }) => {
   console.log(products, "products");
   const dispatch = useDispatch();
@@ -123,7 +125,7 @@ const CategoryProductCard: React.FC<CategoryProductCardProps> = ({
 
   return (
     <div className="row ">
-      {products.map((product, index) => {
+      {products.map((product:any, index) => {
         const isImageInvalid =
           !product.thumbnail_image ||
           product.thumbnail_image.trim() === "" ||
@@ -132,7 +134,7 @@ const CategoryProductCard: React.FC<CategoryProductCardProps> = ({
           <div className=" col-lg-4 col-md-6" key={index}>
             <div className="products-card">
               <Link
-                href={`/collection/${generateSlug(
+                href={navigatetoProductdirectly ? `/products/${product?.slug}` : `/collection/${generateSlug(
                   selectedCategory.name
                 )}/${generateSlug(selectedSubCategory?.name)}/${generateSlug(
                   selectedSubSubCategory?.name
@@ -225,7 +227,7 @@ const CategoryProductCard: React.FC<CategoryProductCardProps> = ({
         <Toast
           message={toastMessage}
           type={toastType}
-          duration={3000}
+          duration={5000}
           onClose={closeToast}
         />
       )}

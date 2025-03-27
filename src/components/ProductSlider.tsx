@@ -22,6 +22,7 @@ import "swiper/css/thumbs";
 
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 import { getItem } from "@/utils/localStorage/localStorage";
+import { useRouter } from "next/router";
 
 interface ProductSliderProps {
   showWarning: boolean;
@@ -40,9 +41,11 @@ const ProductSlider: React.FC<ProductSliderProps> = ({
   );
   const [thumbsSwiper, setThumbsSwiper] = useState<any | null>(null);
   const swiperRef = useRef<any>(null);
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState(true); // Loader state
   const [minimumLoadingComplete, setMinimumLoadingComplete] = useState(false); // Persistent loader flag
   const getPharma: any = getItem("user_type");
+
   // Persistent loader logic
   useEffect(() => {
     // Set a minimum loading time of 3 seconds
@@ -58,9 +61,12 @@ const ProductSlider: React.FC<ProductSliderProps> = ({
     // Cleanup timer on unmount
     return () => clearTimeout(timer);
   }, [product]);
-// console.log("product>>>>>>>>>>>>>>>>.",product);
+  // console.log("product>>>>>>>>>>>>>>>>.",product);
   // Combined loading condition: show loader until both minimum time and data are ready
   const shouldShowLoader = isLoading || !minimumLoadingComplete;
+  const handleClickPharma = () => {
+    router.push("/register-pharma");
+  };
 
   return (
     <div className="product-detail-slider">
@@ -123,7 +129,7 @@ const ProductSlider: React.FC<ProductSliderProps> = ({
                         objectFit: "cover",
                       }}
                       alt="Product image"
-                      onError={(e:any) => e.target.src ="/no-image.jpg"}
+                      onError={(e: any) => e.target.src = "/no-image.jpg"}
                     />
                   </SwiperSlide>
                 );
@@ -203,7 +209,7 @@ const ProductSlider: React.FC<ProductSliderProps> = ({
                           objectFit: "cover",
                         }}
                         alt="Description of image"
-                        onError={(e:any) => e.target.src ="/no-image.jpg"}
+                        onError={(e: any) => e.target.src = "/no-image.jpg"}
                       />
                     </SwiperSlide>
                   );
@@ -262,7 +268,8 @@ const ProductSlider: React.FC<ProductSliderProps> = ({
 
 
           {
-            getPharma !== "customer_pharmaceuti" ? (
+            product?.pharmaceutical_product === "true" ? (
+
               <>
                 {showWarning ? (
                   <div className="warning-msg">
@@ -273,7 +280,7 @@ const ProductSlider: React.FC<ProductSliderProps> = ({
                       committed to ensuring the safety and proper use of our
                       pharmaceuticals.
                     </p>
-                    <button className="btn-cart">
+                    <button className="btn-cart" onClick={handleClickPharma} >
                       Register For A Pharmaceutical Account
                     </button>
                   </div>

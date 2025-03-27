@@ -52,6 +52,7 @@ export default function Login() {
         setItem("authToken", response?.access_token);
         setItem("user_type", response?.user_type);
         setItem("user_id", response?.user?.id);
+        setItem("is_pharmaceutical", response.is_pharmaceutical);
         setItem("user", response?.user);
         dispatch(login({ user: response.user, token: response.access_token }));
 

@@ -65,7 +65,7 @@ const MyAccountProfile = () => {
   const [userData, setUserData] = useState<any>(null);
   const [pharmaUserData, setPharmaUserData] = useState<any>(null);
   const user_id: any = getItem("user_id");
-  const pharma_id: any = getItem("pharma_id");
+  // const pharma_id: any = getItem("pharma_id");
 
   const getUserInfo = async () => {
     const formData = new FormData();
@@ -106,7 +106,7 @@ const MyAccountProfile = () => {
       getUserInfo();
       getUserInfoPharma();
     }
-  }, [user_id, pharma_id]);
+  }, [user_id]);
 
   const hasPharmaData = pharmaUserData && pharmaUserData.user_type === "customer_pharmaceuti";
 

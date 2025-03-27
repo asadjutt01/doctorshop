@@ -18,9 +18,13 @@ import { useRouter } from "next/router";
 import Service from "@/services";
 import { getItem, removeItem, setItem } from "@/utils/localStorage/localStorage";
 import Toast from "@/components/Toast"; // Import the Toast component
+import { useSelector } from "react-redux";
+import { IRootState } from "@/redux/store";
 
 export default function Register() {
-  const user_id: any = getItem('customer_id');
+  const user_id: any = getItem('user_id');
+  const cartsWithList = useSelector((state: IRootState) => state.cart.carts);
+
   const [loading, setLoading] = useState<boolean>(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [toastType, setToastType] = useState<"success" | "error" | "info">("success");
@@ -148,6 +152,11 @@ export default function Register() {
       setCurrentStep((prev) => prev - 1);
     }
   };
+  const cartItems: any = cartsWithList?.data[0]?.cart_items;
+  console.log("cartItems>>>>>>>>>>>>>>>>>>>>>>>>>>>in register>", cartItems);
+  console.log("cartItems>>>>>>>>>>>>>>>>>>>>>>>>>>>in register>", cartsWithList);
+  const hasPharma = cartItems?.some((product: any) => product?.pharmaceutical_product === "true");
+  ;
 
   const handleRegister = async () => {
     try {
@@ -234,6 +243,7 @@ export default function Register() {
     }
   };
 
+
   const add_delivrey_adress = async () => {
     try {
       const formData = new FormData();
@@ -258,10 +268,16 @@ export default function Register() {
       console.log("Address Response:", response);
       setToastType("success");
       setToastMessage("Address Added! Your delivery address has been saved.");
+
       setTimeout(() => {
-        router.push('/');
+        if (hasPharma ) {
+          router.push("/register-pharma/");
+        } else {
+          router.push("/");
+        }
       }, 1500); // Delay redirect to show success toast
 
+      // Reset form fields
       setPostCode("");
       setAddressLine1("");
       setAddressLine2("");

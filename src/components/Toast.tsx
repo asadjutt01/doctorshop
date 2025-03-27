@@ -8,7 +8,7 @@ interface ToastProps {
   onClose: () => void; // Callback to close the toast
 }
 
-const Toast: React.FC<ToastProps> = ({ message, type, duration = 3000, onClose }) => {
+const Toast: React.FC<ToastProps> = ({ message, type, duration = 5000, onClose }) => {
   const [isExiting, setIsExiting] = useState(false);
 
   useEffect(() => {

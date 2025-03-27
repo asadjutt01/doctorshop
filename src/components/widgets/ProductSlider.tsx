@@ -18,6 +18,7 @@ import Toast from "@/components/Toast";
 import { IRootState } from "@/redux/store";
 import { getCartCount } from "../LoadInitialData/LoadInitialData";
 
+
 interface Product {
   id: string | number;
   name: string;
@@ -185,8 +186,8 @@ export default function ProductSlider({
     // formData.append("user_id", user_id);
     formData.append("product_name", product?.name);
     formData.append("stock_qty", "1");
-    formData.append("price", product.variant[0].price);
-    formData.append("variant", product.variant[0].variant);
+    formData.append("price", product.variant[0]?.price);
+    formData.append("variant", product.variant[0]?.variant);
     if (isAuthenticated) {
       formData.append("user_id", user_id);
     } else {
@@ -334,9 +335,8 @@ export default function ProductSlider({
                         onClick={() => handleWishlistToggle(product)}
                       >
                         <FaHeart
-                          className={`heart_icon ${
-                            isWishlisted ? "wishlisted" : ""
-                          }`}
+                          className={`heart_icon ${isWishlisted ? "wishlisted" : ""
+                            }`}
                           style={{ color: isWishlisted ? "#ff0000" : "" }}
                         />
                       </div>
@@ -348,7 +348,7 @@ export default function ProductSlider({
                               <span className="cost">
                                 £
                                 {product?.variant[0]?.price !== undefined &&
-                                product?.variant[0]?.price !== null
+                                  product?.variant[0]?.price !== null
                                   ? Number(product?.variant[0]?.price).toFixed(2)
                                   : "00"}
                               </span>
@@ -356,7 +356,7 @@ export default function ProductSlider({
 
                             <div className="inc_vat">
                               <div className="cost_inc_vat">
-                                £{product.vat || "N/A"} inc VAT
+                                £{product.vat} inc VAT
                               </div>
                             </div>
                           </div>

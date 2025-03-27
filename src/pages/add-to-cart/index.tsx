@@ -234,33 +234,42 @@ const CartItem: React.FC<CartItemProps> = ({
           <div className="cart-item__info">
             <span className="cart-item__info__title">{item?.product_name}</span>
             <div className="cart-item__info-section">
-              <div className="cart-item__info-section-detail">
-                <span className="cart-item__info-section-detail-key">
 
-                  Product Code:
-                </span>
-                <span className="cart-item__info-section-detail-value">
-                  {item?.product_code ?? "-"}
-                </span>
-              </div>
-              <div className="cart-item__info-section-detail">
-                <span className="cart-item__info-section-detail-key">
+              {item?.product_code && item.product_code !== "N/A" && item.product_code !== "0" && (
+                <div className="cart-item__info-section-detail">
+                  <span className="cart-item__info-section-detail-key">
+                    Product Code:
+                  </span>
+                  <span className="cart-item__info-section-detail-value">
+                    {item.product_code}
+                  </span>
+                </div>
+              )}
 
-                  PIP Code:
-                </span>
-                <span className="cart-item__info-section-detail-value">
-                  {item?.pip_code ?? "-"}
-                </span>
-              </div>
-              <div className="cart-item__info-section-detail">
-                <span className="cart-item__info-section-detail-key">
 
-                  Size:
-                </span>
-                <span className="cart-item__info-section-detail-value">
-                  {item?.size ?? "-"}
-                </span>
-              </div>
+              {item?.pip_code && item.pip_code !== "N/A" && item.pip_code !== 0 && item.pip_code !== "0" && (
+                <div className="cart-item__info-section-detail">
+                  <span className="cart-item__info-section-detail-key">
+                    PIP Code:
+                  </span>
+                  <span className="cart-item__info-section-detail-value">
+                    {item.pip_code}
+                  </span>
+                </div>
+              )}
+
+
+              {item?.variation && item.variation !== "N/A" && item.variation !== 0 && item.variation !== "0" && (
+                <div className="cart-item__info-section-detail">
+                  <span className="cart-item__info-section-detail-key">
+                    Variant:
+                  </span>
+                  <span className="cart-item__info-section-detail-value">
+                    {item.variation}
+                  </span>
+                </div>
+              )}
+
             </div>
           </div>
         </div>
@@ -305,15 +314,19 @@ const CartItem: React.FC<CartItemProps> = ({
 };
 interface CartSummaryProps {
   cartItemsLength: number;
+  cartItems: any,
 }
-const CartSummary: React.FC<CartSummaryProps> = ({ cartItemsLength }) => {
+const CartSummary: React.FC<CartSummaryProps> = ({ cartItemsLength, cartItems }) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const [authToken, setAuthToken] = useState<any>(null);
-
+  const [isPharma, setisPharma] = useState<any>(null);
+  const hasPharma = cartItems?.some((product: any) => product?.pharmaceutical_product === "true");
   useEffect(() => {
     const token: any = getItem("authToken");
+    const isPharma: any = getItem("is_pharmaceutical");
     setAuthToken(token);
+    setisPharma(isPharma);
   }, []);
 
   const cartSummary = useSelector(
@@ -326,7 +339,33 @@ const CartSummary: React.FC<CartSummaryProps> = ({ cartItemsLength }) => {
   const closeToast = () => {
     setToastMessage(null);
   };
+
   const handleClick = () => {
+    if (hasPharma && !authToken) {
+      // Show toast
+      setToastType("error");
+      setToastMessage("Pharmaceutical products require registration.");
+
+      router.push("/login/");
+
+      // Clear toast after delay
+      setTimeout(() => {
+        setToastMessage(null);
+      }, 1500);
+
+      return; // Stop further execution
+    }
+
+    if (isPharma == 0 && authToken) {
+      router.push(
+        {
+          pathname: `/register-pharma/`,
+        },
+        `/register-pharma/`,
+        { shallow: true }
+      );
+    }
+
     if (cartItemsLength > 0) {
       if (!authToken) {
         const data = {
@@ -339,10 +378,10 @@ const CartSummary: React.FC<CartSummaryProps> = ({ cartItemsLength }) => {
 
         router.push(
           {
-            pathname: `/checkout-login-register/`,
+            pathname: `/login/`,
             query: data,
           },
-          `/checkout-login-register/`,
+          `/login/`,
           { shallow: true }
         );
 
@@ -364,6 +403,7 @@ const CartSummary: React.FC<CartSummaryProps> = ({ cartItemsLength }) => {
       }
     }
   };
+
   return (
     <div className="cart-summary">
       <div className="cart-summary__item">
@@ -455,7 +495,7 @@ const CartSummary: React.FC<CartSummaryProps> = ({ cartItemsLength }) => {
         <Toast
           message={toastMessage}
           type={toastType}
-          duration={3000} // Adjust as needed
+          duration={5000} // Adjust as needed
           onClose={closeToast}
         />
       )}
@@ -470,6 +510,10 @@ export default function Index() {
     (state: IRootState) => state.cart.cartSummary
   );
   const cartItems: any = cartsWithList?.data[0]?.cart_items;
+  console.log("cartItems>>>from cartdsadsfsd", cartItems);
+  console.log("cartItems>>>from cart", cartsWithList);
+
+
   const user: any = getItem("user");
   const getPharma: any = getItem("user_type");
   const [hydrated, setHydrated] = useState(false);
@@ -477,6 +521,8 @@ export default function Index() {
 
   useEffect(() => {
     setHydrated(true);
+
+
 
     const fetchCartSummary = async () => {
       try {
@@ -495,9 +541,9 @@ export default function Index() {
     };
     fetchCartSummary();
   }, [dispatch]);
-  console.log("cartItems>>>>das", cartItems);
+  const hasPharma = cartItems?.some((product: any) => product?.pharmaceutical_product === "true");
+  ;
 
-  const hasPharma = cartItems?.some((product: any) => product?.pharmaceutical_product === true);
 
   return (
     <div>
@@ -509,7 +555,7 @@ export default function Index() {
           ) : (
             <>
               <Breadcrumb />
-              {hasPharma == "customer_pharmaceuti" ? (
+              {hasPharma ? (
                 <div className="pharmaceutical-warning">
                   <span className="register-warning-note">
                     Note on (POM) Pharmaceutical items! We can only sell & ship
@@ -551,6 +597,7 @@ export default function Index() {
                       </div>
                     )}
                   </div>
+
                   <div className="cart__total">
                     <span className="cart__total-items">
                       Item Total ({cartItems ? cartItems?.length : "0"} items)
@@ -560,7 +607,7 @@ export default function Index() {
                     </span>
                   </div>
                 </div>
-                <CartSummary cartItemsLength={cartItems?.length} />
+                <CartSummary cartItemsLength={cartItems?.length} cartItems={cartItems} />
               </div>
             </>
           )}

@@ -15,10 +15,13 @@ import Service from "@/services";
 import { getItem, setItem } from "@/utils/localStorage/localStorage";
 import { useRouter } from 'next/router';
 import Toast from "@/components/Toast"; // Import the Toast component
+import { useSelector } from "react-redux";
+import { IRootState } from "@/redux/store";
 
 export default function Index() {
   const router = useRouter();
   const user_id: any = getItem('customer_id');
+   const cartsWithList = useSelector((state: IRootState) => state.cart.carts);
   // Pharma States
   const [companyName, setCompanyName] = useState<string>("");
   const [accountNumber, setAccountNumber] = useState<string>("");
@@ -61,7 +64,9 @@ export default function Index() {
       setCurrentStep((prev) => prev - 1);
     }
   };
-
+  const cartItems: any = cartsWithList?.data[0]?.cart_items;
+  const hasPharma = cartItems?.some((product: any) => product?.pharmaceutical_product === "true");
+  ;
   const addpharma = async () => {
     try {
       const formData = new FormData();
@@ -80,6 +85,7 @@ export default function Index() {
       formData.append("registration_date", licenseRegisterationDate || "");
       formData.append("Signature", signature || "");
       formData.append("user_id", user_id || "");
+      // formData.append("is_pharmaceutical", "1");
 
       console.log("FormData to be sent:", Object.fromEntries(formData.entries()));
 
@@ -87,8 +93,11 @@ export default function Index() {
       setToastMessage("Registering Pharma Account... Please wait while we process your request.");
 
       const response: any = await Service.Auth_Methods.user_regiser_pharma(formData);
+      if(hasPharma){
+        router.push('/add-to-cart/');
+      }
 
-      setItem("pharma_id", response.id);
+      setItem("user_id", response.id);
       setItem("user_type", response?.user_type);
       setToastType("success");
       setToastMessage("Registration Successful! Your pharma account has been created.");

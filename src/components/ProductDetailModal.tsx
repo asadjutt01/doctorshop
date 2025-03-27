@@ -5,6 +5,7 @@ import ProducSlider from "@/components/ProductSlider";
 import ProducDetailContent from "./ProducDetailContent";
 import { RxCross1 } from "react-icons/rx";
 import { getItem } from "@/utils/localStorage/localStorage";
+import { useRouter } from "next/router";
 
 interface ProductDetailModalProps {
   show: boolean;
@@ -19,6 +20,7 @@ const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
 }) => {
   const getPharma: any = getItem("user_type");
   console.log("selectedProduct>>>>>>>>product>", product);
+  const router = useRouter();
   useEffect(() => {
     if (show) {
       document.body.classList.add("no-scroll");
@@ -30,7 +32,9 @@ const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
       document.body.classList.remove("no-scroll");
     };
   }, [show]);
-
+  const handleClickPharma = () => {
+    router.push("/register-pharma");
+  };
   return (
     <Modal
       className="search-model"
@@ -63,9 +67,8 @@ const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
             </div>
           </div>
         </div>
-        {
-          getPharma !== "customer_pharmaceuti" &&
 
+        {product?.pharmaceutical_product === "true" && (
           <div className="warning-msg">
             <h6>Restricted Access, Authorized Use Only</h6>
             <p>
@@ -74,12 +77,12 @@ const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
               committed to ensuring the safety and proper use of our
               pharmaceuticals.
             </p>
-            <button className="btn-cart">
+            <button className="btn-cart" onClick={handleClickPharma}>
               Register For A Pharmaceutical Account
             </button>
           </div>
+        )}
 
-        }
       </div>
     </Modal>
   );

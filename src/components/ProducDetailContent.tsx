@@ -136,7 +136,7 @@ export default function ProducDetailContent({
 
 
   const closeToast = () => setToastMessage(null);
-  const handleBuyItnNow= () => {
+  const handleBuyItnNow = () => {
     handAddToCart();
     router.push("/add-to-cart/");
   };

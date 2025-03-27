@@ -409,46 +409,46 @@ export default function HeaderWithCat() {
                           height={24}
                           onClick={() => router.push("/add-to-cart/")}
                         />
-                     
-                        
-                          <div
-                            style={{
-                              position: "absolute",
-                              top: "-5px",
-                              right: "-5px",
-                              backgroundColor: "red",
-                              color: "white",
-                              borderRadius: "50%",
-                              width: "15px",
-                              height: "15px",
-                              fontSize: "12px",
-                              display: "flex",
-                              justifyContent: "center",
-                              alignItems: "center",
-                            }}
-                          >
-                            {Count}
-                          </div>
-                       
-                        
+
+
+                        <div
+                          style={{
+                            position: "absolute",
+                            top: "-5px",
+                            right: "-5px",
+                            backgroundColor: "red",
+                            color: "white",
+                            borderRadius: "50%",
+                            width: "15px",
+                            height: "15px",
+                            fontSize: "12px",
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                          }}
+                        >
+                          {Count}
+                        </div>
+
+
                       </Nav.Link>
 
                       {authToken && (
                         <Nav.Link href="/dashboard/my-whishlist/">
-                        <Image
-                          src="/like.svg"
-                          alt="like"
-                          width={24}
-                          height={24}
-                        />
-                      </Nav.Link>)}
+                          <Image
+                            src="/like.svg"
+                            alt="like"
+                            width={24}
+                            height={24}
+                          />
+                        </Nav.Link>)}
                     </div>
                   </div>
 
                   <div className="navbar-desk-appearence">
                     <Nav className="nav-items">
                       <span className="call-us-text">
-                        Call us on <strong>1234 5678901</strong>
+                        Call us on <strong>0330 133 1786</strong>
                       </span>
                       <div
                         className="search-container relative"
@@ -640,37 +640,37 @@ export default function HeaderWithCat() {
                             width={24}
                             height={24}
                           />
-                          
-                            <div
-                              style={{
-                                position: "absolute",
-                                top: "-5px",
-                                right: "-5px",
-                                backgroundColor: "red",
-                                color: "white",
-                                borderRadius: "50%",
-                                width: "15px",
-                                height: "15px",
-                                fontSize: "12px",
-                                display: "flex",
-                                justifyContent: "center",
-                                alignItems: "center",
-                              }}
-                            >
-                              {Count}
-                            </div>
-                        
-                         
+
+                          <div
+                            style={{
+                              position: "absolute",
+                              top: "-5px",
+                              right: "-5px",
+                              backgroundColor: "red",
+                              color: "white",
+                              borderRadius: "50%",
+                              width: "15px",
+                              height: "15px",
+                              fontSize: "12px",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                            }}
+                          >
+                            {Count}
+                          </div>
+
+
                         </Nav.Link>
                         {authToken && (
-                        <Nav.Link href="/dashboard/my-whishlist/">
-                          <Image
-                            src="/like.svg"
-                            alt="like"
-                            width={24}
-                            height={24}
-                          />
-                        </Nav.Link>)}
+                          <Nav.Link href="/dashboard/my-whishlist/">
+                            <Image
+                              src="/like.svg"
+                              alt="like"
+                              width={24}
+                              height={24}
+                            />
+                          </Nav.Link>)}
                       </div>
                     </Nav>
                   </div>

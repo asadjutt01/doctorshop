@@ -193,8 +193,8 @@ const MyOrders = () => {
     () => [
       {
         name: "Date",
-        selector: (row: any, index: number) =>
-          row.date ? `${index + 2} Jan 2025` : "—",
+
+        selector: (row: any) => row.date || "—",
       },
       {
         name: "#Invoice Number",

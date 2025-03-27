@@ -125,14 +125,14 @@ const CartSummary: React.FC<CartSummaryProps> = ({
   const handleLogout = () => {
     dispatch(logout());
     console.log("It is logging out");
-    // clearAll()
     removeItem("authToken");
     removeItem("cart_data");
+    clearAll();
     getCartCount(dispatch);
     // setAuthToken(null);
     storeTempId();
-    setToastType("success");
-    setToastMessage("Logged Out! You have been successfully logged out.");
+    // setToastType("success");
+    // setToastMessage("Logged Out! You have been successfully logged out.");
 
     setTimeout(() => {
       router.push("/");
@@ -226,15 +226,12 @@ const CartSummary: React.FC<CartSummaryProps> = ({
               user_type === "customer"
             ) {
               setToastType("success");
-              setToastMessage(
-                `${successRespoonse?.message} Redirecting to your dashboard...`
-              );
+              setToastMessage(`Payment is successful Redirecting to your dashboard...`);
               router.push("/dashboard");
             } else {
               setToastType("success");
-              setToastMessage(
-                `${successRespoonse?.message} Redirecting to your home...`
-              );
+              setToastMessage(`Payment is successful Redirecting to your home...`);
+              // console.log('successRespoonse>>>>>>>',successRespoonse);
               if (user_type === "customer_guest") {
                 handleLogout();
               }
@@ -426,26 +423,25 @@ export default function Index() {
 
     if (deliveryAddressList) {
       setCustomerName(deliveryAddressList?.name ?? "");
+      setPhoneNumber(deliveryAddressList?.phone ?? "");
 
       if (
         Array.isArray(deliveryAddressList?.address) &&
         deliveryAddressList.address.length > 0
       ) {
-        setPhoneNumber(
-          deliveryAddressList.address[0]?.phoneNumber ?? phoneNumber1
-        );
         setAddress(
           `${deliveryAddressList.address[0]?.post_code ?? ""} ${
             deliveryAddressList.address[0]?.address1 ?? ""
-          } ${deliveryAddressList.address[0]?.address2 ?? ""}
-           ${deliveryAddressList.address[0]?.address3 ?? ""}
-           ${deliveryAddressList.address[0]?.city ?? ""}
-           ${deliveryAddressList.address[0]?.town ?? ""}
-           ${deliveryAddressList.address[0]?.county ?? ""}
-           ${deliveryAddressList.address[0]?.country ?? ""}
+          } ${deliveryAddressList.address[0]?.address2 ?? ""} ${
+            deliveryAddressList.address[0]?.address3 ?? ""
+          } ${deliveryAddressList.address[0]?.city ?? ""} ${
+            deliveryAddressList.address[0]?.town ?? ""
+          } ${deliveryAddressList.address[0]?.county ?? ""} ${
+            deliveryAddressList.address[0]?.country ?? ""
+          }
            `
         );
-        setSelectedAddressId(deliveryAddressList.address[0]?.id)
+        setSelectedAddressId(deliveryAddressList.address[0]?.id);
       } else {
         // setPhoneNumber(phoneNumber1);
         // setAddress("");
@@ -800,7 +796,7 @@ export default function Index() {
                         setSelectedOption(`address${index + 1}`);
                         setSelectedAddressId(item?.id);
                         setCustomerName(deliveryAddressList?.name ?? "");
-                        setPhoneNumber(item?.phoneNumber ?? phoneNumber1);
+                        setPhoneNumber(deliveryAddressList?.phone ?? "");
                         setAddress(
                           `${item?.address1 ?? ""} ${item?.address2 ?? ""} ${
                             item?.address3 ?? ""
