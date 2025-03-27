@@ -20,8 +20,9 @@ import { IRootState } from "@/redux/store";
 
 export default function Index() {
   const router = useRouter();
-  const user_id: any = getItem('customer_id');
+  const user_id: any = getItem('user_id');
    const cartsWithList = useSelector((state: IRootState) => state.cart.carts);
+   const { query }: any = router;
   // Pharma States
   const [companyName, setCompanyName] = useState<string>("");
   const [accountNumber, setAccountNumber] = useState<string>("");
@@ -93,8 +94,20 @@ export default function Index() {
       setToastMessage("Registering Pharma Account... Please wait while we process your request.");
 
       const response: any = await Service.Auth_Methods.user_regiser_pharma(formData);
+      //  if (query?.fromcheckout === "true" && query?.hasPharma === 'true') {
+                          
+      //  }
+      // if (query?.fromcheckout === "true") {            
+      //   setToastType("success"); // Toast: Success
+      //   setToastMessage("Address Added Successfully! Your delivery address has been saved.");
+      //   router.push("/add-to-cart/checkout");
+      // } else {
+      //     setToastType("success"); // Toast: Success
+      //     setToastMessage("Address Added Successfully! Your delivery address has been saved.");
+      //     router.push("/");
+      // }
       if(hasPharma){
-        router.push('/add-to-cart/');
+        router.push('/add-to-cart/checkout');
       }
 
       setItem("user_id", response.id);

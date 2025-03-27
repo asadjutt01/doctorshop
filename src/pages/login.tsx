@@ -21,8 +21,8 @@ export default function Login() {
     const token: any = getItem("authToken");
     setAuthToken(token);
   }, []);
-
   const router = useRouter();
+  const { query }: any = router;
   const dispatch = useDispatch();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -58,7 +58,27 @@ export default function Login() {
 
         setToastType("success");
         setToastMessage("Login Successful! Welcome back!");
-
+        if (query?.fromcheckout === "true" && query?.hasPharma === 'true') {
+          setToastType("success");
+          setToastMessage("Login Successful! Welcome back!");
+          const data = {
+            fromcheckout: true,
+            hasPharma:true,
+            login:false,
+          };
+          router.push(
+            {
+              pathname: `/register-pharma`,
+              query: data,
+            },
+            `/register-pharma`,
+            { shallow: true }
+          );
+          // router.push("/register-pharma");
+        } else  {
+          setToastType("success");
+        setToastMessage("Login Successful! Welcome back!");
+        }
         // const cart_data = getItem('cart_data')
         // if (cart_data && Object.keys(cart_data).length > 0) {
         //   try {
@@ -100,7 +120,6 @@ export default function Login() {
         // }
         setTimeout(() => {
           router.push("/");
-
         }, 1500); // Delay to show success toast
       } else {
         setToastType("error");
@@ -203,7 +222,31 @@ export default function Login() {
               <button
                 type="submit"
                 className="secondary-button"
-                onClick={() => router.push("/register")}
+                onClick={() => {
+                  // 
+                  if (query?.fromcheckout === "true" && query?.hasPharma === 'true') {
+                    const data = {
+                      fromcheckout: true,
+                      hasPharma:true,
+                      login:false,
+                    };
+                    router.push(
+                      {
+                        pathname: `/register`,
+                        query: data,
+                      },
+                      `/register`,
+                      { shallow: true }
+                    );
+                    // setToastType("success");
+                    // setToastMessage("Login Successful! Welcome back!");
+                    // router.push("/register-pharma");
+                  } else  {
+                    setToastType("success");
+                  setToastMessage("Login Successful! Welcome back!");
+                  router.push("/register")
+                  }
+                }}
               >
                 Register
               </button>

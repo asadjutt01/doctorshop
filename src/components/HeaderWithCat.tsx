@@ -267,12 +267,14 @@ export default function HeaderWithCat() {
   };
 
   const handleLogout = () => {
+    getCartCount(dispatch);
     dispatch(logout());
+   
     console.log("It is logging out");
     clearAll()
     removeItem("authToken");
     removeItem("cart_data");
-    getCartCount(dispatch);
+   
     setAuthToken(null);
 
     setToastType("success");

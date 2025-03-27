@@ -193,20 +193,10 @@ export default function Index() {
 
             const response = await Service.Customer_Address_Method.addadress_customer(formData);
             console.log("Response:", response);
-            if (query?.fromcheckout === "true") {
-                // const temp_user_id: any = getItem("temp_user_id");
-                // const user_id: any = getItem("user_id");
-                // const formData = new FormData();
-                // formData.append("user_id", user_id);
-                // formData.append("temp_user_id", temp_user_id);
-                // const tempResponse: any = await Service.Cart_Method.tempUserIdUpdate(
-                //   formData
-                // );
-                // Success alert
+            if (query?.fromcheckout === "true") {            
                 setToastType("success"); // Toast: Success
                 setToastMessage("Address Added Successfully! Your delivery address has been saved.");
                 router.push("/add-to-cart/checkout");
-        
               } else {
                   setToastType("success"); // Toast: Success
                   setToastMessage("Address Added Successfully! Your delivery address has been saved.");
