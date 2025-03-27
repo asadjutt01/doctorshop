@@ -368,7 +368,7 @@ export default function Index() {
                                         disabled={false}
                                     />
                                 </div>
-                                <div className="" style={{ display: "flex", justifyContent: "flex-end" }}>
+                                {/* <div className="" style={{ display: "flex", justifyContent: "flex-end" }}>
 
 
                                     <div className="switch-select-container">
@@ -385,7 +385,7 @@ export default function Index() {
                                         </div>
                                         <button type="submit" className="primary-button-small">Send Code</button>
                                     </div>
-                                </div>
+                                </div> */}
 
 
                             </div>)}

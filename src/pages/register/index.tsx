@@ -479,7 +479,7 @@ export default function Register() {
                             errorTitle={confirmPasswordError}
                           />
                         </div>
-                        <div className="switch-select-container">
+                        {/* <div className="switch-select-container">
                           <div className="switch-select">
                             <SwitchSingle
                               checked={isCheckedSendCode}
@@ -492,7 +492,7 @@ export default function Register() {
                               Send Code
                             </button>
                           </div>
-                        </div>
+                        </div> */}
                       </>
                     )}
                   {healthOrganizationType?.value !== null &&
@@ -632,7 +632,7 @@ export default function Register() {
                             disabled={false}
                           />
                         </div>
-                        <div className="" style={{ display: "flex" }}>
+                        {/* <div className="" style={{ display: "flex" }}>
                           <div className="switch-select-container">
                             <div className="switch-select">
                               <SwitchSingle
@@ -645,7 +645,7 @@ export default function Register() {
                               Send Code
                             </button>
                           </div>
-                        </div>
+                        </div> */}
                       </>
                     )}
                 </div>
