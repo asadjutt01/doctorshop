@@ -675,7 +675,10 @@ body {
     height: 10px !important;
   }
   .carousel-item-bg {
-    background-image: url(../app/images/slider.png);
+    // background-image: url(../app/images/slider.png);
+    height: 548px;
+    width: 100%;
+
   }
   .carousel-item {
     // height: 100%;
@@ -1060,7 +1063,8 @@ body {
   margin-bottom: 10px;
   height: 600px;
   min-height: 643px;
-  background-image: url(../app/images/monitor.png);
+  // background-image: url(../app/images/monitor.png);
+  // background-image: url(../app/images/monitor-907.png);
   background-size: cover;
   background-position: center;
   padding: 100px;
@@ -1718,7 +1722,7 @@ body {
       font-weight: 500;
     }
     .footer-about {
-      font-size: 16px;
+      font-size: 12px !important;
       color: #fff;
     }
     .brand {

@@ -60,7 +60,6 @@ export default function Collections() {
         <div>
           <div className="center-heading">
             <h2>Our Collections</h2>
-            <p>There are many variations of passages of lorem ipsum</p>
           </div>
           <div className="swiper-slider-section">
             {loading ? (

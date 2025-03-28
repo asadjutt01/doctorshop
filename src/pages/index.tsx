@@ -19,7 +19,8 @@ import BestSellerSlider from "@/components/BestSellerSlider";
 import NewSletter from "@/components/NewSletter";
 import { useSelector } from "react-redux";
 import { IRootState } from "@/redux/store";
-
+import monitor907 from "../app/images/monitor-907.png";
+import cardiopad from "../app/images/cardiopad.png";
 export default function Index() {
   const products = useSelector((state: IRootState) => state.product.productsFeatured);
   console.log("check the products", products.length);
@@ -34,9 +35,10 @@ export default function Index() {
       <HeroSlider />
       <CategorySlider />
       <Collections />
-      <Monitor />
+      <Monitor img={monitor907} />
       <BestSellerSlider />
-      <Microscope />
+      {/* <Microscope /> */}
+      <Monitor img={cardiopad} />
       {/* <Taglines /> */}
       {/* <LabBanner /> */}
       <NewArrivalSlider />

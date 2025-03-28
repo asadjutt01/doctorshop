@@ -40,7 +40,7 @@ interface CategoryProductCardProps {
   selectedCategory: any;
   selectedSubCategory: any;
   selectedSubSubCategory?: any;
-  navigatetoProductdirectly?:boolean;
+  navigatetoProductdirectly?: boolean;
 }
 
 const CategoryProductCard: React.FC<CategoryProductCardProps> = ({
@@ -125,7 +125,7 @@ const CategoryProductCard: React.FC<CategoryProductCardProps> = ({
 
   return (
     <div className="row ">
-      {products.map((product:any, index) => {
+      {products.map((product: any, index) => {
         const isImageInvalid =
           !product.thumbnail_image ||
           product.thumbnail_image.trim() === "" ||
@@ -193,11 +193,14 @@ const CategoryProductCard: React.FC<CategoryProductCardProps> = ({
                         </span>
                       </div>
                       <div className="inc_vat">
-                        <span className="cost_inc_vat">
-                          £{product.vat != null && !isNaN(product.vat)
-                            ? Number(product.vat).toFixed(2)
-                            : 'N/A'} inc VAT
-                        </span>
+                        <div className="cost_inc_vat">
+                          £
+                          {(
+                            (Number(product?.variant?.[0]?.price) || 0) +
+                            (Number(product?.vat) || 0)
+                          ).toFixed(2)}
+                          inc VAT
+                        </div>
                       </div>
                     </div>
                   </div>

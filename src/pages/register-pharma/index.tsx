@@ -21,8 +21,8 @@ import { IRootState } from "@/redux/store";
 export default function Index() {
   const router = useRouter();
   const user_id: any = getItem('user_id');
-   const cartsWithList = useSelector((state: IRootState) => state.cart.carts);
-   const { query }: any = router;
+  const cartsWithList = useSelector((state: IRootState) => state.cart.carts);
+  const { query }: any = router;
   // Pharma States
   const [companyName, setCompanyName] = useState<string>("");
   const [accountNumber, setAccountNumber] = useState<string>("");
@@ -94,8 +94,35 @@ export default function Index() {
       setToastMessage("Registering Pharma Account... Please wait while we process your request.");
 
       const response: any = await Service.Auth_Methods.user_regiser_pharma(formData);
+      if (query?.fromcheckout === "true" && query?.hasPharma === 'true' && query?.login === 'false') {
+          setToastType("success");
+          setToastMessage("Login Successful! Welcome back!");
+          const data = {
+            fromcheckout: true,
+            hasPharma:true,
+            login:false,
+          };
+          console.log("GGGGGGGGGGGGGGGGG", query?.fromcheckout === "true", query?.hasPharma === 'true' , query?.login === 'false');
+          router.push(
+            {
+              pathname: `/add-to-cart/checkout`,
+              query: data,
+            },
+            `/add-to-cart/checkout`,
+            { shallow: true }
+          );
+          // router.push("/register-pharma");
+        }else if(query?.fromcheckout === "true" && query?.hasPharma === 'true' && query?.login === 'true' && query?.isPharma === 'false'){
+          router.push("/add-to-cart/checkout");
+        } else{
+          setToastType("success");
+          setToastMessage("Login Successful! Welcome back!");
+          router.push("/");
+        }
+
+
       //  if (query?.fromcheckout === "true" && query?.hasPharma === 'true') {
-                          
+
       //  }
       // if (query?.fromcheckout === "true") {            
       //   setToastType("success"); // Toast: Success
@@ -106,17 +133,49 @@ export default function Index() {
       //     setToastMessage("Address Added Successfully! Your delivery address has been saved.");
       //     router.push("/");
       // }
-      if(hasPharma){
-        router.push('/add-to-cart/checkout');
-      }
+      
+      // if (hasPharma) {
+      //   router.push('/add-to-cart/checkout');
+      // }
+
+
+
+
+
+
+
+
+
+
+// home
+
+
+// if (query?.fromcheckout === "true" && query?.hasPharma === 'true') {
+//   const temp_user_id: any = getItem("temp_user_id");
+//   const formData = new FormData();
+//   formData.append("user_id", response?.user_id);
+//   formData.append("temp_user_id", temp_user_id);
+//   const tempResponse: any = await Service.Cart_Method.tempUserIdUpdate(
+//     formData
+//   );
+//   // Success alert
+//   setToastType("success"); // Toast: Success
+//   setToastMessage("Registration Successful! Your personal details have been saved successfully.");
+//   router.push("/add-to-cart/checkout");
+// } else {
+//   setToastType("success"); // Toast: Success
+//   setToastMessage("Registration Successful! Your personal details have been saved successfully.");
+// }
+
+
+
+// home
 
       setItem("user_id", response.id);
-      setItem("user_type", response?.user_type);
+      // setItem("user_type", response?.user_type);
       setToastType("success");
       setToastMessage("Registration Successful! Your pharma account has been created.");
-      setTimeout(() => {
-        router.push('/');
-      }, 1500); // Delay redirect to show success toast
+       // Delay redirect to show success toast
 
       // Reset form fields after successful registration
       setLicenseHolderfirstName("");

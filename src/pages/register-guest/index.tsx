@@ -133,9 +133,9 @@ export default function Index() {
 
             const response: any = await Service.Auth_Methods.guest_user_pharma(formData);
             console.log("Response:", response?.id);
-      setItem("user_id", response?.user_id);
-       setItem("user_type", response?.user_type);
-      setItem("authToken", response.token);
+            setItem("user_id", response?.user_id);
+            setItem("user_type", response?.user_type);
+            setItem("authToken", response.token);
             dispatch(login({ user: response, token: response.token }));
             if (query?.fromcheckout === "true") {
                 const temp_user_id: any = getItem("temp_user_id");
@@ -143,16 +143,16 @@ export default function Index() {
                 formData.append("user_id", response?.user_id);
                 formData.append("temp_user_id", temp_user_id);
                 const tempResponse: any = await Service.Cart_Method.tempUserIdUpdate(
-                  formData
+                    formData
                 );
                 // Success alert
                 setToastType("success"); // Toast: Success
                 setToastMessage("Registration Successful! Your personal details have been saved successfully.");
-              } else {
+            } else {
                 setToastType("success"); // Toast: Success
                 setToastMessage("Registration Successful! Your personal details have been saved successfully.");
-              }
-           
+            }
+
 
             // Reset form fields after successful registration
             setFirstName("");
@@ -175,7 +175,7 @@ export default function Index() {
     const add_delivrey_adress = async () => {
         try {
             const formData = new FormData();
-          
+
             formData.append("credit_id", user_id);
             formData.append("post_code", postCode || "");
             formData.append("address1", addressLine1 || "");
@@ -193,17 +193,17 @@ export default function Index() {
 
             const response = await Service.Customer_Address_Method.addadress_customer(formData);
             console.log("Response:", response);
-            if (query?.fromcheckout === "true") {            
+            if (query?.fromcheckout === "true") {
                 setToastType("success"); // Toast: Success
                 setToastMessage("Address Added Successfully! Your delivery address has been saved.");
                 router.push("/add-to-cart/checkout");
-              } else {
-                  setToastType("success"); // Toast: Success
-                  setToastMessage("Address Added Successfully! Your delivery address has been saved.");
-                  router.push("/");
-              }
+            } else {
+                setToastType("success"); // Toast: Success
+                setToastMessage("Address Added Successfully! Your delivery address has been saved.");
+                router.push("/");
+            }
 
-           
+
 
             // Reset form fields after successful address addition
             setPostCode("");

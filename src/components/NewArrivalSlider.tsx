@@ -28,8 +28,7 @@ export default function NewArrivalSlider() {
       <div className="lg-container">
         <div className="new-arrivals-section">
           <div className="center-heading">
-            <h2>New Arrivals</h2>
-            <p>There are many variations of passages of lorem ipsum</p>
+            <h2>Best Seller</h2>
           </div>
           <ProductSlider
             products={products}

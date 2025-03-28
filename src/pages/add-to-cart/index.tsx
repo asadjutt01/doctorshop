@@ -56,7 +56,7 @@ const CartItem: React.FC<CartItemProps> = ({
   // isLoading,
   // setIsLoading,
 }) => {
-    const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   //   const dispatch = useDispatch();
   //   const [quantity, setQuantity] = useState(item?.quantity);
   //   const price = parseFloat(item?.price.replace(/[^0-9.]/g, ""))
@@ -173,37 +173,39 @@ const CartItem: React.FC<CartItemProps> = ({
         console.error("Error: Product ID is missing!");
         return;
       }
-  
+
       const formData = new FormData();
       // formData.append("product_id", item.product_id);
       formData.append("id", item.id);
-  
+
       const authToken = getItem("authToken");
       if (authToken) {
-        const user_id:any = getItem("user_id");
+        const user_id: any = getItem("user_id");
         formData.append("user_id", user_id);
       } else {
-        const temp_user_id:any = getItem("temp_user_id");
+        const temp_user_id: any = getItem("temp_user_id");
         formData.append("temp_user_id", temp_user_id);
       }
-  
+
       console.log("Deleting product:", item.product_id);
       console.log("FormData:", formData);
-  
-      const responseqty:any = await Service.Cart_Method.cartDelete(formData);
+
+      const responseqty: any = await Service.Cart_Method.cartDelete(formData);
       // console.log("Delete Response:", responseqty);
-      if(responseqty?.result === true){const cartList = await getCartList();
-      const cartSummary: any = await getCartSummary();
-      if (cartSummary && cartList) {
-        dispatch(setCartSummary(cartSummary));
-        dispatch(setCartsWithList(cartList));
-      }}
+      if (responseqty?.result === true) {
+        const cartList = await getCartList();
+        const cartSummary: any = await getCartSummary();
+        if (cartSummary && cartList) {
+          dispatch(setCartSummary(cartSummary));
+          dispatch(setCartsWithList(cartList));
+        }
+      }
     } catch (error) {
       console.error("Delete Error:", error);
     }
   };
 
-  
+
   useEffect(() => {
     // fetchCartSummary();
   }, [quantity, totalPrice]);
@@ -218,7 +220,7 @@ const CartItem: React.FC<CartItemProps> = ({
             <AiFillPlusCircle
               color="#575757"
               size={24}
-              onClick={()=>{handleDelete()}}
+              onClick={() => { handleDelete() }}
               className="remove-item-btn"
             />
             <Image
@@ -234,7 +236,7 @@ const CartItem: React.FC<CartItemProps> = ({
             <div className="cart-item__info-section">
               <div className="cart-item__info-section-detail">
                 <span className="cart-item__info-section-detail-key">
-                  
+
                   Product Code:
                 </span>
                 <span className="cart-item__info-section-detail-value">
@@ -243,7 +245,7 @@ const CartItem: React.FC<CartItemProps> = ({
               </div>
               <div className="cart-item__info-section-detail">
                 <span className="cart-item__info-section-detail-key">
-                  
+
                   PIP Code:
                 </span>
                 <span className="cart-item__info-section-detail-value">
@@ -252,7 +254,7 @@ const CartItem: React.FC<CartItemProps> = ({
               </div>
               <div className="cart-item__info-section-detail">
                 <span className="cart-item__info-section-detail-key">
-                  
+
                   Size:
                 </span>
                 <span className="cart-item__info-section-detail-value">
@@ -303,9 +305,9 @@ const CartItem: React.FC<CartItemProps> = ({
 };
 interface CartSummaryProps {
   cartItemsLength: number;
-  cartItems:any;
+  cartItems: any;
 }
-const CartSummary: React.FC<CartSummaryProps> = ({ cartItemsLength,cartItems }) => {
+const CartSummary: React.FC<CartSummaryProps> = ({ cartItemsLength, cartItems }) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const [authToken, setAuthToken] = useState<any>(null);
@@ -331,20 +333,20 @@ const CartSummary: React.FC<CartSummaryProps> = ({ cartItemsLength,cartItems }) 
   };
   const handleClick = () => {
     if (cartItemsLength > 0) {
-     
-      console.log("authToken>>>>>>",authToken);
-      console.log("hasPharma>>>>",hasPharma);
-      console.log("isPharma>>>",isPharma);
+
+      console.log("authToken>>>>>>", authToken);
+      console.log("hasPharma>>>>", hasPharma);
+      console.log("isPharma>>>", isPharma);
       if (hasPharma && !authToken) {
         const data = {
           fromcheckout: true,
-          hasPharma:true,
-          login:false,
+          hasPharma: true,
+          login: false,
         };
         // Show toast
         setToastType("error");
         setToastMessage("Pharmaceutical products require registration.");
-  
+
         // router.push("/login/");
         router.push(
           {
@@ -358,10 +360,10 @@ const CartSummary: React.FC<CartSummaryProps> = ({ cartItemsLength,cartItems }) 
         setTimeout(() => {
           setToastMessage(null);
         }, 1500);
-  
+
         return; // Stop further execution
       }
-      
+
       if (!hasPharma && !authToken) {
         const data = {
           fromcheckout: true,
@@ -369,7 +371,7 @@ const CartSummary: React.FC<CartSummaryProps> = ({ cartItemsLength,cartItems }) 
         // Show toast
         setToastType("info");
         setToastMessage("Proceeding to Login as Guest...");
-          console.log("guest>>>>>>>>>>>>>>");
+        console.log("guest>>>>>>>>>>>>>>");
         router.push(
           {
             pathname: `/checkout-login-register/`,
@@ -383,17 +385,20 @@ const CartSummary: React.FC<CartSummaryProps> = ({ cartItemsLength,cartItems }) 
         setTimeout(() => {
           setToastMessage(null);
         }, 1500);
-  
+
         return; // Stop further execution
       }
-  
+
       if (isPharma === 0 && authToken) {
         const data = {
           fromcheckout: true,
+          hasPharma: true,
+          login: true,
+          isPharma:false,
         };
         setToastType("info");
         setToastMessage("Register your pharmaceutical account");
-  
+
         router.push(
           {
             pathname: `/register-pharma/`,
@@ -406,18 +411,18 @@ const CartSummary: React.FC<CartSummaryProps> = ({ cartItemsLength,cartItems }) 
       }
 
       if (isPharma === 1 && authToken) {
-        
+
         // Show toast
-         setToastType("info");
-         setToastMessage("Proceeding to checkout...");
- 
-         router.push("/add-to-cart/checkout/");
- 
-         // Clear toast after delay
-         setTimeout(() => {
-           setToastMessage(null);
-         }, 1500);
-         return; // Stop further execution
+        setToastType("info");
+        setToastMessage("Proceeding to checkout...");
+
+        router.push("/add-to-cart/checkout/");
+
+        // Clear toast after delay
+        setTimeout(() => {
+          setToastMessage(null);
+        }, 1500);
+        return; // Stop further execution
       }
       // Show toast
       setToastType("info");
@@ -536,7 +541,9 @@ export default function Index() {
   const cartSummary = useSelector(
     (state: IRootState) => state.cart.cartSummary
   );
+  
   const cartItems: any = cartsWithList?.data[0]?.cart_items;
+  const hasPharma = cartItems?.some((product: any) => product?.pharmaceutical_product === "true");
   const user: any = getItem("user");
   const getPharma: any = getItem("user_type");
   const [hydrated, setHydrated] = useState(false);
@@ -573,7 +580,7 @@ export default function Index() {
           ) : (
             <>
               <Breadcrumb />
-              {getPharma !== "customer_pharmaceuti" ? (
+              {hasPharma  ? (
                 <div className="pharmaceutical-warning">
                   <span className="register-warning-note">
                     Note on (POM) Pharmaceutical items! We can only sell & ship
@@ -603,8 +610,8 @@ export default function Index() {
                         <CartItem
                           key={index}
                           item={item}
-                          // isLoading={isLoading}
-                          // setIsLoading={setIsLoading}
+                        // isLoading={isLoading}
+                        // setIsLoading={setIsLoading}
                         />
                       ))
                     ) : (

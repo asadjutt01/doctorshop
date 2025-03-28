@@ -56,9 +56,21 @@ export default function Login() {
         setItem("user", response?.user);
         dispatch(login({ user: response.user, token: response.access_token }));
 
-        setToastType("success");
-        setToastMessage("Login Successful! Welcome back!");
-        if (query?.fromcheckout === "true" && query?.hasPharma === 'true') {
+       if (response.is_pharmaceutical === 1) {
+        router.push("/add-to-cart/checkout");
+       }
+        // console.log(query?.fromcheckout === "true", query?.hasPharma === 'true' , query?.login === 'false');
+        if (query?.fromcheckout === "true" && query?.hasPharma === 'true' && query?.login === 'false') {
+          const temp_user_id: any = getItem("temp_user_id");
+          const formData = new FormData();
+          formData.append("user_id", response?.user?.id);
+          formData.append("temp_user_id", temp_user_id);
+          const tempResponse: any = await Service.Cart_Method.tempUserIdUpdate(
+              formData
+          );
+          if (response.is_pharmaceutical === 1) {
+            router.push("/add-to-cart/checkout");
+           } else{ 
           setToastType("success");
           setToastMessage("Login Successful! Welcome back!");
           const data = {
@@ -66,6 +78,7 @@ export default function Login() {
             hasPharma:true,
             login:false,
           };
+          console.log("GGGGGGGGGGGGGGGGG", query?.fromcheckout === "true", query?.hasPharma === 'true' , query?.login === 'false');
           router.push(
             {
               pathname: `/register-pharma`,
@@ -73,11 +86,12 @@ export default function Login() {
             },
             `/register-pharma`,
             { shallow: true }
-          );
+          );}
           // router.push("/register-pharma");
         } else  {
           setToastType("success");
         setToastMessage("Login Successful! Welcome back!");
+        router.push("/");
         }
         // const cart_data = getItem('cart_data')
         // if (cart_data && Object.keys(cart_data).length > 0) {
@@ -118,9 +132,9 @@ export default function Login() {
         //     setToastMessage("Error! Something went wrong. Please try again.");
         //   }
         // }
-        setTimeout(() => {
-          router.push("/");
-        }, 1500); // Delay to show success toast
+        // setTimeout(() => {
+        //   router.push("/");
+        // }, 1500); // Delay to show success toast
       } else {
         setToastType("error");
         setToastMessage("Invalid credentials, please try again.");
@@ -224,7 +238,10 @@ export default function Login() {
                 className="secondary-button"
                 onClick={() => {
                   // 
-                  if (query?.fromcheckout === "true" && query?.hasPharma === 'true') {
+
+                  if (query?.fromcheckout === "true" && query?.hasPharma === 'true' && query?.login === 'false') {
+                    setToastType("success");
+                    setToastMessage("Login Successful! Welcome back!");
                     const data = {
                       fromcheckout: true,
                       hasPharma:true,
@@ -238,14 +255,27 @@ export default function Login() {
                       `/register`,
                       { shallow: true }
                     );
-                    // setToastType("success");
-                    // setToastMessage("Login Successful! Welcome back!");
                     // router.push("/register-pharma");
-                  } else  {
+                  }else  {
                     setToastType("success");
                   setToastMessage("Login Successful! Welcome back!");
-                  router.push("/register")
+                  const data = {
+                    fromcheckout: true,
+                    hasPharma:true,
+                    login:false,
+                  };
+                  router.push(
+                    {
+                      pathname: `/register-pharma`,
+                      query: data,
+                    },
+                    `/register-pharma`,
+                    { shallow: true }
+                  );
+                  // router.push("/register-pharma")
                   }
+
+                
                 }}
               >
                 Register

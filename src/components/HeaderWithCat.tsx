@@ -315,7 +315,7 @@ export default function HeaderWithCat() {
                   </Link>
                 </div>
                 <div className="tagline">
-                  <p>Free Shipping On Orders Over £49.99</p>
+                  <p>Free Shipping On Orders Over £49.00 (Ex VAT)</p>
                 </div>
                 <div className="lang">
                   <Dropdown>
@@ -450,7 +450,7 @@ export default function HeaderWithCat() {
                   <div className="navbar-desk-appearence">
                     <Nav className="nav-items">
                       <span className="call-us-text">
-                        Call us on <strong>0330 133 1786</strong>
+                      Call Us <strong>03301 133 786</strong>
                       </span>
                       <div
                         className="search-container relative"

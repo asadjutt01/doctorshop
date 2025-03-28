@@ -1,7 +1,13 @@
 import React from "react";
 import { Carousel, Dropdown, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { useRouter } from "next/router";
-export default function Monitor() {
+import { StaticImageData } from "next/image";
+
+
+interface MonitorProps {
+  img: StaticImageData;
+}
+const Monitor: React.FC<MonitorProps> = ({ img }) => {
   const router = useRouter();
   const handleClickShopNow = () => {
     router.push("/collection"); // Navigate to the 'collection' page
@@ -10,8 +16,8 @@ export default function Monitor() {
   return (
     <div>
       <div className="lg-container ">
-        <div className="monitor-section">
-          <h1>
+        <div className="monitor-section"  style={{ backgroundImage: `url(${img.src})` }}>
+          {/* <h1>
             Digital Blood
             <br />
             Pressure Monitor
@@ -19,7 +25,7 @@ export default function Monitor() {
           <p>
             Experience accurate, reliable, and convenient <br />{" "} blood pressure 
             monitoringwith our Digital Blood <br />{" "} Pressure  Monitor.
-          </p>
+          </p> */}
           {/* <button className="btn btn-light" onClick={handleClickShopNow}>
             <span>Shop Now</span>
             <div className="circle">
@@ -31,3 +37,4 @@ export default function Monitor() {
     </div>
   );
 }
+export default Monitor;

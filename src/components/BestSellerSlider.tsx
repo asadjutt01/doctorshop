@@ -55,7 +55,7 @@ export default function BestSellerSlider() {
         <div className="best-seller-section">
           <div className="center-heading">
             <h2>Trending Products</h2>
-            <p>There are many variations of passages of lorem ipsum</p>
+            
           </div>
           <ProductSlider
             products={products}

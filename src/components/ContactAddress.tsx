@@ -26,7 +26,7 @@ export default function ContactAddress() {
                   </p>
                   <div style={{padding:"30px 0px"}}>
                     <p>My Doctor Shop Ltd</p>
-                    <p> Unit 5 Ray Street Ent Centre </p>
+                    <p> Unit 5 Ray Street ENT Centre </p>
                     <p>Ray Street, Huddersfield</p>
                     <p>HD1 6B</p>
                   </div>

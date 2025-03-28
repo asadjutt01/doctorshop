@@ -18,14 +18,15 @@ import { useRouter } from "next/router";
 import Service from "@/services";
 import { getItem, removeItem, setItem } from "@/utils/localStorage/localStorage";
 import Toast from "@/components/Toast"; // Import the Toast component
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { IRootState } from "@/redux/store";
+import { login } from "@/redux/store/auth/authConfigSlice";
 
 export default function Register() {
   const user_id: any = getItem('user_id');
   const credit_id: any = getItem('credit_id');
   const cartsWithList = useSelector((state: IRootState) => state.cart.carts);
-
+  const dispatch = useDispatch();
   const [loading, setLoading] = useState<boolean>(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [toastType, setToastType] = useState<"success" | "error" | "info">("success");
@@ -193,10 +194,19 @@ export default function Register() {
       const response: any = await Service.Auth_Methods.user_regiser(formData);
 
       console.log("Registration Response:", response);
-      setItem("user_id", response?.user_id);
+      // setItem("user_id", response?.user_id);
+
+      // setItem("user", response?.user);
+      // setItem("user_type", response?.user_type);
+
+
       setItem("credit_id", response?.credit_id);
-      setItem("user", response?.user);
+      setItem("authToken", response?.token);
       setItem("user_type", response?.user_type);
+      setItem("user_id", response?.user_id);
+      setItem("is_pharmaceutical", response.is_pharmaceutical);
+      setItem("user", response?.user);
+      dispatch(login({ user: response.user, token: response.access_token }));
       setToastType("success");
       setToastMessage("Registration Successful! Your account has been created.");
 
@@ -266,32 +276,75 @@ export default function Register() {
       setToastType("info");
       setToastMessage("Adding Address... Please wait while we save your delivery address.");
 
-      const response = await Service.Customer_Address_Method.addadress_customer(formData);
+      const response:any = await Service.Customer_Address_Method.addadress_customer(formData);
 
       console.log("Address Response:", response);
       setToastType("success");
       setToastMessage("Address Added! Your delivery address has been saved.");
-                  if (query?.fromcheckout === "true" && query?.hasPharma === 'true') {
-                    const data = {
-                      fromcheckout: true,
-                      hasPharma:true,
-                      login:false,
-                    };
-                    router.push(
-                      {
-                        pathname: `/register-pharma`,
-                        query: data,
-                      },
-                      `/register-pharma`,
-                      { shallow: true }
-                    );
-                    // setToastType("success");
-                    // setToastMessage("Login Successful! Welcome back!");
-                    // router.push("/register-pharma");
-                  } else  {
-                    setToastType("success");
-                  setToastMessage("Login Successful! Welcome back!");
-                  }
+
+      // const is_pharmaceutical =  getItem("is_pharmaceutical")
+      if (query?.fromcheckout === "true" && query?.hasPharma === 'true' && query?.login === 'false') {
+        const temp_user_id: any = getItem("temp_user_id");
+        const formData = new FormData();
+        const user_id: any = getItem('user_id');
+        formData.append("user_id", user_id);
+        formData.append("temp_user_id", temp_user_id);
+        const tempResponse: any = await Service.Cart_Method.tempUserIdUpdate(
+            formData
+        );
+     
+        setToastType("success");
+        setToastMessage("Login Successful! Welcome back!");
+        const user_type: any = getItem("user_type")
+        if(user_type !== "customer_credit"){
+          const data = {
+          fromcheckout: true,
+          hasPharma:true,
+          login:false,
+        };
+        console.log("GGGGGGGGGGGGGGGGG", query?.fromcheckout === "true", query?.hasPharma === 'true' , query?.login === 'false');
+        router.push(
+          {
+            pathname: `/register-pharma`,
+            query: data,
+          },
+          `/register-pharma`,
+          { shallow: true }
+        );}else{
+          router.push("/");
+        }
+      
+        // router.push("/register-pharma");
+      } else  {
+        setToastType("success");
+      setToastMessage("Login Successful! Welcome back!");
+      router.push("/");
+      }
+
+
+
+      // if (query?.fromcheckout === "true" && query?.hasPharma === 'true') {
+      //   const data = {
+      //     fromcheckout: true,
+      //     hasPharma: true,
+      //     login: false,
+      //   };
+      //   router.push(
+      //     {
+      //       pathname: `/register-pharma`,
+      //       query: data,
+      //     },
+      //     `/register-pharma`,
+      //     { shallow: true }
+      //   );
+      //   // setToastType("success");
+      //   // setToastMessage("Login Successful! Welcome back!");
+      //   // router.push("/register-pharma");
+      // } else {
+      //   setToastType("success");
+      //   setToastMessage("Login Successful! Welcome back!");
+      //   router.push("/");
+      // }
       // setTimeout(() => {
       //   if (hasPharma ) {
       //     router.push("/register-pharma/");
@@ -301,6 +354,10 @@ export default function Register() {
       // }, 1500); // Delay redirect to show success toast
 
       // Reset form fields
+      
+      
+      
+      
       setPostCode("");
       setAddressLine1("");
       setAddressLine2("");
