@@ -7,6 +7,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   first_category_all: [],
   sub_category: [],
+  sub_category_specific:[],
   sub_sub_category: [],
 };
 
@@ -20,12 +21,15 @@ const categoryConfigSlice = createSlice({
       setSubCategory(state, action) {
         state.sub_category = action.payload; // ✅ Updates sub-category
       },
+      setSubCategorySpecific(state, action) {
+        state.sub_category_specific = action.payload; // ✅ Updates sub-category specific
+      },
       setSubSubCategory(state, action) {
         state.sub_sub_category = action.payload; // ✅ Updates sub-sub-category
       },
   },
 });
 
-export const { setCategoryAll,setSubCategory,setSubSubCategory } = categoryConfigSlice.actions;
+export const { setCategoryAll,setSubCategory,setSubCategorySpecific,setSubSubCategory } = categoryConfigSlice.actions;
 
 export default categoryConfigSlice.reducer;

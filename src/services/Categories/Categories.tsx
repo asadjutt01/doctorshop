@@ -8,6 +8,9 @@ const Categories_Method = {
     getCategorySub(id: number) {
         return BaseURL.get(`${APIS_URL.PRODUCT_CATEGORY_SUB_GET_URL}/${id}`);
     },
+    getCategorySubSpecific() {
+        return BaseURL.get(`${APIS_URL.PRODUCT_CATEGORY_SUB_GET_SPECIFIC_URL}`);
+    },
     getCategorySubSub(id: number) {
         return BaseURL.get(`${APIS_URL.PRODUCT_CATEGORY_SUB_SUB_GET_URL}/${id}`);
     },

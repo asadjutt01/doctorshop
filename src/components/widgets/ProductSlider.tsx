@@ -301,6 +301,7 @@ export default function ProductSlider({
                           width: "100%",
                           height: "200px",
                           objectFit: "cover",
+                          borderRadius: "10px 10px 0px 0px",
                         }}
                       />
                     </div>

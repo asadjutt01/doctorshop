@@ -176,6 +176,8 @@ const APIS_URL = {
   PRODUCT_CATEGORY_ALL_GET_URL: "/products/all-category",
   PRODUCT_CATEGORY_SUB_GET_URL: "/products/sub-category",
   PRODUCT_CATEGORY_SUB_SUB_GET_URL: "/products/sub-sub-category",
+  PRODUCT_CATEGORY_SUB_GET_SPECIFIC_URL: "/products/sub-categorySpecific",
+
   /* ------------------------------ user info -------------------------------- */
   GET_USER_INFO: "/credit-customer/info",
   GET_USER_PHARMA: "/pharma-customer/info",

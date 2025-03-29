@@ -74,6 +74,17 @@ const getCategorySub = async (id: number) => {
     return null; // ✅ Return empty array on failure
   }
 };
+const getCategorySubSpecific = async () => {
+  try {
+    // console.log("hello>>>>>>>");
+    const response = await Service.Categories_Method.getCategorySubSpecific();
+    // console.log("response>>>>>>>", response);
+    return response?.data ?? []; // ✅ Ensure it returns products
+  } catch (error) {
+    console.error("Error fetching products:", error);
+    return null; // ✅ Return empty array on failure
+  }
+};
 const getCategorySubSub = async (id: number) => {
   try {
     // console.log("hello>>>>>>>");
@@ -178,6 +189,7 @@ export {
   getProductFeatured,
   getCategoryAll,
   getCategorySub,
+  getCategorySubSpecific,
   getCategorySubSub,
   getSingleProduct,
   getProdutbest,

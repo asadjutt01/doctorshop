@@ -18,8 +18,8 @@ export default function Collections() {
   const maincategories : any = useSelector(
     (state: IRootState) => state.category.first_category_all
   );
-  const sub_categories: any = useSelector(
-    (state: IRootState) => state.category.sub_category
+  const sub_categories_specific: any = useSelector(
+    (state: IRootState) => state.category.sub_category_specific
   );
   
   const swiperRef = useRef<any>(null);
@@ -35,10 +35,10 @@ export default function Collections() {
 
     // Check loading conditions
     if (minimumTimeElapsed) {
-      if (sub_categories === undefined) {
+      if (sub_categories_specific === undefined) {
         setError(true);
         setLoading(false);
-      } else if (sub_categories.length === 0) {
+      } else if (sub_categories_specific.length === 0) {
         setLoading(false);
       } else {
         setLoading(false);
@@ -48,10 +48,10 @@ export default function Collections() {
 
     // Cleanup
     return () => clearTimeout(timer);
-  }, [sub_categories, minimumTimeElapsed]);
+  }, [sub_categories_specific, minimumTimeElapsed]);
 
 
-  console.log("sub_categories>>>>>>>>>>>>>>>>" , sub_categories);
+  // console.log("sub_categories>>>>>>>>>>>>>>>>" , sub_categories_specific);
   
 
   return (
@@ -92,7 +92,7 @@ export default function Collections() {
               </div>
             ) : error ? (
               <p className="text-center text-red-500">Failed to load collections.</p>
-            ) : sub_categories.length === 0 ? (
+            ) : sub_categories_specific.length === 0 ? (
               <p className="text-center text-gray-500">No collections available.</p>
             ) : (
               <Swiper
@@ -122,7 +122,7 @@ export default function Collections() {
                 }}
                 modules={[Autoplay, Navigation]}
               >
-                {sub_categories.map((category: any) =>{
+                {sub_categories_specific.map((category: any) =>{
                   
                   const selectedcategory = maincategories?.find((item:any)=>item?.id === category?.parent_id);
                   return (

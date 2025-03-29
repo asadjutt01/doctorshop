@@ -5,6 +5,7 @@ import {
   getCartSummary,
   getCategoryAll,
   getCategorySub,
+  getCategorySubSpecific,
   getProductFeatured,
   getProductList,
   getProductToday,
@@ -24,6 +25,7 @@ import { IRootState } from "@/redux/store";
 import {
   setCategoryAll,
   setSubCategory,
+  setSubCategorySpecific,
 } from "@/redux/store/category/categoryConfigSlice";
 import Service from "@/services";
 import { v4 as uuidv4 } from "uuid";
@@ -112,18 +114,30 @@ const LoadInitialData = () => {
       }
     };
 
-    const fetchcategorySub = async () => {
+    // const fetchcategorySub = async () => {
+    //   try {
+    //     const randomNumber = Math.floor(Math.random() * (35 - 25 + 1)) + 25;
+    //     console.log('randomNumber????',randomNumber);
+    //     const categories = await getCategorySub(randomNumber);
+    //     if (categories?.length > 0) {
+    //       dispatch(setSubCategory(categories));
+    //     }
+    //   } catch (error) {
+    //     console.error("Error fetching subcategories:", error);
+    //   }
+    // };
+
+    const fetchCategorySubSpecific = async () => {
       try {
-        const randomNumber = Math.floor(Math.random() * (35 - 25 + 1)) + 25;
-        console.log('randomNumber????',randomNumber);
-        const categories = await getCategorySub(randomNumber);
+        const categories = await getCategorySubSpecific();
         if (categories?.length > 0) {
-          dispatch(setSubCategory(categories));
+          dispatch(setSubCategorySpecific(categories));
         }
       } catch (error) {
         console.error("Error fetching subcategories:", error);
       }
     };
+
     const storeTempId = () => {
       let temp_user_id = getItem("temp_user_id"); // Check if temp_user_id exists in storage
   
@@ -133,7 +147,8 @@ const LoadInitialData = () => {
       }
     };
     fetchcategoryall();
-    fetchcategorySub();
+    // fetchcategorySub();
+    fetchCategorySubSpecific();
     fetchProducts_todaydeal();
     fetchProducts_Featured();
     fetchProducts();

@@ -53,7 +53,12 @@ export default function Footer() {
                 />
               </div>
               <p className="footer-about">
-              My Doctor Shop, the transforming presence in medical wholesale supplies. We are dedicated to delivering exceptional healthcare solutions, offering a comprehensive range of medical consumables, medical disposables, medical equipment, Infection control, personal protective equipment (PPE) and pharmaceuticals.
+                My Doctor Shop, the transforming presence in medical wholesale
+                supplies. We are dedicated to delivering exceptional healthcare
+                solutions, offering a comprehensive range of medical
+                consumables, medical disposables, medical equipment, Infection
+                control, personal protective equipment (PPE) and
+                pharmaceuticals.
               </p>
               <div className="bottom-bar_social">
                 <div className="bottom-row_social">
@@ -116,19 +121,21 @@ export default function Footer() {
               <h6>Contact Us</h6>
               <span className="contact-key">Phone </span>
               <Link href="tel:111122223333" className="mb-1">
-              +44(0)3301 133 786
+                +44(0)3301 133 786
               </Link>
               <span className="contact-key">Email </span>
               <Link href="mailto:demo@gmail.com" className="mb-1">
-              sales@mydoctorshop.com
+                sales@mydoctorshop.com
               </Link>
               <span className="contact-key">Address</span>
               <Link href="" className="mb-1">
-              {/* Unit 5 Ray Street ENT Centre Ray Street Huddersfield HD1 6B */}
-              My Doctor Shop Ltd <br/>
-              Unit 5, Ray Street ENT Centre,<br/>
-              Huddersfield,<br/>
-              HD1 6BL UK
+                {/* Unit 5 Ray Street ENT Centre Ray Street Huddersfield HD1 6B */}
+                My Doctor Shop Ltd <br />
+                Unit 5, Ray Street ENT Centre,
+                <br />
+                Huddersfield,
+                <br />
+                HD1 6BL UK
               </Link>
             </div>
           </div>
@@ -137,9 +144,17 @@ export default function Footer() {
       <div className="bottom-bar">
         <div className="bottom-row">
           <div className="copywrite">
-            <p>
+            {/* <p>
               <span>Med9 Group LTD</span>
-            </p>
+            </p> */}
+            <div>
+              <Image
+                src={"/med9-logo-white.png"}
+                width={90}
+                height={20}
+                alt="Tech9et-Logo"
+              />
+            </div>
             <p>Copyright © 2025, All rights reserved.</p>
             <div className="copywrite-powered">
               Powered by&nbsp;{" "}
