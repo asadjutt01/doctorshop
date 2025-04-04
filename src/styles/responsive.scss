@@ -188,7 +188,9 @@ $shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   .contact-hero .contact-body {
     height: 502px;
   }
-
+  .hero-section .carousel-item .slide-content .content, .hero-section-mobile .carousel-item .slide-content .content{
+    max-width: 500px;
+  }
   .modal-xl {
     --bs-modal-width: 1100px !important;
   }
@@ -1179,7 +1181,20 @@ $shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     height: 25px !important;
     width: 100px !important;
   }
-
+  .hero-section{
+    display: none;
+  }
+  .hero-section-mobile {
+    display: block;
+    .carousel-item {
+    .home-banner{
+      
+    }
+    .slide-content{
+  
+    }
+  }}
+  
   .hero-section .carousel-item .slide-content {
     min-height: 400px;
   }
@@ -1200,6 +1215,31 @@ $shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   }
 
   .hero-section .carousel-item .slide-content .content p {
+    font-size: 14px;
+    line-height: 20px !important;
+    text-align: center;
+  }
+  .hero-section-mobile .carousel-item .slide-content {
+    min-height: 400px;
+    padding: 50px 0px;
+  }
+  .slide-content-inner-container{
+    display: flex;
+    justify-content: center !important;
+    align-items: center;
+  }
+  .hero-section-mobile .carousel-item .slide-content .content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .hero-section-mobile .carousel-item .slide-content .content h1 {
+    font-size: 30px !important;
+    text-align: center;
+  }
+
+  .hero-section-mobile .carousel-item .slide-content .content p {
     font-size: 14px;
     line-height: 20px !important;
     text-align: center;
@@ -2433,9 +2473,9 @@ $shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     padding: 0px;
   }
   .carousel-item-bg {
-    background-image: none !important;
-    background: transparent linear-gradient(270deg, #33c3de 0%, #005eb8 100%) 0%
-      0% no-repeat padding-box !important;
+    // background-image: none !important;
+    // background: transparent linear-gradient(270deg, #33c3de 0%, #005eb8 100%) 0%
+    //   0% no-repeat padding-box !important;
   }
 
   .home-banner-container {

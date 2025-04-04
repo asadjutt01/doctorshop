@@ -240,8 +240,8 @@ export default function Login() {
                   // 
 
                   if (query?.fromcheckout === "true" && query?.hasPharma === 'true' && query?.login === 'false') {
-                    setToastType("success");
-                    setToastMessage("Login Successful! Welcome back!");
+                    // setToastType("success");
+                    // setToastMessage("Login Successful! Welcome back!");
                     const data = {
                       fromcheckout: true,
                       hasPharma:true,
@@ -257,19 +257,19 @@ export default function Login() {
                     );
                     // router.push("/register-pharma");
                   }else  {
-                    setToastType("success");
-                  setToastMessage("Login Successful! Welcome back!");
+                  //   setToastType("success");
+                  // setToastMessage("Login Successful! Welcome back!");
                   const data = {
-                    fromcheckout: true,
-                    hasPharma:true,
+                    fromcheckout: false,
+                    hasPharma:false,
                     login:false,
                   };
                   router.push(
                     {
-                      pathname: `/register-pharma`,
+                      pathname: `/register`,
                       query: data,
                     },
-                    `/register-pharma`,
+                    `/register`,
                     { shallow: true }
                   );
                   // router.push("/register-pharma")

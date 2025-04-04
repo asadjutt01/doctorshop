@@ -239,7 +239,7 @@ export default function HeaderWithCat() {
     }
   };
 
-  const slidesPerView = { 990: 8, 768: 5, 0: 2 };
+  const slidesPerView = { 990: 9, 768: 5, 0: 2 };
   const [selectedCurrency, setSelectedCurrency] = useState("£ - GBP");
   const currencies = [
     { name: "£ - GBP - Great British Pound", code: "£ - GBP" },
@@ -361,8 +361,8 @@ export default function HeaderWithCat() {
                       <Image
                         src="/doctorshop-logo.svg"
                         alt="doctorshop-logo"
-                        width={160}
-                        height={50}
+                        width={200}
+                        height={75}
                       />
                     </Navbar.Brand>
                   </div>
@@ -845,7 +845,7 @@ export default function HeaderWithCat() {
             </div>
 
             <div
-              className="header-bottom-container"
+              className={`header-bottom-container ${isActive ?'hidden':'' }`}
               onMouseEnter={() => handleMouseEnter(hoveredIndex)}
               onMouseLeave={handleMouseLeave}
             >

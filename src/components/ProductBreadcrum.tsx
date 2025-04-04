@@ -24,8 +24,14 @@ export default function ProductBreadcrum(): JSX.Element | null {
             Home
           </span>
         </Link>
+        <span className="breadcrumb-link"> / </span>
+        <Link href="/">
+          <span className="breadcrumb-link" style={{ color: "#000" }}>
+         Products
+          </span>
+        </Link>
         {segments
-          .filter((segment) => segment !== "collection") // Filter out 'collection'
+          .filter((segment) => segment !== "products") // Filter out 'collection'
           .map((segment, index,filteredSegments) => {
             const href = `/${filteredSegments.slice(0, index + 1).join("/")}`;
             // const href = `/${segments.slice(0, index + 1).join("/")}`;
@@ -34,7 +40,7 @@ export default function ProductBreadcrum(): JSX.Element | null {
             return (
               <React.Fragment key={index}>
                 <span className="breadcrumb-link"> / </span>
-                <Link href={`/collection/${href}`}>
+                <Link href={`/${href === 'products' ? '/': href}`}>
                   <span className="breadcrumb-link" style={{ color: "#000" }}>
                     {toCamelCase(segment)}
                   </span>
