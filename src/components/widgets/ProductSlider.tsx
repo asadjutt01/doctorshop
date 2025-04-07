@@ -362,7 +362,7 @@ export default function ProductSlider({
                                   (Number(product?.variant?.[0]?.price) || 0) +
                                   (Number(product?.vat) || 0)
                                 ).toFixed(2)}
-                                inc VAT
+                                &nbsp;inc VAT
                               </div>
                             </div>
                           </div>

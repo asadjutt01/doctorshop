@@ -552,8 +552,8 @@ body {
 
   .search-button-mobile-icon {
     color: #000000;
-    height: 24px;
-    width: 24px;
+    height: 22px;
+    width: 22px;
   }
 }
 .header-bottom-container {
@@ -1027,14 +1027,17 @@ body {
     bottom: 0px;
     left: 0px;
     right: 0px;
-    padding: 15px 20px;
+    padding-top: 15px ;
+    padding-bottom: 15px;
+    padding-left: 4px;
+    // padding-right: ;
     border-radius: 12px;
     background: transparent
       linear-gradient(180deg, #ffffff00 0%, #144689bd 77%, #063b82 100%) 0% 0%
       no-repeat padding-box;
 
-    h5 {
-      font-size: 20px;
+    p {
+      font-size: 20px !important;
       margin-bottom: 0px;
       color: #fff;
       // text-transform: uppercase;
@@ -1149,25 +1152,148 @@ body {
   // background-image: url(../app/images/monitor-907.png);
   background-size: cover;
   background-position: center;
-  padding: 100px;
+  // padding: 100px;
   display: flex;
-  flex-direction: column;
+  // flex-direction: column;
+  justify-content: center;
+  border-radius: 10px;
+  align-items: center;
+
+  // h1 {
+  //   margin-bottom: 23px;
+  //   font-size: 50px;
+  //   color: #fff;
+  //   line-height: 60px;
+  //   font-weight: 400;
+  // }
+
+  // p {
+  //   font-size: 16px;
+  //   color: #fff;
+  //   margin-bottom: 18px;
+  // }
+  .content {
+    width: 100%;
+    max-width: 640px;
+    padding: 80px;
+    h1 {
+      color: #ffffff;
+      line-height: 50px;
+      font-size: 42px !important;
+      font-weight: 500;
+      margin-bottom: 16px;
+    }
+
+    p {
+      // margin-bottom: 54px;
+      font-size: 16px;
+      color: #ffffff;
+      font-weight: 400;
+      line-height: 28px;
+      span{
+        margin-right: 40px;
+        font-weight: bold;
+      }
+    }
+
+    .buttons-row {
+      display: flex;
+      gap: 23px;
+    }
+    .prize-vat{
+      h2{
+        color: #ffffff;
+        font-size: 50px;
+      }
+      span{
+      background-color:  #ececec;
+      padding: 4px 6px;
+      border-radius: 5px;
+      }
+    }
+  }
+  .image-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+.monitor-section-mobile {
+  width: 100%;
+  margin-bottom: 10px;
+  // height: 600px;
+  min-height: 643px;
+  // background-image: url(../app/images/monitor.png);
+  // background-image: url(../app/images/monitor-907.png);
+  background-size: cover;
+  background-position: center;
+  // padding: 100px;
+  display: none;
+  // flex-direction: column;
   justify-content: center;
   border-radius: 10px;
   // align-items: center;
 
-  h1 {
-    margin-bottom: 23px;
-    font-size: 50px;
-    color: #fff;
-    line-height: 60px;
-    font-weight: 400;
-  }
+  // h1 {
+  //   margin-bottom: 23px;
+  //   font-size: 50px;
+  //   color: #fff;
+  //   line-height: 60px;
+  //   font-weight: 400;
+  // }
 
-  p {
-    font-size: 16px;
-    color: #fff;
-    margin-bottom: 18px;
+  // p {
+  //   font-size: 16px;
+  //   color: #fff;
+  //   margin-bottom: 18px;
+  // }
+  .content {
+    width: 100%;
+    max-width: 640px;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    h1 {
+      color: #ffffff;
+      line-height: 50px;
+      font-size: 42px !important;
+      font-weight: 500;
+      margin-bottom: 16px;
+    }
+
+    p {
+      // margin-bottom: 54px;
+      font-size: 16px;
+      color: #ffffff;
+      font-weight: 400;
+      line-height: 28px;
+      span{
+        // margin-right: 40px;
+        font-weight: bold;
+      }
+    }
+
+    .buttons-row {
+      display: flex;
+      gap: 23px;
+    }
+    .prize-vat{
+      h2{
+        color: #ffffff;
+        font-size: 50px;
+      }
+      span{
+      background-color:  #ececec;
+      padding: 4px 6px;
+      border-radius: 5px;
+      }
+    }
+  }
+  .image-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 
@@ -1387,6 +1513,28 @@ body {
       max-width: 620px;
       font-size: 16px;
     }
+    p {
+      // margin-bottom: 54px;
+      font-size: 16px;
+      color: #000000;
+      font-weight: 400;
+      line-height: 28px;
+      span{
+        // margin-right: 40px;
+        font-weight: bold;
+      }
+    }
+    .prize-vat{
+      h2{
+        // color: #005eb8;
+        font-size: 50px;
+      }
+      span{
+      background-color:  #ececec;
+      padding: 4px 6px;
+      border-radius: 5px;
+      }
+    }
   }
 }
 
@@ -1512,7 +1660,7 @@ body {
     .right-arrow {
       cursor: pointer;
       position: absolute;
-      top: 45%;
+      top: 35%;
       z-index: 990;
       height: 50px !important;
       transition: all ease-in-out 0.2s;

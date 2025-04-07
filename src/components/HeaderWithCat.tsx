@@ -74,27 +74,27 @@ export default function HeaderWithCat() {
 
   // Handle clicks outside to close search dropdowns
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        mobileSearchRef.current &&
-        !mobileSearchRef.current.contains(event.target as Node)
-      ) {
-        setIsMobileSearchOpen(false);
-        setSearchQuery("");
-        setSearchResults([]);
-      }
-      if (
-        desktopSearchRef.current &&
-        !desktopSearchRef.current.contains(event.target as Node)
-      ) {
-        setIsDesktopSearchOpen(false);
-        setSearchQuery("");
-        setSearchResults([]);
-      }
-    };
+    // const handleClickOutside = (event: MouseEvent) => {
+    //   if (
+    //     mobileSearchRef.current &&
+    //     !mobileSearchRef.current.contains(event.target as Node)
+    //   ) {
+    //     setIsMobileSearchOpen(false);
+    //     setSearchQuery("");
+    //     setSearchResults([]);
+    //   }
+    //   if (
+    //     desktopSearchRef.current &&
+    //     !desktopSearchRef.current.contains(event.target as Node)
+    //   ) {
+    //     setIsDesktopSearchOpen(false);
+    //     setSearchQuery("");
+    //     setSearchResults([]);
+    //   }
+    // };
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    // document.addEventListener("mousedown", handleClickOutside);
+    // return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   useEffect(() => {
@@ -352,9 +352,9 @@ export default function HeaderWithCat() {
                       onClick={() => setIscategory(!iscategory)}
                     >
                       {iscategory ? (
-                        <RxCross2 size={24} />
+                        <RxCross2 size={22} />
                       ) : (
-                        <RxHamburgerMenu size={24} />
+                        <RxHamburgerMenu size={22} />
                       )}
                     </Navbar.Toggle>
                     <Navbar.Brand href="/">
@@ -388,11 +388,11 @@ export default function HeaderWithCat() {
                           style={{ display: "flex", gap: "4px" }}
                         >
                           <Nav.Link href="/login" className="text-sm">
-                            <span className="login-text">LogIn / Register</span>
+                            <span className="login-text">LogIn</span>
                           </Nav.Link>
                         </div>
                       )}
-                      <Nav.Link
+                      {/* <Nav.Link
                         onClick={() => router.push("/dashboard/my-orders")}
                       >
                         <Image
@@ -401,14 +401,90 @@ export default function HeaderWithCat() {
                           width={24}
                           height={24}
                         />
-                      </Nav.Link>
-
+                      </Nav.Link> */}
+ {authToken && (
+                          <BootstrapDropdown>
+                            <BootstrapDropdown.Toggle
+                              variant="link"
+                              style={{
+                                background: "transparent",
+                                border: "none",
+                                padding: "0",
+                                display: "flex",
+                                alignItems: "center",
+                              }}
+                            >
+                              <Image
+                                src="/profile.svg"
+                                alt="Profile"
+                                width={22}
+                                height={22}
+                              />
+                            </BootstrapDropdown.Toggle>
+                            <BootstrapDropdown.Menu
+                              style={{
+                                backgroundColor: "#fff",
+                                border: "none",
+                                borderRadius: "8px",
+                                boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
+                                padding: "10px 0",
+                                minWidth: "180px",
+                                marginTop: "8px",
+                              }}
+                              align="end"
+                            >
+                              <BootstrapDropdown.Item
+                                onClick={() =>
+                                  router.push("/dashboard/my-orders")
+                                }
+                                style={{
+                                  padding: "8px 20px",
+                                  fontSize: "14px",
+                                  color: "#333",
+                                }}
+                                onMouseEnter={(e) => {
+                                  e.currentTarget.style.backgroundColor =
+                                    "#f5f5f5";
+                                  e.currentTarget.style.color = "#007bff";
+                                }}
+                                onMouseLeave={(e) => {
+                                  e.currentTarget.style.backgroundColor =
+                                    "transparent";
+                                  e.currentTarget.style.color = "#333";
+                                }}
+                              >
+                                Dashboard
+                              </BootstrapDropdown.Item>
+                              <BootstrapDropdown.Item
+                                onClick={handleLogout}
+                                style={{
+                                  padding: "8px 20px",
+                                  fontSize: "14px",
+                                  color: "#dc3545",
+                                  fontWeight: "500",
+                                }}
+                                onMouseEnter={(e) => {
+                                  e.currentTarget.style.backgroundColor =
+                                    "#ffe5e7";
+                                  e.currentTarget.style.color = "#c82333";
+                                }}
+                                onMouseLeave={(e) => {
+                                  e.currentTarget.style.backgroundColor =
+                                    "transparent";
+                                  e.currentTarget.style.color = "#dc3545";
+                                }}
+                              >
+                                Logout
+                              </BootstrapDropdown.Item>
+                            </BootstrapDropdown.Menu>
+                          </BootstrapDropdown>
+                        )}
                       <Nav.Link style={{ position: "relative" }}>
                         <Image
                           src="/cart.svg"
                           alt="cart"
-                          width={24}
-                          height={24}
+                          width={22}
+                          height={22}
                           onClick={() => router.push("/add-to-cart/")}
                         />
 
@@ -440,8 +516,8 @@ export default function HeaderWithCat() {
                           <Image
                             src="/like.svg"
                             alt="like"
-                            width={24}
-                            height={24}
+                            width={22}
+                            height={22}
                           />
                         </Nav.Link>)}
                     </div>
@@ -570,8 +646,8 @@ export default function HeaderWithCat() {
                               <Image
                                 src="/profile.svg"
                                 alt="Profile"
-                                width={24}
-                                height={24}
+                                width={22}
+                                height={22}
                               />
                             </BootstrapDropdown.Toggle>
                             <BootstrapDropdown.Menu
@@ -639,8 +715,8 @@ export default function HeaderWithCat() {
                           <Image
                             src="/cart.svg"
                             alt="cart"
-                            width={24}
-                            height={24}
+                            width={22}
+                            height={22}
                           />
 
                           <div
@@ -669,8 +745,8 @@ export default function HeaderWithCat() {
                             <Image
                               src="/like.svg"
                               alt="like"
-                              width={24}
-                              height={24}
+                              width={22}
+                              height={22}
                             />
                           </Nav.Link>)}
                       </div>
@@ -697,6 +773,7 @@ export default function HeaderWithCat() {
                       className="search-input"
                       autoFocus
                       value={searchQuery}
+                      onBlur={() => setTimeout(() => setIsMobileSearchOpen(false), 200)}
                       onChange={(e) => setSearchQuery(e.target.value)}
                     />
                     <button className="search-button">

@@ -5,6 +5,9 @@ import Image from "next/image";
 import hero1 from "../app/images/herobanner1.png";
 import hero2 from "../app/images/herobanner2.png";
 import hero3 from "../app/images/herobanner3.png";
+import herobanner1mobile from "../app/images/herobanner1mobile.png";
+import herobanner2mobile from "../app/images/herobanner2mobile.png";
+import herobanner3mobile from "../app/images/herobanner3mobile.png";
 export default function HeroSlider() {
   const router = useRouter();
   const handleClickShopNow = () => {
@@ -17,6 +20,7 @@ export default function HeroSlider() {
     {
       id: 1,
       image: hero1.src, // or just hero1 if it's a string
+      image_mobile:herobanner1mobile.src,
       title:
         "AirX Nebuliser Face Mask Kit with 8ml Chamber & Tubing 2.1m Crush & Kink Resistant",
         slug:"airx-nebuliser-face-mask-kit-with-8ml-chamber-tubing-21m-crush-kink-resistant",
@@ -29,6 +33,7 @@ export default function HeroSlider() {
     {
       id: 2,
       image: hero2.src, // or just hero1 if it's a string
+      image_mobile:herobanner2mobile.src,
       title:
         "GenX Midstream Urine Container 30ml - Boric Acid & Label",
         slug:"genx-midstream-urine-container-30ml",
@@ -36,11 +41,12 @@ export default function HeroSlider() {
         "GenX Specimen Container 30ml with Label designed for efficient specimen collection.",
       productCode: "GXM-786NMKA",
       price: "£0.79",
-      priceWithVat: "£0.158 inc VAT",
+      priceWithVat: "£0.95 inc VAT",
     },
     {
       id: 3,
       image: hero3.src, // or just hero1 if it's a string
+      image_mobile:herobanner3mobile.src,
       title:
         "CerviX Endometrial Sampler - Suction Curette",
         slug:"cervix-endometrial-sampler-suction-curette",
@@ -48,7 +54,7 @@ export default function HeroSlider() {
         "CerviX Endometrial Sampler - Suction Curette is Flexible and easily adapts to the cervix and uterine curvature to provide optimum contact with the uterine wall for improved sample collection and endometrial aspiration in cancer screening.",
       productCode: "GXM-786ESC",
       price: "£4.47",
-      priceWithVat: "£5.364 inc VAT",
+      priceWithVat: "£5.36 inc VAT",
     },
     // Add more banner objects as needed
   ];
@@ -136,12 +142,15 @@ export default function HeroSlider() {
         {banners.map((banner) => (
     <Carousel.Item key={banner.id}>
       <Image
-        src={banner.image}
+        src={banner.image_mobile}
         alt="Home-Banner"
         className="home-banner"
-        width={360}
-        height={220}
-        style={{ width: "100%" }}
+        width={320}
+        height={320}
+        style={{ width: "100%",
+          height: "100%",
+          // objectFit:"contain",
+         }}
       />
       <div className="slide-content">
         <div className="lg-container slide-content-inner-container">

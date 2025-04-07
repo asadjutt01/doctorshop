@@ -19,7 +19,9 @@ import BestSellerSlider from "@/components/BestSellerSlider";
 import NewSletter from "@/components/NewSletter";
 import { useSelector } from "react-redux";
 import { IRootState } from "@/redux/store";
-import monitor907 from "../app/images/monitor-907.png";
+import monitor907 from "../app/images/omron-bp-meter-png.png";
+import monitor907bg from "../app/images/omron-bp-meter-bg.png";
+import monitor907bgmobile from "../app/images/omron-bp-meter-bg-mobile.png";
 import cardiopad from "../app/images/cardiopad.png";
 export default function Index() {
   const products = useSelector((state: IRootState) => state.product.productsFeatured);
@@ -35,10 +37,10 @@ export default function Index() {
       <HeroSlider />
       <CategorySlider />
       <Collections />
-      <Monitor img={monitor907} />
+      <Monitor img={monitor907} bgbanner={monitor907bg} bgbannermobile={monitor907bgmobile} />
       <BestSellerSlider />
-      {/* <Microscope /> */}
-      <Monitor img={cardiopad} />
+      <Microscope />
+      {/* <Monitor img={cardiopad} /> */}
       {/* <Taglines /> */}
       {/* <LabBanner /> */}
       <NewArrivalSlider />

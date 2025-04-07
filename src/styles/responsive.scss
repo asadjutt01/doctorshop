@@ -164,7 +164,7 @@ $shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 
   .monitor-section {
     min-height: 600px;
-    padding: 100px;
+    // padding: 100px;
   }
 
   .header .navbar .nav-menu .nav-link {
@@ -332,9 +332,11 @@ $shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 
   .monitor-section {
     min-height: 500px;
+   
+  }
+  .monitor-section .content{
     padding: 60px;
   }
-
   .monitor-section p {
     font-size: 18px;
   }
@@ -723,7 +725,7 @@ $shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     margin-bottom: 30px;
   }
 
-  .monitor-section {
+  .monitor-section .content {
     padding: 40px;
   }
 
@@ -1080,6 +1082,29 @@ $shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   }
 }
 @media only screen and (max-width: 768px) {
+  .header-main{
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+  .top-bar-container{
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+  .microscope-section .content{
+    align-items: center;
+    h1{
+      font-size: 36px !important;
+      text-align: center;
+    }
+    p{
+      text-align: center;
+    }
+    .prize-vat{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
   // .custom-timeline .custom-timeline-item .custom-timeline-content,
   // .custom-timeline
   //   .custom-timeline-item
@@ -1178,11 +1203,14 @@ $shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   }
 
   .header .navbar .navbar-brand img {
-    height: 25px !important;
-    width: 100px !important;
+    height: 45px !important;
+    width: 150px !important;
   }
   .hero-section{
     display: none;
+  }
+  .hero-section-mobile .carousel-item .slide-content .content p span{
+    margin-right: 0px;
   }
   .hero-section-mobile {
     display: block;
@@ -1237,6 +1265,7 @@ $shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   .hero-section-mobile .carousel-item .slide-content .content h1 {
     font-size: 30px !important;
     text-align: center;
+    line-height: 32px;
   }
 
   .hero-section-mobile .carousel-item .slide-content .content p {
@@ -1292,8 +1321,32 @@ $shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   .our-collections {
     padding-bottom: 60px;
   }
-
-  .monitor-section {
+  .monitor-section{
+    display: none;
+  }
+  .monitor-section-mobile {
+    display: flex;
+  }
+  .monitor-section-mobile .content {
+    align-items: center;
+    padding: 10px;
+    h1{
+      font-size: 36px !important;
+      text-align: center;
+    }
+    p{
+      text-align: center;
+    }
+    .prize-vat{
+      h2{
+        font-size: 36px !important;
+      }
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+  .monitor-section .content {
     padding: 20px;
   }
 
@@ -2565,7 +2618,7 @@ $shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   }
 
   .top-bar .top-bar-row .tagline p {
-    font-size: 0.75rem !important;
+    font-size: 0.7rem !important;
   }
 
   .top-bar .top-bar-row .lang {
@@ -2726,7 +2779,10 @@ $shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     background: #f7f7f7;
   }
 
- 
+  .swiper-slider-section .controlers .left-arrow, .swiper-slider-section .controlers .right-arrow{
+    height: 40px !important;;
+    width: 40px !important;
+  }
 
   .sub-category-product-hero {
     width: 100%;
@@ -3239,6 +3295,14 @@ $shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   }
   .cat-card {
     height: 280px !important;
+  }
+  .cat-card .content{
+    p{
+      max-width: 130px !important;
+      text-wrap: wrap;
+      font-size: 16px !important;
+      // text-overflow: ;
+    }
   }
   .category-bannner-container-mobile .image-container .img-2nd{
       width: 380px !important;

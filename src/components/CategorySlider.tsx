@@ -19,7 +19,7 @@ export default function CategorySlider() {
 
   const categories: any = useSelector((state: IRootState) => state.category.first_category_all);
 
-  console.log("categoriesdjashdahsdkjashjkdh>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", categories);
+  // console.log("categoriesdjashdahsdkjashjkdh>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", categories);
 
   const router = useRouter();
   const swiperRef = useRef<any>(null);
@@ -125,7 +125,7 @@ export default function CategorySlider() {
                               <div className="cat-card">
                                 <Image src={item?.cover_image} width={330} height={360} alt={item?.name} />
                                 <div className="content">
-                                  <h5>{item?.name}</h5>
+                                  <p>{item?.name}</p>
                                 </div>
                               </div>
                             </Link>
