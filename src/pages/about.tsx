@@ -26,9 +26,7 @@ import carrers from "../app/images/Careers.webp";
 export default function About() {
   const router = useRouter();
 
-  const handleClickShopNow = () => {
-    router.push("/collection"); // Navigate to the 'collection' page
-  };
+
   const sections = [
     {
       title: "About Us",

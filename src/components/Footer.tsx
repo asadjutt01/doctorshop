@@ -60,27 +60,7 @@ export default function Footer() {
                 control, personal protective equipment (PPE) and
                 pharmaceuticals.
               </p>
-              <div className="bottom-bar_social">
-                <div className="bottom-row_social">
-                  <div className="social">
-                    <Link href="">
-                      <i className="fa-brands fa-twitter"></i>
-                    </Link>
-                    <Link href="">
-                      <i className="fa-brands fa-facebook-f"></i>
-                    </Link>
-                    <Link href="">
-                      <i className="fa-brands fa-instagram"></i>
-                    </Link>
-                    <Link href="">
-                      <i className="fa-brands fa-pinterest-p"></i>
-                    </Link>
-                    <Link href="">
-                      <i className="fa-brands fa-linkedin-in"></i>
-                    </Link>
-                  </div>
-                </div>
-              </div>
+              
             </div>
             <div className="nav-card">
               <h6>Useful links</h6>
@@ -96,7 +76,6 @@ export default function Footer() {
                 Corporate Social Responsibility
               </Link>
               <Link href="modern-slavery-policy">Modern Slavery Act</Link>
-              {/* <Link href="/collection">Collection</Link> */}
             </div>
 
             <div className="nav-card">
@@ -137,6 +116,27 @@ export default function Footer() {
                 <br />
                 HD1 6BL UK
               </Link>
+              <div className="bottom-bar_social">
+                <div className="bottom-row_social">
+                  <div className="social">
+                    <Link href="">
+                      <i className="fa-brands fa-twitter"></i>
+                    </Link>
+                    <Link href="">
+                      <i className="fa-brands fa-facebook-f"></i>
+                    </Link>
+                    <Link href="">
+                      <i className="fa-brands fa-instagram"></i>
+                    </Link>
+                    <Link href="">
+                      <i className="fa-brands fa-pinterest-p"></i>
+                    </Link>
+                    <Link href="">
+                      <i className="fa-brands fa-linkedin-in"></i>
+                    </Link>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

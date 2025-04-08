@@ -10,9 +10,7 @@ interface MonitorProps {
 }
 const Monitor: React.FC<MonitorProps> = ({ img, bgbanner,bgbannermobile }) => {
   const router = useRouter();
-  const handleClickShopNow = () => {
-    router.push("/collection"); // Navigate to the 'collection' page
-  };
+ 
 
   return (
     <div>

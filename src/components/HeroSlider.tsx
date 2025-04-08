@@ -10,9 +10,7 @@ import herobanner2mobile from "../app/images/herobanner2mobile.png";
 import herobanner3mobile from "../app/images/herobanner3mobile.png";
 export default function HeroSlider() {
   const router = useRouter();
-  const handleClickShopNow = () => {
-    router.push("/collection");
-  };
+ 
   const handleClickLearnMore = () => {
     router.push("/about");
   };

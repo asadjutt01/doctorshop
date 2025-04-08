@@ -237,7 +237,7 @@ export default function ProducDetailContent({
               <div className="total">
                 <h4>{`£${selectedVariant?.price || product?.price || "0.00"}`}</h4>
                 <small>
-                  {`${product?.stroked_price || "0.00"}`}
+                  {`£${selectedVariant?.total_price || "0.00"}`}
                   <br />
                   inc VAT
                 </small>

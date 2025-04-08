@@ -21,6 +21,7 @@ import Image from "next/image";
 import CategoryFilter from "@/components/CategoryFilter";
 import ProductDetailModal from "@/components/ProductDetailModal";
 import CategoryProductCard from "@/components/CategoryProductCard";
+import Breadcrumb from "@/components/Breadcrumb";
 // import CategoryFilter from "@/components/CategoryFilter";
 interface SubCategory {
   id: string;
@@ -97,7 +98,7 @@ const Product: React.FC = () => {
       <HeaderWithCat />
       <div className="product-detail-section">
         <div className="lg-container">
-          <ProductBreadcrum />
+          <Breadcrumb />
           <div className="product-details">
             <div className="row">
               <div className="col-lg-6">

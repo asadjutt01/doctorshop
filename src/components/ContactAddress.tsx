@@ -8,23 +8,30 @@ export default function ContactAddress() {
     <div>
       <div className="our-contact-section">
         <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3037.3442962432628!2d-74.11948518847406!3d41.53056058698255!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89dd2eb1c518156b%3A0xc6b4372384b52303!2sNoah%20Pl%2C%20Newburgh%2C%20NY%2012550%2C%20USA!5e1!3m2!1sen!2s!4v1728995194173!5m2!1sen!2s"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2364.6834539424985!2d-1.7797189000000004!3d53.6526162!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487bdc6ca730439b%3A0x436d09f724829135!2sRay%20Street%20Enterprise%20Centre!5e0!3m2!1sen!2s!4v1744105760547!5m2!1sen!2s"
           style={{ border: 0 }}
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
         ></iframe>
+
         <div className="inner-content">
           <div className="lg-container">
             <div className="row">
               <div className="col-lg-6 offset-lg-6">
                 <div className="info-card">
-                  <h3>Company Details</h3>
+                  <Image
+                    src="/doctorshop-logo.svg"
+                    alt="doctorshop-logo"
+                    width={200}
+                    height={75}
+                  />
                   <p>
                     We appreciate your feedback and are continuously working to
                     improve our services. If you have any suggestions or
                     concerns, please don't hesitate to reach out to us.
                   </p>
-                  <div style={{padding:"30px 0px"}}>
+                  <p>Email : ccs@mydoctorshop.com</p>
+                  <div className="address" style={{ padding: "30px 0px" }}>
                     <p>My Doctor Shop Ltd</p>
                     <p> Unit 5 Ray Street ENT Centre </p>
                     <p>Ray Street, Huddersfield</p>

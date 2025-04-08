@@ -317,7 +317,7 @@ export default function HeaderWithCat() {
                 <div className="tagline">
                   <p>Free Shipping On Orders Over £49.00 (Ex VAT)</p>
                 </div>
-                <div className="lang">
+                {/* <div className="lang">
                   <Dropdown>
                     <Dropdown.Toggle
                       variant="info"
@@ -337,7 +337,12 @@ export default function HeaderWithCat() {
                       ))}
                     </Dropdown.Menu>
                   </Dropdown>
-                </div>
+                </div> */}
+                <div className="call-us-text-con">
+                  <span className="call-us-text">
+                      Call Us <strong>03301 133 786</strong>
+                      </span>
+                      </div>
               </div>
             </div>
           </div>
@@ -346,6 +351,28 @@ export default function HeaderWithCat() {
             <div className="header" onMouseLeave={handleMouseLeave}>
               <div className="lg-container header-main">
                 <Navbar collapseOnSelect className="navbar_alignment">
+                  {/* <div className="flex gap-2">
+                    <Navbar.Toggle
+                      aria-controls="responsive-navbar-nav"
+                      onClick={() => setIscategory(!iscategory)}
+                    >
+                      {iscategory ? (
+                        <RxCross2 size={22} />
+                      ) : (
+                        <RxHamburgerMenu size={22} />
+                      )}
+                    </Navbar.Toggle>
+                    <Navbar.Brand href="/">
+                      <Image
+                        src="/doctorshop-logo.svg"
+                        alt="doctorshop-logo"
+                        width={200}
+                        height={75}
+                      />
+                    </Navbar.Brand>
+                  </div> */}
+
+                  <div className="mobile-nav flex gap-2">
                   <div className="flex gap-2">
                     <Navbar.Toggle
                       aria-controls="responsive-navbar-nav"
@@ -366,8 +393,6 @@ export default function HeaderWithCat() {
                       />
                     </Navbar.Brand>
                   </div>
-
-                  <div className="mobile-nav flex gap-2">
                     <div className="nav-icon flex gap-2">
                       <button
                         onClick={(event) => {
@@ -524,11 +549,27 @@ export default function HeaderWithCat() {
                   </div>
 
                   <div className="navbar-desk-appearence">
-                    <Nav className="nav-items">
-                      <span className="call-us-text">
-                      Call Us <strong>03301 133 786</strong>
-                      </span>
-                      <div
+                  <div className="flex gap-2">
+                    <Navbar.Toggle
+                      aria-controls="responsive-navbar-nav"
+                      onClick={() => setIscategory(!iscategory)}
+                    >
+                      {iscategory ? (
+                        <RxCross2 size={22} />
+                      ) : (
+                        <RxHamburgerMenu size={22} />
+                      )}
+                    </Navbar.Toggle>
+                    <Navbar.Brand href="/">
+                      <Image
+                        src="/doctorshop-logo.svg"
+                        alt="doctorshop-logo"
+                        width={200}
+                        height={75}
+                      />
+                    </Navbar.Brand>
+                  </div>
+                  <div
                         className="search-container relative"
                         style={{ backgroundColor: "#EEEEEE" }}
                         ref={desktopSearchRef}
@@ -619,6 +660,101 @@ export default function HeaderWithCat() {
                           </div>
                         )}
                       </div>
+                    <Nav className="nav-items">
+                      {/* <span className="call-us-text">
+                      Call Us <strong>03301 133 786</strong>
+                      </span> */}
+                      {/* <div
+                        className="search-container relative"
+                        style={{ backgroundColor: "#EEEEEE" }}
+                        ref={desktopSearchRef}
+                      >
+                        <input
+                          type="text"
+                          placeholder="Search"
+                          className="search-input"
+                          value={searchQuery}
+                          onChange={(e) => setSearchQuery(e.target.value)}
+                          onFocus={() => {
+                            setIsDesktopSearchOpen(true);
+                            setIsMobileSearchOpen(false);
+                          }}
+                        />
+                        <button className="search-button">
+                          <IoSearchOutline />
+                        </button>
+                        {searchQuery && isDesktopSearchOpen && (
+                          <div
+                            style={{
+                              position: "absolute",
+                              top: "40px",
+                              left: "0",
+                              width: "100%",
+                              backgroundColor: "#fff",
+                              boxShadow: "0 4px 12px rgba(0, 0, 0, 0.15)",
+                              borderRadius: "8px",
+                              maxHeight: "400px",
+                              overflowY: "auto",
+                              zIndex: 100,
+                              padding: "10px 0",
+                            }}
+                          >
+                            {searchResults.length > 0 ? (
+                              searchResults.map((result) => (
+                                <div
+                                  key={result.id}
+                                  onClick={() => {
+                                    setSearchQuery("");
+                                    setSearchResults([]);
+                                    setIsDesktopSearchOpen(false);
+                                    handleNavigate(result.id, result.slug);
+                                  }}
+                                  style={{
+                                    padding: "12px 20px",
+                                    cursor: "pointer",
+                                    borderBottom: "1px solid #f0f0f0",
+                                    transition:
+                                      "background-color 0.3s ease, color 0.3s ease",
+                                  }}
+                                  onMouseEnter={(e) => {
+                                    e.currentTarget.style.backgroundColor =
+                                      "#ccd6ff";
+                                    e.currentTarget.style.color = "#007bff";
+                                  }}
+                                  onMouseLeave={(e) => {
+                                    e.currentTarget.style.backgroundColor =
+                                      "#fff";
+                                    e.currentTarget.style.color = "#333";
+                                  }}
+                                >
+                                  <p
+                                    style={{
+                                      margin: "0",
+                                      fontSize: "15px",
+                                      fontWeight: "500",
+                                      color: "#333",
+                                    }}
+                                  >
+                                    {result.name}
+                                  </p>
+                                </div>
+                              ))
+                            ) : (
+                              <div
+                                style={{
+                                  padding: "15px",
+                                  textAlign: "center",
+                                  color: "#666",
+                                  fontSize: "14px",
+                                  fontStyle: "italic",
+                                }}
+                              >
+                                No results found
+                              </div>
+                            )}
+                          </div>
+                        )}
+                      </div> */}
                       <div className="nav-icon">
                         {!authToken && (
                           <div
@@ -870,7 +1006,6 @@ export default function HeaderWithCat() {
                         className="nav-categories-btn-arrow"
                         onClick={() => setIscategory(false)}
                         href={`/${[
-                          "collection",
                           ...categoryStack?.map((item: any) =>
                             generateSlug(item?.name)
                           ),
@@ -896,7 +1031,7 @@ export default function HeaderWithCat() {
                                 item.number_of_children === 0
                               ) {
                                 router.push(
-                                  `/collection/${categoryStack
+                                  `/${categoryStack
                                     ?.map((item: any) =>
                                       generateSlug(item?.name)
                                     )
@@ -951,7 +1086,7 @@ export default function HeaderWithCat() {
                           <Link
                             className="nav-link"
                             onMouseEnter={() => handleMouseEnter(item.id)}
-                            href={`/collection/${slug}`}
+                            href={`/${slug}`}
                           >
                             <div className="relative">
                               <div className="nav-link-text">{item.name}</div>
@@ -981,7 +1116,7 @@ export default function HeaderWithCat() {
                           const secondcategory = generateSlug(subItem?.name);
                           return (
                             <Nav.Link
-                              href={`/collection/${maincategory}/${subItem.name !== "View All" ? secondcategory : ""
+                              href={`/${maincategory}/${subItem.name !== "View All" ? secondcategory : ""
                                 }`}
                               key={subItem.id}
                               className="header-bottom-nav-link"
@@ -996,11 +1131,11 @@ export default function HeaderWithCat() {
                       {subCategory.length > 5 && (
                         <div className="header-bottom-nav-links-section">
                           {[
-                            ...(subCategory.length > 9
+                            ...(subCategory.length > 10
                               ? subCategory
-                                .slice(5, 9)
-                                .concat({ name: "View All" })
-                              : subCategory.slice(5, 9) || []),
+                                .slice(5, 10)
+                                // .concat({ name: "View All" })
+                              : subCategory.slice(5, 10) || []),
                           ].map((subItem: any) => {
                             const selectedCategory: any = categories?.find(
                               (item: any) => item.id === hoveredIndex
@@ -1011,7 +1146,40 @@ export default function HeaderWithCat() {
                             const secondcategory = generateSlug(subItem?.name);
                             return (
                               <Nav.Link
-                                href={`/collection/${maincategory}/${subItem.name !== "View All"
+                                href={`/${maincategory}/${subItem.name !== "View All"
+                                  ? secondcategory
+                                  : ""
+                                  }`}
+                                key={subItem.id}
+                                className="header-bottom-nav-link"
+                              >
+                                <span className="header-bottom-nav-link-text">
+                                  {subItem.name}
+                                </span>
+                              </Nav.Link>
+                            );
+                          })}
+                        </div>
+                      )}
+                      {subCategory.length > 10 && (
+                        <div className="header-bottom-nav-links-section">
+                          {[
+                            ...(subCategory.length > 9
+                              ? subCategory
+                                .slice(10, 14)
+                                .concat({ name: "View All" })
+                              : subCategory.slice(5, 14) || []),
+                          ].map((subItem: any) => {
+                            const selectedCategory: any = categories?.find(
+                              (item: any) => item.id === hoveredIndex
+                            );
+                            const maincategory = generateSlug(
+                              selectedCategory?.name
+                            );
+                            const secondcategory = generateSlug(subItem?.name);
+                            return (
+                              <Nav.Link
+                                href={`/${maincategory}/${subItem.name !== "View All"
                                   ? secondcategory
                                   : ""
                                   }`}

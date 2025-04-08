@@ -132,10 +132,7 @@ export default function Collections() {
                   >
                     <div className="">
                       <Link
-                        // href={
-                        //   "/collection/disposables/accident-emergency/aspirators-and-pumps/portable-electric-aspirator/"
-                        // }
-                        href={`/collection/${generateSlug(selectedcategory?.name)}/${generateSlug(category.name)}`}
+                        href={`/${generateSlug(selectedcategory?.name)}/${generateSlug(category.name)}`}
                       >
                         <div className="collection-card">
                           <Image

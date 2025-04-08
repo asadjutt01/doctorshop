@@ -309,7 +309,7 @@ export default function ProductSlider({
                     <div className="content">
                       <h6
                         style={{ height: "50px", cursor: "pointer" }}
-                        onClick={() => handleNavigate(product.id, product.name)}
+                        onClick={() => handleNavigate(product.id, product.slug)}
                       >
                         {product.name}
                       </h6>

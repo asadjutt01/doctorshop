@@ -45,18 +45,7 @@ const CategoryFilter: React.FC<CategoryFilterProps> = ({ collections,selectedCat
                   subCategories[index].map((sub: any) => (
                     <a
                       key={sub.id}
-                      // href={`${
-                      //   routethird
-                      //     ? `/collection/${generateSlug(
-                      //         selectedCategory.name
-                      //       )}/${generateSlug(
-                      //         selectedSubCategory?.name
-                      //       )}/${generateSlug(item?.name)}`
-                      //     : `/collection/${generateSlug(
-                      //         selectedCategory.name
-                      //       )}/${generateSlug(item?.name)}`
-                      // }`}
-                      href={`/collection/${generateSlug(selectedCategory?.name)}/${generateSlug(item?.name)}/${generateSlug(sub?.name)}`}
+                      href={`/${generateSlug(selectedCategory?.name)}/${generateSlug(item?.name)}/${generateSlug(sub?.name)}`}
                     >
                       <p>{sub.name}</p>
                     </a>

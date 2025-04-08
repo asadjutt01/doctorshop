@@ -76,7 +76,7 @@ export default function Breadcrumb(): JSX.Element | null {
           </span>
         </Link>
         {segments
-          .filter((segment) => segment !== "collection") // Filter out 'collection'
+          .filter((segment) => segment !== "products") // Filter out 'collection'
           .map((segment, index,filteredSegments) => {
             const href = `/${filteredSegments.slice(0, index + 1).join("/")}`;
             const isLast = index === segments.length - 1;

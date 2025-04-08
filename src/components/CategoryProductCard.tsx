@@ -27,7 +27,7 @@ interface Product {
   pip_code: any;
   price: number;
   vat: any;
-  product_code: any,
+  product_code: any;
   links: {
     details: string;
   };
@@ -134,11 +134,18 @@ const CategoryProductCard: React.FC<CategoryProductCardProps> = ({
           <div className=" col-lg-4 col-md-6" key={index}>
             <div className="products-card">
               <Link
-                href={navigatetoProductdirectly ? `/products/${product?.slug}` : `/collection/${generateSlug(
-                  selectedCategory.name
-                )}/${generateSlug(selectedSubCategory?.name)}/${generateSlug(
-                  selectedSubSubCategory?.name
-                )}/${generateSlug(product?.name)}`}
+                href={
+                  navigatetoProductdirectly
+                    // ? `/products/${product?.slug}`
+                    ? `/${generateSlug(selectedCategory.name)}/${generateSlug(
+                        selectedSubCategory?.name
+                      )}/${generateSlug(product?.name)}`
+                    : `/${generateSlug(selectedCategory.name)}/${generateSlug(
+                        selectedSubCategory?.name
+                      )}/${generateSlug(
+                        selectedSubSubCategory?.name
+                      )}/${generateSlug(product?.name)}`
+                }
               >
                 <div className="banner">
                   <Image
@@ -158,38 +165,51 @@ const CategoryProductCard: React.FC<CategoryProductCardProps> = ({
               <div className="content">
                 <Link
                   href={
-                    "/collection/disposables/accident-emergency/aspirators-and-pumps/portable-electric-aspirator/"
+                    navigatetoProductdirectly
+                      // ? `/products/${product?.slug}`
+                      ? `/${generateSlug(selectedCategory.name)}/${generateSlug(
+                        selectedSubCategory?.name
+                      )}/${generateSlug(product?.name)}`
+                      : `/${generateSlug(selectedCategory.name)}/${generateSlug(
+                          selectedSubCategory?.name
+                        )}/${generateSlug(
+                          selectedSubSubCategory?.name
+                        )}/${generateSlug(product?.name)}`
                   }
                 >
                   <h6 style={{ height: "50px" }}>{product.name}</h6>
                 </Link>
-                {product.product_code && product.product_code !== "N/A" && product.product_code !== "0" && (
-                  <div className="product_code">
-                    <div className="details">
-                      <div className="code_name">Product Code:</div>
-                      <div className="code">{product.product_code}</div>
+                {product.product_code &&
+                  product.product_code !== "N/A" &&
+                  product.product_code !== "0" && (
+                    <div className="product_code">
+                      <div className="details">
+                        <div className="code_name">Product Code:</div>
+                        <div className="code">{product.product_code}</div>
+                      </div>
                     </div>
-                  </div>
-                )}
+                  )}
 
-                {product.pip_code && product.pip_code !== "N/A" && product.pip_code !== "0" && (
-                  <div className="pip_code">
-                    <div className="details">
-                      <div className="code_name">PIP Code:</div>
-                      <div className="code">{product.pip_code}</div>
+                {product.pip_code &&
+                  product.pip_code !== "N/A" &&
+                  product.pip_code !== "0" && (
+                    <div className="pip_code">
+                      <div className="details">
+                        <div className="code_name">PIP Code:</div>
+                        <div className="code">{product.pip_code}</div>
+                      </div>
                     </div>
-                  </div>
-                )}
-
+                  )}
 
                 <div className="action">
                   <div className="pricing">
                     <div className="price">
                       <div>
                         <span className="cost">
-                          £{product.price != null && !isNaN(product.price)
+                          £
+                          {product.price != null && !isNaN(product.price)
                             ? Number(product.price).toFixed(2)
-                            : '0.00'}
+                            : "0.00"}
                         </span>
                       </div>
                       <div className="inc_vat">

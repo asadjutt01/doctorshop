@@ -47,9 +47,7 @@ export default function CategorySlider() {
     return () => clearTimeout(timer);
   }, [categories, minimumTimeElapsed]);
 
-  const handleClickShopNow = () => {
-    router.push("/collection");
-  };
+  
 
   return (
     <div>
@@ -57,7 +55,7 @@ export default function CategorySlider() {
         <div className="lg-container category-section-padding">
           <div className="center-heading">
             <h2>Shop by Category</h2>
-            <p>500+ Unique Products</p>
+            <p>Over 29K Lines In Stock</p>
           </div>
           <div className="category-row">
             <div className="slider">
@@ -78,7 +76,7 @@ export default function CategorySlider() {
                       borderTop: "4px solid #3498db",
                       borderRadius: "50%",
                       animation: "spin 1s linear infinite",
-                      marginRight: "15%",
+                      // marginRight: "15%",
                     }}
                   ></div>
                   <style>
@@ -101,7 +99,7 @@ export default function CategorySlider() {
                       onSwiper={(swiper: any) => {
                         swiperRef.current = swiper;
                       }}
-                      spaceBetween={16}
+                      spaceBetween={10}
                       loop={true}
                       autoplay={{
                         delay: 3000,
@@ -121,7 +119,7 @@ export default function CategorySlider() {
                         console.log("categories>>>>>>>.", categories);
                         return (
                           <SwiperSlide key={index} className="slider-card cursor-pointer">
-                            <Link href={`/collection/${slug}`}>
+                            <Link href={`/${slug}`}>
                               <div className="cat-card">
                                 <Image src={item?.cover_image} width={330} height={360} alt={item?.name} />
                                 <div className="content">

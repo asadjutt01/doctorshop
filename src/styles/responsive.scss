@@ -58,7 +58,7 @@ $shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 @media only screen and (max-width: 1720px) {
   .lg-container {
-    max-width: 1460px;
+    // max-width: 1460px;
   }
 
   .header .navbar .nav-menu {
@@ -448,6 +448,9 @@ $shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   .call-us-text{
     font-size: 0.75rem !important;
   }
+  .top-bar .top-bar-row .tagline p{
+    font-size: 0.75rem !important;
+  }
   .header .navbar .nav-items .nav-link .login-text{
       font-size: 0.75rem !important;
   }
@@ -461,6 +464,10 @@ $shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   }
   .footer-nav .nav-card {
     width: 33% !important;
+  }
+  .our-contact-section .inner-content{
+    padding-top: 150px;
+    padding-bottom: 100px;
   }
   .custom-container-parent {
     margin-top: 173px;
@@ -1105,6 +1112,9 @@ $shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
       align-items: center;
     }
   }
+  .call-us-text-con{
+    display: none !important;
+  }
   // .custom-timeline .custom-timeline-item .custom-timeline-content,
   // .custom-timeline
   //   .custom-timeline-item
@@ -1190,7 +1200,7 @@ $shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   }
 
   .top-bar .top-bar-row .tagline {
-    justify-content: start !important;
+    justify-content: center !important;
   }
 
   .top-bar .top-bar-row .social-icons {
@@ -2260,6 +2270,8 @@ $shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 
   .mobile-nav {
     display: flex !important;
+    justify-content: space-between;
+    width: 100%;
   }
 
   .header .navbar .nav-items {
@@ -2616,7 +2628,10 @@ $shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     //   display: none;
     // }
   }
-
+  .our-contact-section .info-card .address{
+    padding-top: 0px;
+    padding-bottom: 0px;
+  }
   .top-bar .top-bar-row .tagline p {
     font-size: 0.7rem !important;
   }
@@ -3301,6 +3316,7 @@ $shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
       max-width: 130px !important;
       text-wrap: wrap;
       font-size: 16px !important;
+      text-align: left;
       // text-overflow: ;
     }
   }
