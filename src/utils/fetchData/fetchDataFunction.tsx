@@ -10,7 +10,8 @@ const getProductList = async (categoryId?: any) => {
     // console.log("hello>>>>>>>");
     const response = await Service.Product_Methods.getProduct(categoryId);
     // console.log("response>>>>>>>", response);
-    return response?.data ?? []; // ✅ Ensure it returns products
+    // return response?.data ?? []; // ✅ Ensure it returns products
+    return response ?? []; // ✅ Ensure it returns products
   } catch (error) {
     console.error("Error fetching products:", error);
     return null; // ✅ Return empty array on failure

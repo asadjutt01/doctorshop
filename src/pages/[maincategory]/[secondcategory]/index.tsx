@@ -33,6 +33,9 @@ const SecondCategory: React.FC = () => {
   const [subSubCategories, setSubSubCategories] = useState<SubCategory[]>([]);
   const [categoryProducts, setCategoryProducts] = useState<any[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<any[]>([]);
+  
+  const [paginationLinks, setPaginationLinks] = useState<any>({});
+  const [paginationMeta, setPaginationMeta] = useState<any>({});
   const [loading, setLoading] = useState(true);
   // Filter states
   const [sortHighToLow, setSortHighToLow] = useState(false);
@@ -72,9 +75,11 @@ const SecondCategory: React.FC = () => {
         setSubSubCategories(subSubCategoriesData || []); // Default to empty array if no data
         }else{
           // if (subcategoryData.id) {
-          const categoryProducts = await getProductList(subcategoryData.id);
-          setCategoryProducts(categoryProducts || []);
-          setFilteredProducts(categoryProducts || []); // Initialize filtered products
+          const categoryProducts :any = await getProductList(subcategoryData.id);
+          setCategoryProducts(categoryProducts.data || []);
+          setFilteredProducts(categoryProducts.data || []); // Initialize filtered products
+          setPaginationLinks(categoryProducts.links || {});
+            setPaginationMeta(categoryProducts.meta || {});
         // }
         }
       } catch (error) {
@@ -192,6 +197,21 @@ const SecondCategory: React.FC = () => {
     // console.log(`Clicked: ${item.title} (Index: ${index})`);
   };
 
+  const handlePagination = async (pageUrl: string) => {
+    setLoading(true);
+    try {
+      const res = await fetch(pageUrl);
+      const data = await res.json();
+      setCategoryProducts(data.data || []);
+      setFilteredProducts(data.data || []);
+      setPaginationLinks(data.links || {});
+      setPaginationMeta(data.meta || {});
+    } catch (err) {
+      console.error("Pagination fetch error:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <div>
       <HeaderWithCat />
@@ -205,13 +225,13 @@ const SecondCategory: React.FC = () => {
               <h1>{selectedSubCategory?.name}</h1>
             </div>
             <div className="image-container">
-              <Image
+             {selectedSubCategory?.banner &&  <Image
                 src={selectedSubCategory?.banner}
                 alt="Second Cat Img"
                 className="img-2nd"
                 width={400}
                 height={335}
-              />
+              />}
             </div>
           </div>
         </div>
@@ -341,6 +361,8 @@ const SecondCategory: React.FC = () => {
                </div>
                <div className="col-lg-9">
                  {filteredProducts.length > 0 ? (
+                  <>
+                  
                    <CategoryProductCard
                      products={filteredProducts}
                      handleQuickViewClick={handleQuickViewClick}
@@ -349,6 +371,44 @@ const SecondCategory: React.FC = () => {
                     //  selectedSubSubCategory={selectedSubSubCategory}
                     navigatetoProductdirectly={true}
                    />
+                   <div
+                          className="mt-4"
+                          style={{
+                            display: "flex",
+                            gap: "60px",
+                            justifyContent:"space-between",
+                          }}
+                        >
+                          <div className="pagination-meta mt-2 text-sm text-gray-600">
+                            <span>
+                              Page {paginationMeta.current_page} of{" "}
+                              {paginationMeta.last_page}
+                            </span>
+                            <span>
+                              {" "}
+                              | Total Results: {paginationMeta.total}
+                            </span>
+                          </div>
+                          <div className="pagination flex gap-2">
+                            <button
+                              onClick={() =>
+                                handlePagination(paginationLinks.prev)
+                              }
+                              disabled={!paginationLinks.prev}
+                            >
+                              {"<<"}
+                            </button>
+                            <button
+                              onClick={() =>
+                                handlePagination(paginationLinks.next)
+                              }
+                              disabled={!paginationLinks.next}
+                            >
+                              {">>"}
+                            </button>
+                          </div>
+                        </div>
+                        </>
                  ) : (
                    <div className="no-products-available">
                      <h4>No Products Available</h4>

@@ -60,10 +60,10 @@ const Product: React.FC = () => {
           
           setSelectedSingleProduct(selectedSingleProduct[0]);
           if (selectedSingleProduct[0]?.category) {
-            const categoryProducts = await getProductList(
+            const categoryProducts :any = await getProductList(
               selectedSingleProduct[0]?.category
             );
-            setCategoryProducts(categoryProducts);
+            setCategoryProducts(categoryProducts.data);
           }     
           }else{
             if(productdetail){
@@ -71,10 +71,10 @@ const Product: React.FC = () => {
               // console.log("selectedSingleProduct>>>>>>>>>>>>>>>>>>>>",selectedSingleProduct);
             setSelectedSingleProduct(selectedSingleProduct[0]);
             if (selectedSingleProduct[0]?.category) {
-              const categoryProducts = await getProductList(
+              const categoryProducts:any = await getProductList(
                 selectedSingleProduct[0]?.category
               );
-              setCategoryProducts(categoryProducts); 
+              setCategoryProducts(categoryProducts.data); 
             }    } 
           }
        
