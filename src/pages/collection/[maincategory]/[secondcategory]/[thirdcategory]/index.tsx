@@ -69,9 +69,9 @@ const ThirdCategory: React.FC = () => {
         setSelectedSubSubCategory(selectedSubSubcategory);
 
         if (selectedSubSubcategory?.id) {
-          const categoryProducts = await getProductList(selectedSubSubcategory?.id);
-          setCategoryProducts(categoryProducts || []);
-          setFilteredProducts(categoryProducts || []); // Initialize filtered products
+          const categoryProducts:any = await getProductList(selectedSubSubcategory?.id);
+          setCategoryProducts(categoryProducts.data || []);
+          setFilteredProducts(categoryProducts.data || []); // Initialize filtered products
         }
       } catch (error) {
         console.error("Error fetching subcategories:", error);

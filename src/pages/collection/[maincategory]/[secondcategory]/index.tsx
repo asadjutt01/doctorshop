@@ -72,9 +72,9 @@ const MainCategory: React.FC = () => {
         setSubSubCategories(subSubCategoriesData || []); // Default to empty array if no data
         }else{
           // if (subcategoryData.id) {
-          const categoryProducts = await getProductList(subcategoryData.id);
-          setCategoryProducts(categoryProducts || []);
-          setFilteredProducts(categoryProducts || []); // Initialize filtered products
+          const categoryProducts:any = await getProductList(subcategoryData.id);
+          setCategoryProducts(categoryProducts.data || []);
+          setFilteredProducts(categoryProducts.data || []); // Initialize filtered products
         // }
         }
       } catch (error) {
