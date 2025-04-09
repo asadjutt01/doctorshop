@@ -109,12 +109,12 @@ const MyOrders = () => {
 
       const response: any = await Service.Orders_Methods.getNewOrders(formData);
 
-      console.log("Orders Data >>>>>>", response);
+      // console.log("Orders Data >>>>>>", response);
 
       if (response) {
         setnewOrdersData(response.orders); // Assuming response contains an 'orders' array
       } else {
-        console.log("No orders received.");
+        // console.log("No orders received.");
       }
     } catch (err) {
       console.error("Error fetching orders:", err);
@@ -128,12 +128,12 @@ const MyOrders = () => {
 
       const response: any = await Service.Orders_Methods.getDeliveredOrders(formData);
 
-      console.log("Orders Data >>>>>>", response);
+      // console.log("Orders Data >>>>>>", response);
 
       if (response) {
         setdeliveredData(response.orders); // Assuming response contains an 'orders' array
       } else {
-        console.log("No orders received.");
+        // console.log("No orders received.");
       }
     } catch (err) {
       console.error("Error fetching orders:", err);
@@ -147,12 +147,12 @@ const MyOrders = () => {
 
       const response: any = await Service.Orders_Methods.getCancelOrders(formData);
 
-      console.log("Orders Data >>>>>>", response);
+      // console.log("Orders Data >>>>>>", response);
 
       if (response) {
         setcanceledData(response.orders); // Assuming response contains an 'orders' array
       } else {
-        console.log("No orders received.");
+        // console.log("No orders received.");
       }
     } catch (err) {
       console.error("Error fetching orders:", err);
@@ -160,7 +160,7 @@ const MyOrders = () => {
   };
 
   useEffect(() => {
-    console.log("Fetching orders...");
+    // console.log("Fetching orders...");
     fetchOrders();
     deliveredOrders();
     CancledOrders();

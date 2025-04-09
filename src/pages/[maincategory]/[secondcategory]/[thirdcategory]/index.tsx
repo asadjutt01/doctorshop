@@ -49,9 +49,9 @@ const ThirdCategory: React.FC = () => {
   const [showAll, setShowAll] = useState(true); // New state for "Show All Products"
 
   useEffect(() => {
-    console.log('maincategory>>>>>',maincategory);
-    console.log('secondcategory>>>>>',secondcategory);
-    console.log('thirdcategory>>>>>',thirdcategory);
+    // console.log('maincategory>>>>>',maincategory);
+    // console.log('secondcategory>>>>>',secondcategory);
+    // console.log('thirdcategory>>>>>',thirdcategory);
     if (!maincategory || !secondcategory || !thirdcategory) return;
 
     const maincategoryData = categories.find(
@@ -74,7 +74,7 @@ const ThirdCategory: React.FC = () => {
         const subSubCategoriesData = await getCategorySubSub(
           selectedsubcategory.id
         );
-        console.log('thirdcategory>>>>>',thirdcategory);
+        // console.log('thirdcategory>>>>>',thirdcategory);
         const selectedSubSubcategory = subSubCategoriesData.find(
           (category: any) => generateSlug(category.name) === thirdcategory
         );
@@ -92,7 +92,7 @@ const ThirdCategory: React.FC = () => {
       }else{
         // for product page at third page
         const selectedSingleProduct = await getSingleProduct(thirdcategory);
-              console.log("selectedSingleProduct>>>>>>>>>>>>>>>>>>>>",selectedSingleProduct);
+              // console.log("selectedSingleProduct>>>>>>>>>>>>>>>>>>>>",selectedSingleProduct);
             setSelectedSingleProduct(selectedSingleProduct[0]);
       }
       } catch (error) {
@@ -204,7 +204,7 @@ const ThirdCategory: React.FC = () => {
   };
 
   const handleQuickViewClick = (product: any) => {
-    console.log("Quick View Clicked", product);
+    // console.log("Quick View Clicked", product);
     setShow(true);
     setSelectedProduct(product);
   };

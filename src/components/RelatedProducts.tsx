@@ -31,13 +31,13 @@ const RelatedProducts: React.FC<RelatedProductsProps> = ({ products }) => {
   // };
   // const products = useSelector((state: IRootState) => state.product.products);
   const handleQuickViewClick = (product: any) => {
-    console.log("Quick View Clicked", product);
+    // console.log("Quick View Clicked", product);
     setSelectedProduct(product)
     setShow(true);
   };
 
   const handleAddToCartClick = (product: any) => {
-    console.log("Add to Cart Clicked", product);
+    // console.log("Add to Cart Clicked", product);
   };
 
   // const { products } = useSelector(selectCartState);

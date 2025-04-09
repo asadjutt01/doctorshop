@@ -95,7 +95,7 @@ export default function Index() {
         } else if (currentStep === 1) {
             try {
                 await add_delivrey_adress();
-                console.log("Address added successfully!");
+                // console.log("Address added successfully!");
                 // if (query?.fromcheckout === 'true') {
                 //     router.push("/add-to-cart/checkout");
                 // }
@@ -126,13 +126,13 @@ export default function Index() {
             formData.append("email", email || "");
             formData.append("mobile_number", mobileNumber || "");
 
-            console.log("FormData to be sent:", Object.fromEntries(formData.entries()));
+            // console.log("FormData to be sent:", Object.fromEntries(formData.entries()));
 
             setToastType("info"); // Toast: Info
             setToastMessage("Registering User... Please wait while we process your request.");
 
             const response: any = await Service.Auth_Methods.guest_user_pharma(formData);
-            console.log("Response:", response?.id);
+            // console.log("Response:", response?.id);
             setItem("user_id", response?.user_id);
             setItem("user_type", response?.user_type);
             setItem("authToken", response.token);
@@ -186,13 +186,13 @@ export default function Index() {
             formData.append("county", county || "");
             formData.append("country", country.label || "");
             // formData.append("user_id", user_id);
-            console.log("FormData to be sent:", Object.fromEntries(formData.entries()));
+            // console.log("FormData to be sent:", Object.fromEntries(formData.entries()));
 
             setToastType("info"); // Toast: Info
             setToastMessage("Adding Delivery Address... Please wait while we process your request.");
 
             const response = await Service.Customer_Address_Method.addadress_customer(formData);
-            console.log("Response:", response);
+            // console.log("Response:", response);
             if (query?.fromcheckout === "true") {
                 setToastType("success"); // Toast: Success
                 setToastMessage("Address Added Successfully! Your delivery address has been saved.");

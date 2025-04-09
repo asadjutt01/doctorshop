@@ -54,7 +54,7 @@ export default function HeaderWithCat() {
 
   const [authToken, setAuthToken] = useState<string | null>(null);
   const Count: any = useSelector((state: IRootState) => state.cart.count);
-  console.log("<<<<<<<<<<<<<<<<<<<<", Count);
+  // console.log("<<<<<<<<<<<<<<<<<<<<", Count);
 
   useEffect(() => {
     const token: any = getItem("authToken");
@@ -152,9 +152,9 @@ export default function HeaderWithCat() {
 
       if (response && response.data) {
         setSearchResults(response.data);
-        console.log("Response Data:", response.data);
+        // console.log("Response Data:", response.data);
       } else {
-        console.log("No data found in response");
+        // console.log("No data found in response");
         setSearchResults([]);
       }
     } catch (err) {
@@ -270,7 +270,7 @@ export default function HeaderWithCat() {
     getCartCount(dispatch);
     dispatch(logout());
    
-    console.log("It is logging out");
+    // console.log("It is logging out");
     clearAll()
     removeItem("authToken");
     removeItem("cart_data");
@@ -1114,6 +1114,10 @@ export default function HeaderWithCat() {
                             selectedCategory?.name
                           );
                           const secondcategory = generateSlug(subItem?.name);
+                          console.log(",,,,,,,,,,,,,,,",`/${maincategory}/${subItem.name !== "View All"
+                            ? secondcategory
+                            : ""
+                            }`);
                           return (
                             <Nav.Link
                               href={`/${maincategory}/${subItem.name !== "View All" ? secondcategory : ""
@@ -1144,6 +1148,10 @@ export default function HeaderWithCat() {
                               selectedCategory?.name
                             );
                             const secondcategory = generateSlug(subItem?.name);
+                            console.log(",,,,,,,,,,,,,,,22",`/${maincategory}/${subItem.name !== "View All"
+                              ? secondcategory
+                              : ""
+                              }`);
                             return (
                               <Nav.Link
                                 href={`/${maincategory}/${subItem.name !== "View All"
@@ -1167,7 +1175,6 @@ export default function HeaderWithCat() {
                             ...(subCategory.length > 9
                               ? subCategory
                                 .slice(10, 14)
-                                .concat({ name: "View All" })
                               : subCategory.slice(5, 14) || []),
                           ].map((subItem: any) => {
                             const selectedCategory: any = categories?.find(
@@ -1177,6 +1184,10 @@ export default function HeaderWithCat() {
                               selectedCategory?.name
                             );
                             const secondcategory = generateSlug(subItem?.name);
+                            console.log(",,,,,,,,,,,,,,,33",`/${maincategory}/${subItem.name !== "View All"
+                                  ? secondcategory
+                                  : ""
+                                  }`);
                             return (
                               <Nav.Link
                                 href={`/${maincategory}/${subItem.name !== "View All"
@@ -1197,17 +1208,17 @@ export default function HeaderWithCat() {
                     </div>
                     <div className="header-bottom-nav-images">
                       <Image
-                        src={mm1}
-                        alt="Description of image"
-                        width={300}
-                        height={300}
+                        src={subCategory[0].icon}
+                        alt={`${subCategory[0].icon} image`}
+                        width={250}
+                        height={250}
                         className="header-bottom-nav-image"
                       />
                       <Image
-                        src={mm2}
-                        alt="Description of image"
-                        width={300}
-                        height={300}
+                        src={subCategory[1].icon}
+                        alt={`${subCategory[1].icon} image`}
+                        width={250}
+                        height={250}
                         className="header-bottom-nav-image"
                       />
                     </div>

@@ -35,7 +35,7 @@ const ExampleComponent: React.FC = () => {
 
     // Retrieve the object
     const storedUser = getItem<User>('user');
-    console.log(storedUser);
+    // console.log(storedUser);
 
 
     return (

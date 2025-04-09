@@ -53,8 +53,8 @@ const Product: React.FC = () => {
     // Fetch Product
     const fetchSubCategories = async () => {
       try {
-          console.log("productId>>>>>>",productId);
-          console.log("productdetail>>>>>>>",productdetail);
+          // console.log("productId>>>>>>",productId);
+          // console.log("productdetail>>>>>>>",productdetail);
           if (productId) {
           const selectedSingleProduct = await getSingleProduct(Number(productId));
           
@@ -68,7 +68,7 @@ const Product: React.FC = () => {
           }else{
             if(productdetail){
               const selectedSingleProduct = await getSingleProduct(productdetail);
-              console.log("selectedSingleProduct>>>>>>>>>>>>>>>>>>>>",selectedSingleProduct);
+              // console.log("selectedSingleProduct>>>>>>>>>>>>>>>>>>>>",selectedSingleProduct);
             setSelectedSingleProduct(selectedSingleProduct[0]);
             if (selectedSingleProduct[0]?.category) {
               const categoryProducts = await getProductList(
@@ -86,11 +86,11 @@ const Product: React.FC = () => {
     };
 
     fetchSubCategories();
-    console.log("selectedSinglePrdcgsdfgsdfgoduct",selectedSingleProduct)
+    // console.log("selectedSinglePrdcgsdfgsdfgoduct",selectedSingleProduct)
     // fetchSubSubCategories();
   }, [router.isReady, productId, productdetail]);
   const handleButtonClick = (item: any, index: number) => {
-    console.log(`Clicked: ${item.title} (Index: ${index})`);
+    // console.log(`Clicked: ${item.title} (Index: ${index})`);
   };
 
   return (

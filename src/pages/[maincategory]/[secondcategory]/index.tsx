@@ -21,7 +21,7 @@ interface SubCategory {
   name: string;
 }
 
-const MainCategory: React.FC = () => {
+const SecondCategory: React.FC = () => {
   const router = useRouter();
   const { maincategory, secondcategory } = router.query;
 
@@ -68,7 +68,7 @@ const MainCategory: React.FC = () => {
         const subSubCategoriesData = await getCategorySubSub(subcategoryData.id);
         // console.log("subCategoriesData?.length > 0",subSubCategoriesData,subSubCategoriesData)
         if(subSubCategoriesData?.length > 0){
-        console.log("subSubCategoriesData//////////", subSubCategoriesData);
+        // console.log("subSubCategoriesData//////////", subSubCategoriesData);
         setSubSubCategories(subSubCategoriesData || []); // Default to empty array if no data
         }else{
           // if (subcategoryData.id) {
@@ -180,7 +180,7 @@ const MainCategory: React.FC = () => {
     });
   };
     const handleQuickViewClick = (product: any) => {
-      console.log("Quick View Clicked", product);
+      // console.log("Quick View Clicked", product);
       setShow(true);
       setSelectedProduct(product);
     };
@@ -189,7 +189,7 @@ const MainCategory: React.FC = () => {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
   const handleButtonClick = (item: any, index: number) => {
-    console.log(`Clicked: ${item.title} (Index: ${index})`);
+    // console.log(`Clicked: ${item.title} (Index: ${index})`);
   };
 
   return (
@@ -216,7 +216,7 @@ const MainCategory: React.FC = () => {
           </div>
         </div>
       </div>
-     {subSubCategories.length> 0 ? (<div className="categories-section">
+     {selectedCategory && subSubCategories.length> 0 ? (<div className="categories-section">
         <div className="lg-container">
           {loading ? (
             <div className="loader-container">
@@ -229,7 +229,7 @@ const MainCategory: React.FC = () => {
                   <h3>Product Categories</h3>
                   <div className="category-list">
                     {subSubCategories.map((category, index) => (
-                      <a key={index}  href={`/${generateSlug(selectedCategory?.name)}/${generateSlug(selectedSubCategory?.name)}/${generateSlug(category?.name)}`} className="category-item">
+                      <a key={index}  href={`/${generateSlug(selectedCategory?.name)}/${generateSlug(selectedSubCategory?.name)}/${generateSlug(category?.name)}`.replace(/\/+/g, '/')} className="category-item">
                         <p>
                           {category?.name}
                         </p>
@@ -376,4 +376,4 @@ const MainCategory: React.FC = () => {
   );
 };
 
-export default MainCategory;
+export default SecondCategory;

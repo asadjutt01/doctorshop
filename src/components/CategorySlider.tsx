@@ -116,7 +116,7 @@ export default function CategorySlider() {
                     >
                       {categories.map((item: any, index: number) => {
                         const slug = generateSlug(item?.name);
-                        console.log("categories>>>>>>>.", categories);
+                        // console.log("categories>>>>>>>.", categories);
                         return (
                           <SwiperSlide key={index} className="slider-card cursor-pointer">
                             <Link href={`/${slug}`}>

@@ -11,14 +11,14 @@ export default function NewArrivalSlider() {
   const [selectedProduct, setSelectedProduct] = useState<any>(null);
   const [show, setShow] = useState(false);
   const handleQuickViewClick = (product: any) => {
-    console.log("Quick View Clicked", product);
+    // console.log("Quick View Clicked", product);
     setSelectedProduct(product)
     setShow(true);
   };
 
 
   const handleAddToCartClick = (product: any) => {
-    console.log("Add to Cart Clicked", product);
+    // console.log("Add to Cart Clicked", product);
   };
 
   const handleClose = () => setShow(false);

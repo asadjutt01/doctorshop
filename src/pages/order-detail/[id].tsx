@@ -107,11 +107,11 @@ export default function Index() {
   const getOrderDetail = async (id: any) => {
     try {
       const response: any = await Service.Orders_Methods.getOrderDetail(id);
-      console.log("Orders Data >>>>>>", response);
+      // console.log("Orders Data >>>>>>", response);
       if (response) {
         setOrders_Detail(response.orders);
       } else {
-        console.log("No orders received.");
+        // console.log("No orders received.");
       }
     } catch (err) {
       console.error("Error fetching orders:", err);

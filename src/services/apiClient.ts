@@ -7,6 +7,8 @@ const apiClient: AxiosInstance = axios.create({
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",
+    // 'Cache-Control': 'no-store',
+    // Pragma: 'no-cache',
   },
 });
 

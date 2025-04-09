@@ -30,7 +30,7 @@ interface CartItemProps {
 
 const CartItem: React.FC<CartItemProps> = ({ item }) => {
   const router = useRouter();
-  console.log("item >>>>here is item", item);
+  // console.log("item >>>>here is item", item);
 
 
   // Calculate VAT (assuming 20% VAT rate, adjust as needed)
@@ -38,7 +38,7 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
   const vatPrice = basePriceNum * 1.2;
 
   const handleNavigate = (id: number, slug: any) => {
-    console.log("item.product.name>>>>>>>>>>>>>>>>adda", id, slug);
+    // console.log("item.product.name>>>>>>>>>>>>>>>>adda", id, slug);
 
 
     const data = {
@@ -54,7 +54,7 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
       { shallow: true }
     );
   };
-  console.log("item >>>>", item);
+  // console.log("item >>>>", item);
 
   return (
     <div className="cart-item-whishlist">
@@ -127,12 +127,12 @@ const MyWishlist = () => {
     try {
       setIsLoading(true); // Start loading
       const response: any = await Service.Wish_List_Method.getWhishList();
-      console.log("Wishlist Data >>>>>>", response);
+      // console.log("Wishlist Data >>>>>>", response);
 
       if (response && response.data) {
         setWishlistData(response.data);
       } else {
-        console.log("No wishlist items received.");
+        // console.log("No wishlist items received.");
         setWishlistData([]); // Ensure wishlistData is empty if no data
       }
     } catch (err) {

@@ -139,7 +139,7 @@ export default function Register() {
     } else if (currentStep === 1 && isDeliveryDetailsValid) {
       try {
         await add_delivrey_adress();
-        console.log("Address added successfully!");
+        // console.log("Address added successfully!");
       } catch (err) {
         console.error("Address addition failed:", err);
       } finally {
@@ -156,8 +156,8 @@ export default function Register() {
     }
   };
   const cartItems: any = cartsWithList?.data[0]?.cart_items;
-  console.log("cartItems>>>>>>>>>>>>>>>>>>>>>>>>>>>in register>", cartItems);
-  console.log("cartItems>>>>>>>>>>>>>>>>>>>>>>>>>>>in register>", cartsWithList);
+  // console.log("cartItems>>>>>>>>>>>>>>>>>>>>>>>>>>>in register>", cartItems);
+  // console.log("cartItems>>>>>>>>>>>>>>>>>>>>>>>>>>>in register>", cartsWithList);
   const hasPharma = cartItems?.some((product: any) => product?.pharmaceutical_product === "true");
   ;
 
@@ -186,14 +186,14 @@ export default function Register() {
         formData.append("organization_name", healthOrganizationName || "");
       }
 
-      console.log("FormData to be sent:", Object.fromEntries(formData.entries()));
+      // console.log("FormData to be sent:", Object.fromEntries(formData.entries()));
 
       setToastType("info");
       setToastMessage("Registering... Please wait while we create your account.");
 
       const response: any = await Service.Auth_Methods.user_regiser(formData);
 
-      console.log("Registration Response:", response);
+      // console.log("Registration Response:", response);
       // setItem("user_id", response?.user_id);
 
       // setItem("user", response?.user);
@@ -271,14 +271,14 @@ export default function Register() {
       formData.append("county", county || "");
       formData.append("country", country.label || "");
 
-      console.log("FormData to be sent:", Object.fromEntries(formData.entries()));
+      // console.log("FormData to be sent:", Object.fromEntries(formData.entries()));
 
       setToastType("info");
       setToastMessage("Adding Address... Please wait while we save your delivery address.");
 
       const response:any = await Service.Customer_Address_Method.addadress_customer(formData);
 
-      console.log("Address Response:", response);
+      // console.log("Address Response:", response);
       setToastType("success");
       setToastMessage("Address Added! Your delivery address has been saved.");
 

@@ -53,7 +53,7 @@ export default function Login() {
 
       const response: any = await Service.Auth_Methods.login(formData);
 
-      console.log("Response from API >>>>>>", response);
+      // console.log("Response from API >>>>>>", response);
 
       if (response && response.access_token) {
         setItem("authToken", response.access_token);
@@ -92,7 +92,7 @@ export default function Login() {
         }
       } else {
         setErrorMessage("Login failed: No access token received");
-        console.log("No access token received.");
+        // console.log("No access token received.");
 
         // Error alert
         Swal.fire({

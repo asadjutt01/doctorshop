@@ -124,7 +124,7 @@ const CartSummary: React.FC<CartSummaryProps> = ({
   );
   const handleLogout = () => {
     dispatch(logout());
-    console.log("It is logging out");
+    // console.log("It is logging out");
     removeItem("authToken");
     removeItem("cart_data");
     clearAll();

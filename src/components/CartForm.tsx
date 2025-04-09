@@ -32,7 +32,7 @@ export default function CartForm() {
 
     };
     useEffect(() => {
-        console.log(isChecked)
+        // console.log(isChecked)
     }, [isChecked])
     return (
         <div>

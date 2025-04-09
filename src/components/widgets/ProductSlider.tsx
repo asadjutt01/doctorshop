@@ -177,7 +177,7 @@ export default function ProductSlider({
     setToastMessage(
       "Adding to Cart... Please wait while we process your request"
     );
-    console.log("product.variant", product.variant);
+    // console.log("product.variant", product.variant);
     const formData = new FormData();
     formData.append("id", product?.id);
     formData.append("quantity", "1");
@@ -195,11 +195,11 @@ export default function ProductSlider({
       formData.append("temp_user_id", temp_user_id);
     }
 
-    console.log("isAuthenticated.......", isAuthenticated);
+    // console.log("isAuthenticated.......", isAuthenticated);
     try {
       const response = await Service.Cart_Method.addToCart(formData);
       if (response) {
-        console.log("Successfully Add to cart");
+        // console.log("Successfully Add to cart");
         getCartCount(dispatch);
         setToastType("success");
         setToastMessage(

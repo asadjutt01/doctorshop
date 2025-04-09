@@ -43,11 +43,11 @@ export const getCartCount = async (dispatch: any) => {
       formData.append("temp_user_id", temp_user_id);
     }
     const response: any = await Service.Cart_Method.getCartCount(formData);
-    console.log("Count Data >>>>>>", response.count);
+    // console.log("Count Data >>>>>>", response.count);
     if (response && response.count !== undefined) {
       dispatch(setCartCount(response.count));
     } else {
-      console.log("No count received.");
+      // console.log("No count received.");
     }
   } catch (err) {
     console.error("Error fetching cart count:", err);

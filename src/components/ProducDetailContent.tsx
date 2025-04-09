@@ -132,7 +132,7 @@ export default function ProducDetailContent({
     setSelectedVariant(product?.variant?.[0] || {});
   }, [product]);
 
-  console.log("product>>>>>>>>>>>>>>>>>>>>>>>>>>>>dasdS?>", product);
+  // console.log("product>>>>>>>>>>>>>>>>>>>>>>>>>>>>dasdS?>", product);
 
 
   const closeToast = () => setToastMessage(null);

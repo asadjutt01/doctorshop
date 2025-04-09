@@ -43,8 +43,8 @@ const Collection_Card: React.FC<CollectionCardProps> = ({
           <div className="" key={index}>
             <a
               href={`${routethird
-                ? `/${generateSlug(selectedCategory.name)}/${generateSlug(selectedSubCategory?.name)}/${generateSlug(item?.name)}`
-                : `/${generateSlug(selectedCategory.name)}/${generateSlug(item?.name)}`
+                ? `/${generateSlug(selectedCategory.name)}/${generateSlug(selectedSubCategory?.name)}/${generateSlug(item?.name)}`.replace(/\/+/g, '/')
+                : `/${generateSlug(selectedCategory.name)}/${generateSlug(item?.name)}`.replace(/\/+/g, '/')
                 }`}
             >
               <div className="category-card">

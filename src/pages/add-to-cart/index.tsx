@@ -111,7 +111,7 @@ const CartItem: React.FC<CartItemProps> = ({
   const [quantity, setQuantity] = useState(item?.quantity ?? 1);
   const price = parseFloat(item?.price?.replace(/[^0-9.]/g, "")) || 0;
   const [totalPrice, setTotalPrice] = useState(price);
-  console.log("item???????", item);
+  // console.log("item???????", item);
   // ✅ Update quantity and call API
   const handleQuantityChange = (type: "increase" | "decrease") => {
     setQuantity((prev: any) => {
@@ -126,7 +126,7 @@ const CartItem: React.FC<CartItemProps> = ({
     const formData = new FormData();
     formData.append("id", item?.id);
     formData.append("quantity", updatedQuantity.toString());
-    console.log("totalPrice>>>>", price, item?.quantity);
+    // console.log("totalPrice>>>>", price, item?.quantity);
     try {
       setIsLoading(true);
       const responseqty: any = await Service.Cart_Method.cartQuantityUpdate(
@@ -187,8 +187,8 @@ const CartItem: React.FC<CartItemProps> = ({
         formData.append("temp_user_id", temp_user_id);
       }
 
-      console.log("Deleting product:", item.product_id);
-      console.log("FormData:", formData);
+      // console.log("Deleting product:", item.product_id);
+      // console.log("FormData:", formData);
 
       const responseqty: any = await Service.Cart_Method.cartDelete(formData);
       // console.log("Delete Response:", responseqty);
@@ -210,7 +210,7 @@ const CartItem: React.FC<CartItemProps> = ({
     // fetchCartSummary();
   }, [quantity, totalPrice]);
 
-  console.log("Total Price:", totalPrice.toFixed(2));
+  // console.log("Total Price:", totalPrice.toFixed(2));
 
   return (
     <div className="cart-item">
@@ -334,9 +334,9 @@ const CartSummary: React.FC<CartSummaryProps> = ({ cartItemsLength, cartItems })
   const handleClick = () => {
     if (cartItemsLength > 0) {
 
-      console.log("authToken>>>>>>", authToken);
-      console.log("hasPharma>>>>", hasPharma);
-      console.log("isPharma>>>", isPharma);
+      // console.log("authToken>>>>>>", authToken);
+      // console.log("hasPharma>>>>", hasPharma);
+      // console.log("isPharma>>>", isPharma);
       if (hasPharma && !authToken) {
         const data = {
           fromcheckout: true,
@@ -371,7 +371,7 @@ const CartSummary: React.FC<CartSummaryProps> = ({ cartItemsLength, cartItems })
         // Show toast
         setToastType("info");
         setToastMessage("Proceeding to Login as Guest...");
-        console.log("guest>>>>>>>>>>>>>>");
+        // console.log("guest>>>>>>>>>>>>>>");
         router.push(
           {
             pathname: `/checkout-login-register/`,

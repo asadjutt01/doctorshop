@@ -73,11 +73,11 @@ const MyAccountProfile = () => {
 
     try {
       const response: any = await Service.Users_Methods.getUserList(formData);
-      console.log("User Data >>>>>>", response);
+      // console.log("User Data >>>>>>", response);
       if (response) {
         setUserData(response);
       } else {
-        console.log("No user data received.");
+        // console.log("No user data received.");
       }
     } catch (err) {
       console.error("Error fetching user data:", err);
@@ -90,11 +90,11 @@ const MyAccountProfile = () => {
 
     try {
       const response: any = await Service.Users_Methods.getUserpharma(formData);
-      console.log("Pharma Data >>>>>>", response);
+      // console.log("Pharma Data >>>>>>", response);
       if (response) {
         setPharmaUserData(response);
       } else {
-        console.log("No pharma data received.");
+        // console.log("No pharma data received.");
       }
     } catch (err) {
       console.error("Error fetching pharma data:", err);
@@ -110,8 +110,8 @@ const MyAccountProfile = () => {
 
   const hasPharmaData = pharmaUserData && pharmaUserData.user_type === "customer_pharmaceuti";
 
-  console.log("userData>>>>>>>>>>>>>>>>>>>>>", userData);
-  console.log("pharmaUserData>>>>>>>>>>>>>>>>>>>>>", pharmaUserData);
+  // console.log("userData>>>>>>>>>>>>>>>>>>>>>", userData);
+  // console.log("pharmaUserData>>>>>>>>>>>>>>>>>>>>>", pharmaUserData);
 
   return (
     <DashboardLayout>

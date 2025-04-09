@@ -17,7 +17,7 @@ const Checkbox: React.FC<CheckboxProps> = ({
   setIsChecked,
 }) => {
   const handleChange = (e: any) => {
-    console.log("Checkbox clicked, current state: ", isChecked);
+    // console.log("Checkbox clicked, current state: ", isChecked);
     setIsChecked(!isChecked);
 
   };

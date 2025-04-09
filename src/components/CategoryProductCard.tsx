@@ -52,7 +52,7 @@ const CategoryProductCard: React.FC<CategoryProductCardProps> = ({
   selectedSubSubCategory,
   navigatetoProductdirectly = false,
 }) => {
-  console.log(products, "products");
+  // console.log(products, "products");
   const dispatch = useDispatch();
   const [failedImages, setFailedImages] = useState<Set<string | number>>(
     new Set()
@@ -97,7 +97,7 @@ const CategoryProductCard: React.FC<CategoryProductCardProps> = ({
       const response = await Service.Cart_Method.addToCart(formData);
       if (response) {
         // dispatch(addToCart(formData)); // Uncomment if using Redux
-        console.log("Successfully Add to cart");
+        // console.log("Successfully Add to cart");
         getCartCount(dispatch);
         setToastType("success");
         setToastMessage(
@@ -139,12 +139,12 @@ const CategoryProductCard: React.FC<CategoryProductCardProps> = ({
                     // ? `/products/${product?.slug}`
                     ? `/${generateSlug(selectedCategory.name)}/${generateSlug(
                         selectedSubCategory?.name
-                      )}/${generateSlug(product?.name)}`
+                      )}/${generateSlug(product?.name)}`.replace(/\/+/g, '/')
                     : `/${generateSlug(selectedCategory.name)}/${generateSlug(
                         selectedSubCategory?.name
                       )}/${generateSlug(
                         selectedSubSubCategory?.name
-                      )}/${generateSlug(product?.name)}`
+                      )}/${generateSlug(product?.name)}`.replace(/\/+/g, '/')
                 }
               >
                 <div className="banner">
@@ -169,12 +169,12 @@ const CategoryProductCard: React.FC<CategoryProductCardProps> = ({
                       // ? `/products/${product?.slug}`
                       ? `/${generateSlug(selectedCategory.name)}/${generateSlug(
                         selectedSubCategory?.name
-                      )}/${generateSlug(product?.name)}`
+                      )}/${generateSlug(product?.name)}`.replace(/\/+/g, '/')
                       : `/${generateSlug(selectedCategory.name)}/${generateSlug(
                           selectedSubCategory?.name
                         )}/${generateSlug(
                           selectedSubSubCategory?.name
-                        )}/${generateSlug(product?.name)}`
+                        )}/${generateSlug(product?.name)}`.replace(/\/+/g, '/')
                   }
                 >
                   <h6 style={{ height: "50px" }}>{product.name}</h6>

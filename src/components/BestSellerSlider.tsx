@@ -32,7 +32,7 @@ export default function BestSellerSlider() {
   };
 
   const handleQuickViewClick = (product: any) => {
-    console.log("Quick View Clicked it is product of it", product);
+    // console.log("Quick View Clicked it is product of it", product);
     setSelectedProduct(product)
     setShow(true);
   };

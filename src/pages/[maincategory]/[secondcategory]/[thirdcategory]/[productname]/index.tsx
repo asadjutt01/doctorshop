@@ -207,8 +207,8 @@ const Product: React.FC = () => {
           const selectedSingleProduct = await getSingleProduct(
             selectedSingleProductdata?.id
           );
-          console.log('productname>>>>>>>>>>>>>>>>>>', productname);
-          console.log('selectedSingleProduct>>>>>>>>>>>>>>>>>>', selectedSingleProduct[0]);
+          // console.log('productname>>>>>>>>>>>>>>>>>>', productname);
+          // console.log('selectedSingleProduct>>>>>>>>>>>>>>>>>>', selectedSingleProduct[0]);
           setSelectedSingleProduct(selectedSingleProduct[0])
 
         }
@@ -223,7 +223,7 @@ const Product: React.FC = () => {
     // fetchSubSubCategories();
   }, [maincategory, secondcategory, categories]);
   const handleButtonClick = (item: any, index: number) => {
-    console.log(`Clicked: ${item.title} (Index: ${index})`);
+    // console.log(`Clicked: ${item.title} (Index: ${index})`);
   };
   // const [selectedProduct, setSelectedProduct] = useState<any>(null);
   // const [show, setShow] = useState(false);

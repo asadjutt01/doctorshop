@@ -55,11 +55,11 @@ const productSlice = createSlice({
     },
     setproductsFeatured: (state, action: PayloadAction<Product[]>) => {
       state.productsFeatured = action.payload;
-      console.log("state.productsFeatured", state.productsFeatured);
+      // console.log("state.productsFeatured", state.productsFeatured);
     },
     setproductsBestSeller: (state, action: PayloadAction<Product[]>) => {
       state.bestSellerProduct = action.payload;
-      console.log("state.productsBestSeller", state.bestSellerProduct);
+      // console.log("state.productsBestSeller", state.bestSellerProduct);
     },
   },
 });

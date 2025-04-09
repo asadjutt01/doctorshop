@@ -18,9 +18,9 @@ const getProductList = async (categoryId?: any) => {
 };
 const getProductToday = async () => {
   try {
-    console.log("hello>>>>>>>");
+    // console.log("hello>>>>>>>");
     const response = await Service.Product_Methods.getProductToday();
-    console.log("response>>>>>>>", response);
+    // console.log("response>>>>>>>", response);
     return response?.data ?? []; // ✅ Ensure it returns products
   } catch (error) {
     console.error("Error fetching products:", error);
@@ -30,9 +30,9 @@ const getProductToday = async () => {
 
 const getProdutbest = async () => {
   try {
-    console.log("hello>>>>>>>");
+    // console.log("hello>>>>>>>");
     const response = await Service.Product_Methods.getbestseller();
-    console.log("response>>>>>>>", response);
+    // console.log("response>>>>>>>", response);
     return response?.data ?? []; // ✅ Ensure it returns products
   } catch (error) {
     console.error("Error fetching products:", error);
@@ -41,9 +41,9 @@ const getProdutbest = async () => {
 };
 const getProductFeatured = async () => {
   try {
-    console.log("hello>>>>>>>");
+    // console.log("hello>>>>>>>");
     const response = await Service.Product_Methods.getProductFeatured();
-    console.log("response>>>>>>>", response);
+    // console.log("response>>>>>>>", response);
     return response?.data ?? []; // ✅ Ensure it returns products
   } catch (error) {
     console.error("Error fetching products:", error);
@@ -120,7 +120,7 @@ const getCartSummary = async () => {
    }
     // console.log("hello>>>>>>>");
     const response = await Service.Cart_Method.getCartSummary(formData);
-    console.log("response>>>>>assd>>", response);
+    // console.log("response>>>>>assd>>", response);
     return response ?? {}; // ✅ Ensure it returns products
   } catch (error) {
     console.error("Error fetching products:", error);

@@ -9,7 +9,7 @@ import LoadInitialData from "@/components/LoadInitialData/LoadInitialData";
 // Component to fetch data on app load
 
 export default function App({ Component, pageProps }: AppProps) {
-  console.log("Redux Store State at Start:", store.getState());
+  // console.log("Redux Store State at Start:", store.getState());
 
   return (
     <Provider store={store}>

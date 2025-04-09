@@ -88,7 +88,7 @@ export default function Index() {
       formData.append("user_id", user_id || "");
       // formData.append("is_pharmaceutical", "1");
 
-      console.log("FormData to be sent:", Object.fromEntries(formData.entries()));
+      // console.log("FormData to be sent:", Object.fromEntries(formData.entries()));
 
       setToastType("info");
       setToastMessage("Registering Pharma Account... Please wait while we process your request.");
@@ -102,7 +102,7 @@ export default function Index() {
             hasPharma:true,
             login:false,
           };
-          console.log("GGGGGGGGGGGGGGGGG", query?.fromcheckout === "true", query?.hasPharma === 'true' , query?.login === 'false');
+          // console.log("GGGGGGGGGGGGGGGGG", query?.fromcheckout === "true", query?.hasPharma === 'true' , query?.login === 'false');
           router.push(
             {
               pathname: `/add-to-cart/checkout`,

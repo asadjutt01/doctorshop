@@ -19,7 +19,7 @@ const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
   product,
 }) => {
   const getPharma: any = getItem("user_type");
-  console.log("selectedProduct>>>>>>>>product>", product);
+  // console.log("selectedProduct>>>>>>>>product>", product);
   const router = useRouter();
   useEffect(() => {
     if (show) {
