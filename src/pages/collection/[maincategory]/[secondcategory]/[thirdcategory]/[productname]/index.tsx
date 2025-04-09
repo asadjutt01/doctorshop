@@ -197,11 +197,11 @@ const Product: React.FC = () => {
         setSelectedSubSubCategory(selectedSubSubcategory);
 
         if (selectedSubSubcategory?.id) {
-          const categoryProducts = await getProductList(
+          const categoryProducts :any= await getProductList(
             selectedSubSubcategory?.id
           );
-          setCategoryProducts(categoryProducts);
-          const selectedSingleProductdata = categoryProducts.find(
+          setCategoryProducts(categoryProducts.data);
+          const selectedSingleProductdata = categoryProducts.data.find(
             (product: any) => generateSlug(product.name) === productname
           );
           const selectedSingleProduct = await getSingleProduct(
