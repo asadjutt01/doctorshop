@@ -61,9 +61,9 @@ const LoadInitialData = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const products = await getProductList();
-        if (products?.length > 0) {
-          dispatch(setProducts(products));
+        const products :any= await getProductList();
+        if (products.data?.length > 0) {
+          dispatch(setProducts(products.data));
         }
       } catch (error) {
         console.error("Error fetching products:", error);
