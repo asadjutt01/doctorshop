@@ -139,12 +139,12 @@ const CategoryProductCard: React.FC<CategoryProductCardProps> = ({
                     // ? `/products/${product?.slug}`
                     ? `/${generateSlug(selectedCategory.name)}/${generateSlug(
                         selectedSubCategory?.name
-                      )}/${generateSlug(product?.name)}`.replace(/\/+/g, '/')
+                      )}/${generateSlug(product?.slug)}`.replace(/\/+/g, '/')
                     : `/${generateSlug(selectedCategory.name)}/${generateSlug(
                         selectedSubCategory?.name
                       )}/${generateSlug(
                         selectedSubSubCategory?.name
-                      )}/${generateSlug(product?.name)}`.replace(/\/+/g, '/')
+                      )}/${generateSlug(product?.slug)}`.replace(/\/+/g, '/')
                 }
               >
                 <div className="banner">
@@ -169,12 +169,12 @@ const CategoryProductCard: React.FC<CategoryProductCardProps> = ({
                       // ? `/products/${product?.slug}`
                       ? `/${generateSlug(selectedCategory.name)}/${generateSlug(
                         selectedSubCategory?.name
-                      )}/${generateSlug(product?.name)}`.replace(/\/+/g, '/')
+                      )}/${generateSlug(product?.slug)}`.replace(/\/+/g, '/')
                       : `/${generateSlug(selectedCategory.name)}/${generateSlug(
                           selectedSubCategory?.name
                         )}/${generateSlug(
                           selectedSubSubCategory?.name
-                        )}/${generateSlug(product?.name)}`.replace(/\/+/g, '/')
+                        )}/${generateSlug(product?.slug)}`.replace(/\/+/g, '/')
                   }
                 >
                   <h6 style={{ height: "50px" }}>{product.name}</h6>

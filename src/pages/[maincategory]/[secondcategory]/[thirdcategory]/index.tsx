@@ -92,11 +92,20 @@ const ThirdCategory: React.FC = () => {
             setPaginationLinks(categoryProducts.links || {});
             setPaginationMeta(categoryProducts.meta || {});
           }
+          setLoading(false);
         } else {
           // for product page at third page
           const selectedSingleProduct = await getSingleProduct(thirdcategory);
           // console.log("selectedSingleProduct>>>>>>>>>>>>>>>>>>>>",selectedSingleProduct);
           setSelectedSingleProduct(selectedSingleProduct[0]);
+          if (selectedSingleProduct[0]?.id) {
+            const categoryProducts = await getProductList(
+              selectedSingleProduct[0]?.id
+            );
+            setCategoryProducts(categoryProducts?.data);
+            setLoading(false);
+          }
+
         }
       } catch (error) {
         console.error("Error fetching subcategories:", error);
@@ -235,6 +244,11 @@ const ThirdCategory: React.FC = () => {
   return (
     <div>
       <HeaderWithCat />
+      {loading ? (
+      <div className="loader-container">
+      <Loader />
+    </div> 
+    ):(<>
       {selectedSingleProduct ? (
         <>
           {/* product page */}
@@ -293,11 +307,11 @@ const ThirdCategory: React.FC = () => {
           </div>
           <div className="categories-section">
             <div className="lg-container category-container">
-              {loading ? (
+              {/* {loading ? (
                 <div className="loader-container">
                   <Loader />
                 </div>
-              ) : (
+              ) : ( */}
                 <div className="row">
                   <div className="col-lg-3 dispay-none">
                     <div className="category-filter">
@@ -447,12 +461,12 @@ const ThirdCategory: React.FC = () => {
                     />
                   </div>
                 </div>
-              )}
+              {/* )} */}
             </div>
           </div>
         </>
       )}
-
+</>)}
       <Footer />
     </div>
   );

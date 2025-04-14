@@ -1114,10 +1114,10 @@ export default function HeaderWithCat() {
                             selectedCategory?.name
                           );
                           const secondcategory = generateSlug(subItem?.name);
-                          console.log(",,,,,,,,,,,,,,,",`/${maincategory}/${subItem.name !== "View All"
-                            ? secondcategory
-                            : ""
-                            }`);
+                          // console.log(",,,,,,,,,,,,,,,",`/${maincategory}/${subItem.name !== "View All"
+                          //   ? secondcategory
+                          //   : ""
+                          //   }`);
                           return (
                             <Nav.Link
                               href={`/${maincategory}/${subItem.name !== "View All" ? secondcategory : ""
@@ -1148,10 +1148,10 @@ export default function HeaderWithCat() {
                               selectedCategory?.name
                             );
                             const secondcategory = generateSlug(subItem?.name);
-                            console.log(",,,,,,,,,,,,,,,22",`/${maincategory}/${subItem.name !== "View All"
-                              ? secondcategory
-                              : ""
-                              }`);
+                            // console.log(",,,,,,,,,,,,,,,22",`/${maincategory}/${subItem.name !== "View All"
+                            //   ? secondcategory
+                            //   : ""
+                            //   }`);
                             return (
                               <Nav.Link
                                 href={`/${maincategory}/${subItem.name !== "View All"
@@ -1172,9 +1172,9 @@ export default function HeaderWithCat() {
                       {subCategory.length > 10 && (
                         <div className="header-bottom-nav-links-section">
                           {[
-                            ...(subCategory.length > 9
+                            ...(subCategory.length > 14
                               ? subCategory
-                                .slice(10, 14)
+                                .slice(10, 14).concat({ name: "View All" })
                               : subCategory.slice(5, 14) || []),
                           ].map((subItem: any) => {
                             const selectedCategory: any = categories?.find(
@@ -1184,10 +1184,10 @@ export default function HeaderWithCat() {
                               selectedCategory?.name
                             );
                             const secondcategory = generateSlug(subItem?.name);
-                            console.log(",,,,,,,,,,,,,,,33",`/${maincategory}/${subItem.name !== "View All"
-                                  ? secondcategory
-                                  : ""
-                                  }`);
+                            // console.log(",,,,,,,,,,,,,,,33",`/${maincategory}/${subItem.name !== "View All"
+                            //       ? secondcategory
+                            //       : ""
+                            //       }`);
                             return (
                               <Nav.Link
                                 href={`/${maincategory}/${subItem.name !== "View All"

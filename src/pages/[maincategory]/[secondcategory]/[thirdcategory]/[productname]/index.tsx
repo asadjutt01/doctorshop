@@ -201,11 +201,13 @@ const Product: React.FC = () => {
             selectedSubSubcategory?.id
           );
           setCategoryProducts(categoryProducts.data);
+          console.log(">....categoryProducts.data",categoryProducts);
           const selectedSingleProductdata = categoryProducts.data.find(
-            (product: any) => generateSlug(product.name) === productname
+            (product: any) => generateSlug(product.slug) === productname
           );
+          console.log("selectedSingleProductdata????????????",selectedSingleProductdata);
           const selectedSingleProduct = await getSingleProduct(
-            selectedSingleProductdata?.id
+            selectedSingleProductdata?.id ?? productname
           );
           // console.log('productname>>>>>>>>>>>>>>>>>>', productname);
           // console.log('selectedSingleProduct>>>>>>>>>>>>>>>>>>', selectedSingleProduct[0]);

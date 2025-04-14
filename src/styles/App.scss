@@ -3225,12 +3225,20 @@ body {
   }
 }
 .cart-item {
-  padding: 12px 0px;
+  padding-top: 32px;
+  padding-bottom: 12px;
   border-top: 1px solid #707070;
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-right: 10px;
+  .remove-item-btn {
+    position: absolute;
+    top: 4px;
+    right: 8px;
+    // rotate: 45deg;
+    cursor: pointer;
+  }
   .cart-item__content {
     display: flex;
     justify-content: space-between;
@@ -3254,13 +3262,13 @@ body {
         background-color: #f7f7f9;
         border-radius: 4px;
         padding: 10px;
-        .remove-item-btn {
-          position: absolute;
-          top: 2px;
-          left: 2px;
-          rotate: 45deg;
-          cursor: pointer;
-        }
+        // .remove-item-btn {
+        //   position: absolute;
+        //   top: 2px;
+        //   right: 2px;
+        //   // rotate: 45deg;
+        //   cursor: pointer;
+        // }
         .cart-item__image {
           width: 60px;
           height: 60px;
