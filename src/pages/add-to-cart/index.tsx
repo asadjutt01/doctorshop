@@ -483,6 +483,7 @@ export default function Index() {
         if (cartSummary && cartList) {
           dispatch(setCartSummary(cartSummary));
           dispatch(setCartsWithList(cartList));
+          getCartCount(dispatch);
         }
       } catch (error) {
         console.error("Error fetching products:", error);

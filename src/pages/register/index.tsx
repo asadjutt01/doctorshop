@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import HeaderWithCat from "@/components/HeaderWithCat";
 import Footer from "@/components/Footer";
 import LabeledInput from "@/components/LabeledInputProps/LabeledInputProps ";
@@ -117,7 +117,7 @@ export default function Register() {
 
   const isPersonalDetailsValid = healthOrganizationType && (
     (healthOrganizationType.value > 2 &&
-      firstName && lastName && email && password && confirmPassword && mobileNumber &&
+      firstName && lastName && email && password && confirmPassword && mobileNumber && password === confirmPassword &&
       (healthOrganizationType.value !== 9 || healthOrganizationName)) ||
     (healthOrganizationType.value <= 2 &&
       firstNameCredit && lastNameCredit && emailCredit && companyNameCredit &&
@@ -130,6 +130,18 @@ export default function Register() {
      &&
     town && city && county && country && isChecked;
 
+  useEffect(() => {
+  if (
+    password.length > 0 &&
+    confirmPassword.length > 0 &&
+    password !== confirmPassword
+  ) {
+    setConfirmPasswordError("Passwords do not match");
+  } else {
+    setConfirmPasswordError("");
+  }
+}, [password, confirmPassword]);
+
   const [currentStep, setCurrentStep] = useState(0);
   const steps = [{ label: "Personal Detail" }, { label: "Delivery Address" }];
 
@@ -138,7 +150,7 @@ export default function Register() {
 
     if (currentStep === 0 && isPersonalDetailsValid) {
       try {
-        await handleRegister();
+        const res = await handleRegister();
         setCurrentStep(1);
       } catch (err) {
         console.error("Registration failed:", err);
@@ -255,7 +267,8 @@ export default function Register() {
       setDepartmentNameCredit("");
       setInvoiceStateEmailCredit("");
       setHealthOrganizationName("");
-
+      setEmailError("")
+      setEmailCreditError("")
       return response;
     } catch (err:any) {
       const errorMessage =
@@ -263,7 +276,14 @@ export default function Register() {
       console.error("Registration Error:", err);
       setToastType("error");
       setToastMessage(errorMessage ||"Registration Failed! Something went wrong. Please try again.");
-      // throw err;
+      if(errorMessage === "Email already exists. Please use a different email address."){
+        setEmailError(errorMessage)
+        setEmailCreditError(errorMessage)
+    
+      }
+
+    
+      throw err;
     }
   };
 
@@ -386,7 +406,7 @@ export default function Register() {
       console.error("Address Error:", err);
       setToastType("error");
       setToastMessage(errorMessage || "Failed to Add Address! Something went wrong. Please try again.");
-      // throw err;
+      throw err;
     }
   };
 
@@ -550,7 +570,7 @@ export default function Register() {
                       handleInputChange(setPassword, [validateRequired], setPasswordError)(e.target.value)
                     }
                     password_input={true}
-                    togglePasswordVisibility={()=>{togglePasswordVisibility(setShowPassword)}}
+                    togglePasswordVisibility={()=>togglePasswordVisibility(setShowPassword)}
                     errorTitle={passwordError}
                   />
                         </div>
@@ -585,7 +605,7 @@ export default function Register() {
                               )(e.target.value)
                             }
                             password_input={true}
-                    togglePasswordVisibility={()=>{togglePasswordVisibility(setShowPasswordConfirm)}}
+                    togglePasswordVisibility={()=>togglePasswordVisibility(setShowPasswordConfirm)}
                             errorTitle={confirmPasswordError}
                           />
                         </div>

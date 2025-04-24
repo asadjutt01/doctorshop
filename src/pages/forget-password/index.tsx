@@ -57,13 +57,24 @@ export default function Index() {
   const isFormValidCode = code && !codeError;
   const isFormValidPasswords = password && !passwordError && passwordConfirm && !passwordConfirmError && password === passwordConfirm;
 
-  const  isPasswordMatch =  password.length > 0 &&
-  passwordConfirm.length > 0 &&
-  password !== passwordConfirm;
-  if(isPasswordMatch){
-    setPasswordConfirmError("Password Do Not Match")
-  }
-
+  // const  isPasswordMatch =  password.length > 0 &&
+  // passwordConfirm.length > 0 &&
+  // password !== passwordConfirm;
+  // if(isPasswordMatch){
+  //   setPasswordConfirmError("Password Do Not Match")
+  // }
+  useEffect(() => {
+    if (
+      password.length > 0 &&
+      passwordConfirm.length > 0 &&
+      password !== passwordConfirm
+    ) {
+      setPasswordConfirmError("Passwords do not match");
+    } else {
+      // setPasswordConfirmError("");
+    }
+  }, [password, passwordConfirm]);
+  
   const handleSendMail = async () => {
     setLoading(true);
     setToastType("info");

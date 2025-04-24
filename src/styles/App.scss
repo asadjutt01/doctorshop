@@ -3659,7 +3659,7 @@ body {
 // calender Icon
 .calendar-icon {
   position: absolute; /* Absolutely position the element */
-  top: 50%; /* Place it 50% down from the top of the parent */
+  top: 18px; /* Place it 50% down from the top of the parent */
   right: 12px; /* Place it 8px away from the right side */
   transform: translateY(-50%); /* Adjust to vertically center the element */
   // pointer-events: none; /* Make the element non-interactive */

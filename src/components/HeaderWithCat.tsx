@@ -35,12 +35,13 @@ import {
   getCategorySubSub,
 } from "@/utils/fetchData/fetchDataFunction";
 import Service from "@/services";
-import { clearAll, getItem, removeItem } from "@/utils/localStorage/localStorage";
+import { clearAll, getItem, removeItem, setItem } from "@/utils/localStorage/localStorage";
 import Swal from "sweetalert2";
 import { logout } from "@/redux/store/auth/authConfigSlice";
 import Toast from "./Toast";
 import { getCartCount } from "./LoadInitialData/LoadInitialData";
 
+import { v4 as uuidv4 } from "uuid";
 export default function HeaderWithCat() {
   const [isActive, setIsActive] = useState(false);
   const [iscategory, setIscategory] = useState(false);
@@ -265,7 +266,14 @@ export default function HeaderWithCat() {
       { shallow: true }
     );
   };
+  const storeTempId = () => {
+    let temp_user_id = getItem("temp_user_id"); // Check if temp_user_id exists in storage
 
+    if (!temp_user_id) {
+      temp_user_id = uuidv4(); // Generate new UUID
+      setItem("temp_user_id", temp_user_id); // Store it in localStorage
+    }
+  };
   const handleLogout = () => {
     getCartCount(dispatch);
     dispatch(logout());
@@ -276,7 +284,7 @@ export default function HeaderWithCat() {
     removeItem("cart_data");
    
     setAuthToken(null);
-
+    storeTempId()
     setToastType("success");
     setToastMessage("Logged Out! You have been successfully logged out.");
 
