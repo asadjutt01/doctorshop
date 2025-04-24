@@ -3662,8 +3662,10 @@ body {
   top: 50%; /* Place it 50% down from the top of the parent */
   right: 12px; /* Place it 8px away from the right side */
   transform: translateY(-50%); /* Adjust to vertically center the element */
-  pointer-events: none; /* Make the element non-interactive */
+  // pointer-events: none; /* Make the element non-interactive */
   background-color: #ffffff;
+cursor: pointer;
+  z-index: 50;
 }
 
 .checkout-payment__card-icons {

@@ -3,10 +3,12 @@ import { Carousel, Dropdown, Nav, Navbar, NavDropdown } from "react-bootstrap";
 // import microscope from '../app/images/microscope.png';
 import cardiopad from "../app/images/cardio-pad.png";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Microscope() {
   return (
     <div>
+       <Link href={"/products/seca-cardiopad-2/"}>
       <div className="microscope-section">
         <div className="lg-container ">
           <div className="d-flex flex-column flex-md-row">
@@ -31,6 +33,7 @@ export default function Microscope() {
           </div>
         </div>
       </div>
+      </Link>
     </div>
   );
 }

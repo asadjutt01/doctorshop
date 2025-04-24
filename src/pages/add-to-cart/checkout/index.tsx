@@ -992,10 +992,11 @@ export default function Index() {
                 onChange={(e) =>
                   handleInputChange(
                     setAddressLine2,
-                    [validateRequired],
+                    [],
                     setAddressLine2Error
                   )(e.target.value)
                 }
+                required={false}
                 errorTitle={addressLine2Error}
               />
               <LabeledInput
@@ -1007,10 +1008,11 @@ export default function Index() {
                 onChange={(e) =>
                   handleInputChange(
                     setAddressLine3,
-                    [validateRequired],
+                    [],
                     setAddressLine3Error
                   )(e.target.value)
                 }
+                required={false}
                 errorTitle={addressLine3Error}
               />
             </div>

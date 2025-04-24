@@ -251,9 +251,9 @@ export default function HeaderWithCat() {
     setSelectedCurrency(currencyCode);
   };
 
-  const handleNavigate = (id: number, slug: string) => {
+  const handleNavigate = (slug: string) => {
     const data = {
-      productId: id,
+      // productId: id,
       productName: slug,
     };
     router.push(
@@ -612,7 +612,7 @@ export default function HeaderWithCat() {
                                     setSearchQuery("");
                                     setSearchResults([]);
                                     setIsDesktopSearchOpen(false);
-                                    handleNavigate(result.id, result.slug);
+                                    handleNavigate(result.slug);
                                   }}
                                   style={{
                                     padding: "12px 20px",
@@ -1175,7 +1175,7 @@ export default function HeaderWithCat() {
                             ...(subCategory.length > 14
                               ? subCategory
                                 .slice(10, 14).concat({ name: "View All" })
-                              : subCategory.slice(5, 14) || []),
+                              : subCategory.slice(10, 14) || []),
                           ].map((subItem: any) => {
                             const selectedCategory: any = categories?.find(
                               (item: any) => item.id === hoveredIndex

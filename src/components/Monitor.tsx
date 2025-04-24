@@ -2,6 +2,7 @@ import React from "react";
 import { Carousel, Dropdown, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { useRouter } from "next/router";
 import Image, { StaticImageData } from "next/image";
+import Link from "next/link";
 
 interface MonitorProps {
   img: StaticImageData;
@@ -15,6 +16,7 @@ const Monitor: React.FC<MonitorProps> = ({ img, bgbanner,bgbannermobile }) => {
   return (
     <div>
       <div className="lg-container ">
+        <Link href={"/products/omron-907-blood-pressure-monitor/"}>
         <div
           className="monitor-section"
           style={{ backgroundImage: `url(${bgbanner.src})` }}
@@ -61,6 +63,9 @@ const Monitor: React.FC<MonitorProps> = ({ img, bgbanner,bgbannermobile }) => {
             </div>
           </div>
         </div>
+        </Link>
+ 
+        <Link href={"/products/omron-907-blood-pressure-monitor/"}>
         <div
           className="monitor-section-mobile"
           style={{ backgroundImage: `url(${bgbannermobile.src})` }}
@@ -107,8 +112,9 @@ const Monitor: React.FC<MonitorProps> = ({ img, bgbanner,bgbannermobile }) => {
             </div>
           </div>
         </div>
+          </Link>
       </div>
-    </div>
+      </div>
   );
 };
 export default Monitor;

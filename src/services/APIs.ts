@@ -189,13 +189,16 @@ const APIS_URL = {
   /* ------------------------------ user Register -------------------------------- */
 
   USER_Register: "/credit-customer/store",
+  USER_REGISTER_UPDATE: "/credit-customer/update",
 
   /* ------------------------------ cusrtomer delivrey address -------------------------------- */
 
   CUSTOMER_DELIVERY_ADDRESS_ADD_URL: "/delivery-form-store",
+  CUSTOMER_DELIVERY_ADDRESS_UPDATE_URL: "updateDelivery",
 
   /* ------------------------------ add pharma_customer -------------------------------- */
   PHARMA_CUSTOMER_ADD: "/pharma-customer/store",
+  PHARMA_CUSTOMER_UPDATE: "/pharma-customer/update",
 
   /* ------------------------------ wishlist -------------------------------- */
   ADD_WISHLIST: "/wishlists-add-product",
@@ -212,7 +215,10 @@ const APIS_URL = {
 
   /* ------------------------------ Auth -------------------------------- */
   AUTH_LOGIN: "/auth/login",
-
+  VERIFY:"/verify",
+  FORGET_PASSWORD:"/password/forget_request",
+  FORGET_PASSWORD_VERIFY_CODE:"/password/verifyCode",
+  FORGET_PASSWORD_CONFIRM_RESET:"password/confirm_reset",
   /* ------------------------------ cart -------------------------------- */
   ADD_TO_CART: "/carts/add",
   CART_LIST: "/carts",

@@ -188,7 +188,9 @@ export default function ProducDetailContent({
             </div>
           )}
           {/* Variant Selection - Only show pills if variant exists and is not "0" */}
-          {product?.variant?.length > 0 && selectedVariant?.variant !== "0" && selectedVariant?.variant !== "" && (
+          {product?.variant?.length > 0 
+          // && selectedVariant?.variant !== "0"
+           && selectedVariant?.variant !== "" && (
             <div className="qty">
               <div className="size"><h3 className="detail-h3">Variant:</h3></div>
               <div className="badge-parent">

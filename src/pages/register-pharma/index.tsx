@@ -82,7 +82,7 @@ export default function Index() {
 
       formData.append("company_name", companyName || "");
       formData.append("account_number", accountNumber || "");
-      formData.append("license_type", licenseType.label || "");
+      formData.append("license_type", licenseType.value || "");
       formData.append("registration_date", licenseRegisterationDate || "");
       formData.append("Signature", signature || "");
       formData.append("user_id", user_id || "");
@@ -119,59 +119,8 @@ export default function Index() {
           setToastMessage("Login Successful! Welcome back!");
           router.push("/");
         }
-
-
-      //  if (query?.fromcheckout === "true" && query?.hasPharma === 'true') {
-
-      //  }
-      // if (query?.fromcheckout === "true") {            
-      //   setToastType("success"); // Toast: Success
-      //   setToastMessage("Address Added Successfully! Your delivery address has been saved.");
-      //   router.push("/add-to-cart/checkout");
-      // } else {
-      //     setToastType("success"); // Toast: Success
-      //     setToastMessage("Address Added Successfully! Your delivery address has been saved.");
-      //     router.push("/");
-      // }
-      
-      // if (hasPharma) {
-      //   router.push('/add-to-cart/checkout');
-      // }
-
-
-
-
-
-
-
-
-
-
-// home
-
-
-// if (query?.fromcheckout === "true" && query?.hasPharma === 'true') {
-//   const temp_user_id: any = getItem("temp_user_id");
-//   const formData = new FormData();
-//   formData.append("user_id", response?.user_id);
-//   formData.append("temp_user_id", temp_user_id);
-//   const tempResponse: any = await Service.Cart_Method.tempUserIdUpdate(
-//     formData
-//   );
-//   // Success alert
-//   setToastType("success"); // Toast: Success
-//   setToastMessage("Registration Successful! Your personal details have been saved successfully.");
-//   router.push("/add-to-cart/checkout");
-// } else {
-//   setToastType("success"); // Toast: Success
-//   setToastMessage("Registration Successful! Your personal details have been saved successfully.");
-// }
-
-
-
-// home
-
       setItem("user_id", response.id);
+       setItem("is_pharmaceutical", response.is_pharmaceutical);
       // setItem("user_type", response?.user_type);
       setToastType("success");
       setToastMessage("Registration Successful! Your pharma account has been created.");
@@ -194,7 +143,7 @@ export default function Index() {
       console.error("Registration Error:", err);
       setToastType("error");
       setToastMessage("Registration Failed! Something went wrong. Please try again.");
-      throw err;
+    
     }
   };
 

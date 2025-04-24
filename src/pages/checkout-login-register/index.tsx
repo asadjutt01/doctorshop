@@ -29,7 +29,11 @@ export default function Login() {
   const [loading, setLoading] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
   const isFormValid = email && password && !emailError && !passwordError;
+  const [showPassword, setShowPassword] = useState(false);
 
+  const togglePasswordVisibility = () => {
+    setShowPassword(prev => !prev);
+  };
   const handleLogin = async () => {
     setLoading(true);
     setErrorMessage(""); // Clear previous error messages
@@ -145,7 +149,7 @@ export default function Login() {
                   errorTitle={emailError}
                 />
 
-                <LabeledInput
+                {/* <LabeledInput
                   id="password"
                   type="password"
                   placeholder="Password"
@@ -160,7 +164,21 @@ export default function Login() {
                     )(e.target.value)
                   }
                   errorTitle={passwordError}
-                />
+                /> */}
+                 <LabeledInput
+                    id="password"
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Password"
+                    value={password}
+                    label="Password"
+                    required={true}
+                    onChange={(e) =>
+                      handleInputChange(setPassword, [validateRequired], setPasswordError)(e.target.value)
+                    }
+                    password_input={true}
+                    togglePasswordVisibility={togglePasswordVisibility}
+                    errorTitle={passwordError}
+                  />
                 <div className="Remember-me-forget">
                   <Checkbox
                     text={"Remember me"}

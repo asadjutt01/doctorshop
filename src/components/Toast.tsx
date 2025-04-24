@@ -51,7 +51,7 @@ const Toast: React.FC<ToastProps> = ({ message, type, duration = 5000, onClose }
         background: backgroundColor,
         color: "white",
         borderRadius: "12px",
-        zIndex: 1000,
+        zIndex: 99999,
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",

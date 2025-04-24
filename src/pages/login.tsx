@@ -11,6 +11,7 @@ import { login } from "@/redux/store/auth/authConfigSlice";
 import Service from "@/services";
 import { useDispatch } from "react-redux";
 import Toast from "@/components/Toast"; // Assuming this is the path to your Toast component
+import Link from "next/link";
 
 export default function Login() {
   const [toastMessage, setToastMessage] = useState<string | null>(null);
@@ -30,7 +31,11 @@ export default function Login() {
   const [emailError, setEmailError] = useState<string>("");
   const [passwordError, setPasswordError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
+  const [showPassword, setShowPassword] = useState(false);
 
+  const togglePasswordVisibility = () => {
+    setShowPassword(prev => !prev);
+  };
   const isFormValid = email && password && !emailError && !passwordError;
 
   const handleLogin = async () => {
@@ -56,9 +61,9 @@ export default function Login() {
         setItem("user", response?.user);
         dispatch(login({ user: response.user, token: response.access_token }));
 
-       if (response.is_pharmaceutical === 1) {
-        router.push("/add-to-cart/checkout");
-       }
+      //  if (response.is_pharmaceutical === 1) {
+      //   router.push("/add-to-cart/checkout");
+      //  }
         // console.log(query?.fromcheckout === "true", query?.hasPharma === 'true' , query?.login === 'false');
         if (query?.fromcheckout === "true" && query?.hasPharma === 'true' && query?.login === 'false') {
           const temp_user_id: any = getItem("temp_user_id");
@@ -182,7 +187,7 @@ export default function Login() {
 
                   <LabeledInput
                     id="password"
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     placeholder="Password"
                     value={password}
                     label="Password"
@@ -190,6 +195,8 @@ export default function Login() {
                     onChange={(e) =>
                       handleInputChange(setPassword, [validateRequired], setPasswordError)(e.target.value)
                     }
+                    password_input={true}
+                    togglePasswordVisibility={togglePasswordVisibility}
                     errorTitle={passwordError}
                   />
                   <div
@@ -202,8 +209,10 @@ export default function Login() {
                       isChecked={isChecked}
                       setIsChecked={setIsChecked}
                     />
-                    <span style={{ color: "#007bff", cursor: "pointer" }}>Forgotten your password?</span>
-                  </div>
+                    <Link href={'/forget-password'}>
+                          <span style={{ color: "#007bff", cursor: "pointer" }}>Forgotten your password?</span>
+                    </Link>
+                    </div>
                 </div>
 
                 <button

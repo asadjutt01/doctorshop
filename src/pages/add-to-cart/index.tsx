@@ -224,9 +224,12 @@ const CartItem: React.FC<CartItemProps> = ({ item, onDeleteStart, onDeleteEnd })
                   <span className="cart-item__info-section-detail-value">{item?.pip_code && item.pip_code != 0 ? item.pip_code : "-"}</span>
                 </div>
               )}
-              {item?.variation && item.variation != 0 && (<div className="cart-item__info-section-detail">
+              {item?.variation  && 
+               (<div className="cart-item__info-section-detail">
                 <span className="cart-item__info-section-detail-key">Variation:</span>
-                <span className="cart-item__info-section-detail-value">{item?.variation && item.variation != 0 ? item.variation : "-"}</span>
+                <span className="cart-item__info-section-detail-value">{item?.variation 
+                // && item.variation != 0 
+                 ? item.variation : "-"}</span>
               </div>)}
             </div>
           </div>

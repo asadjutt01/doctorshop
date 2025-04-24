@@ -81,6 +81,21 @@ export default function Index() {
         { label: "Delivery Address" },
     ];
 
+    const isPersonalDetailsValid =  firstName &&
+    lastName &&
+    email && 
+    mobileNumber ;
+    
+      const isDeliveryDetailsValid =
+        postCode &&
+addressLine1 &&
+// addressLine2 &&
+// addressLine3 &&
+town &&
+city &&
+county &&
+country;
+    
     const nextStep = async () => {
 
         if (currentStep === 0) {
@@ -450,12 +465,11 @@ export default function Index() {
                                             onChange={(e) =>
                                                 handleInputChange(
                                                     setAddressLine2,
-                                                    [
-                                                        validateRequired
-                                                    ],
+                                                    [],
                                                     setAddressLine2Error
                                                 )(e.target.value)
                                             }
+                                            required={false}
                                             errorTitle={addressLine2Error}
                                         />
 
@@ -470,12 +484,11 @@ export default function Index() {
                                             onChange={(e) =>
                                                 handleInputChange(
                                                     setAddressLine3,
-                                                    [
-                                                        validateRequired
-                                                    ],
+                                                    [],
                                                     setAddressLine3Error
                                                 )(e.target.value)
                                             }
+                                            required={false}
                                             errorTitle={addressLine3Error}
                                         />
 
@@ -565,7 +578,19 @@ export default function Index() {
 
                             <div className="my-2 w-full button-contaioner">
 
-                                <button type="submit" className="primary-button" onClick={nextStep}>Next</button>
+                                <button
+                                disabled={
+                                    (currentStep === 0 && !isPersonalDetailsValid) ||
+                                    (currentStep === 1 && !isDeliveryDetailsValid) 
+                                  }
+                                  style={{
+                                    backgroundColor:
+                                      (currentStep === 0 && !isPersonalDetailsValid) ||
+                                        (currentStep === 1 && !isDeliveryDetailsValid) 
+                                        ? "#ccc"
+                                        : undefined
+                                  }}
+                                type="submit" className="primary-button" onClick={nextStep}>Next</button>
                             </div>
 
                         </div>

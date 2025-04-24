@@ -100,7 +100,7 @@ const ThirdCategory: React.FC = () => {
           setSelectedSingleProduct(selectedSingleProduct[0]);
           if (selectedSingleProduct[0]?.id) {
             const categoryProducts = await getProductList(
-              selectedSingleProduct[0]?.id
+              selectedSingleProduct[0]?.category
             );
             setCategoryProducts(categoryProducts?.data);
             setLoading(false);

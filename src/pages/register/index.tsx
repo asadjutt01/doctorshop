@@ -45,6 +45,13 @@ export default function Register() {
   const [mobileNumber, setMobileNumber] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
 
+
+  const [showPassword, setShowPassword] = useState(false);
+  const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
+
+  const togglePasswordVisibility = (setShowPassword:any) => {
+    setShowPassword((prev:any) => !prev);
+  };
   // Personal Details Error States
   const [firstNameError, setFirstNameError] = useState<string>("");
   const [lastNameError, setLastNameError] = useState<string>("");
@@ -82,7 +89,7 @@ export default function Register() {
   const [emailCredit, setEmailCredit] = useState<string>("");
   const [companyNameCredit, setCompanyNameCredit] = useState<string>("");
   const [departmentNameCredit, setDepartmentNameCredit] = useState<string>("");
-  const [inoviceStateEmailCredit, setInoviceStateEmailCredit] = useState<string>("");
+  const [invoiceStateEmailCredit, setInvoiceStateEmailCredit] = useState<string>("");
   const [phoneNumberCredit, setPhoneNumberCredit] = useState<string>("");
   const [mobileNumberCredit, setMobileNumberCredit] = useState<string>("");
 
@@ -94,7 +101,7 @@ export default function Register() {
   const [phoneNumberCreditError, setPhoneNumberCreditError] = useState<string>("");
   const [mobileNumberCreditError, setMobileNumberCreditError] = useState<string>("");
   const [departmentNameCreditError, setDepartmentNameCreditError] = useState<string>("");
-  const [inoviceStateEmailCreditError, setInoviceStateEmailCreditError] = useState<string>("");
+  const [invoiceStateEmailCreditError, setInvoiceStateEmailCreditError] = useState<string>("");
 
   const healthcareOrganizationTypes = [
     { label: "GP Surgery", value: 1 },
@@ -114,11 +121,13 @@ export default function Register() {
       (healthOrganizationType.value !== 9 || healthOrganizationName)) ||
     (healthOrganizationType.value <= 2 &&
       firstNameCredit && lastNameCredit && emailCredit && companyNameCredit &&
-      departmentNameCredit && inoviceStateEmailCredit && phoneNumberCredit && mobileNumberCredit)
+      departmentNameCredit && invoiceStateEmailCredit && phoneNumberCredit && mobileNumberCredit)
   );
 
   const isDeliveryDetailsValid =
-    postCode && addressLine1 && addressLine2 && addressLine3 &&
+    postCode && addressLine1 
+    // && addressLine2 && addressLine3
+     &&
     town && city && county && country && isChecked;
 
   const [currentStep, setCurrentStep] = useState(0);
@@ -181,7 +190,7 @@ export default function Register() {
         formData.set("mobile_number", mobileNumberCredit || "");
         formData.append("company_name", companyNameCredit || "");
         formData.append("department_name", departmentNameCredit || "");
-        formData.append("statement_email", inoviceStateEmailCredit || "");
+        formData.append("statement_email", invoiceStateEmailCredit || "");
       } else if (healthOrganizationType?.value === 9) {
         formData.append("organization_name", healthOrganizationName || "");
       }
@@ -208,7 +217,7 @@ export default function Register() {
       setItem("user", response?.user);
       dispatch(login({ user: response.user, token: response.access_token }));
       setToastType("success");
-      setToastMessage("Registration Successful! Your account has been created.");
+      setToastMessage(response?.message || "Registration Successful! Your account has been created.");
 
       // const cart_data = getItem('cart_data')
       // if (cart_data && Object.keys(cart_data).length > 0) {
@@ -244,15 +253,17 @@ export default function Register() {
       setMobileNumberCredit("");
       setCompanyNameCredit("");
       setDepartmentNameCredit("");
-      setInoviceStateEmailCredit("");
+      setInvoiceStateEmailCredit("");
       setHealthOrganizationName("");
 
       return response;
-    } catch (err) {
+    } catch (err:any) {
+      const errorMessage =
+      err.response?.data?.message;
       console.error("Registration Error:", err);
       setToastType("error");
-      setToastMessage("Registration Failed! Something went wrong. Please try again.");
-      throw err;
+      setToastMessage(errorMessage ||"Registration Failed! Something went wrong. Please try again.");
+      // throw err;
     }
   };
 
@@ -280,7 +291,7 @@ export default function Register() {
 
       // console.log("Address Response:", response);
       setToastType("success");
-      setToastMessage("Address Added! Your delivery address has been saved.");
+      setToastMessage(response?.message || "Address Added! Your delivery address has been saved.");
 
       // const is_pharmaceutical =  getItem("is_pharmaceutical")
       if (query?.fromcheckout === "true" && query?.hasPharma === 'true' && query?.login === 'false') {
@@ -293,8 +304,8 @@ export default function Register() {
             formData
         );
      
-        setToastType("success");
-        setToastMessage("Login Successful! Welcome back!");
+        // setToastType("success");
+        // setToastMessage("Login Successful! Welcome back!");
         const user_type: any = getItem("user_type")
         if(user_type !== "customer_credit"){
           const data = {
@@ -316,8 +327,8 @@ export default function Register() {
       
         // router.push("/register-pharma");
       } else  {
-        setToastType("success");
-      setToastMessage("Login Successful! Welcome back!");
+      //   setToastType("success");
+      // setToastMessage("Login Successful! Welcome back!");
       router.push("/");
       }
 
@@ -368,11 +379,14 @@ export default function Register() {
       setCountry({ label: "", value: "" });
 
       return response;
-    } catch (err) {
+    } catch (err:any) {
+
+      const errorMessage =
+      err.response?.data?.message;
       console.error("Address Error:", err);
       setToastType("error");
-      setToastMessage("Failed to Add Address! Something went wrong. Please try again.");
-      throw err;
+      setToastMessage(errorMessage || "Failed to Add Address! Something went wrong. Please try again.");
+      // throw err;
     }
   };
 
@@ -509,7 +523,7 @@ export default function Register() {
                             }
                             errorTitle={emailError}
                           />
-                          <LabeledInput
+                          {/* <LabeledInput
                             id="password"
                             type="password"
                             placeholder="Password"
@@ -524,7 +538,21 @@ export default function Register() {
                               )(e.target.value)
                             }
                             errorTitle={passwordError}
-                          />
+                          /> */}
+                           <LabeledInput
+                    id="password"
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Password"
+                    value={password}
+                    label="Password"
+                    required={true}
+                    onChange={(e) =>
+                      handleInputChange(setPassword, [validateRequired], setPasswordError)(e.target.value)
+                    }
+                    password_input={true}
+                    togglePasswordVisibility={()=>{togglePasswordVisibility(setShowPassword)}}
+                    errorTitle={passwordError}
+                  />
                         </div>
                         <div className="form-input-container">
                           <LabeledPhoneInput
@@ -544,7 +572,7 @@ export default function Register() {
                           />
                           <LabeledInput
                             id="confirmPassword"
-                            type="password"
+                            type={showPasswordConfirm ? "text" : "password"}
                             placeholder="Confirm Password"
                             value={confirmPassword}
                             label="Confirm Password"
@@ -556,6 +584,8 @@ export default function Register() {
                                 setConfirmPasswordError
                               )(e.target.value)
                             }
+                            password_input={true}
+                    togglePasswordVisibility={()=>{togglePasswordVisibility(setShowPasswordConfirm)}}
                             errorTitle={confirmPasswordError}
                           />
                         </div>
@@ -664,20 +694,20 @@ export default function Register() {
                             errorTitle={departmentNameCreditError}
                           />
                           <LabeledInput
-                            id="inoviceStateEmailCredit"
+                            id="invoiceStateEmailCredit"
                             type="text"
-                            placeholder="Inovice / Statement Email"
-                            value={inoviceStateEmailCredit}
-                            label="Inovice / Statement Email"
+                            placeholder="Invoice / Statement Email"
+                            value={invoiceStateEmailCredit}
+                            label="Invoice / Statement Email"
                             required={true}
                             onChange={(e) =>
                               handleInputChange(
-                                setInoviceStateEmailCredit,
+                                setInvoiceStateEmailCredit,
                                 [validateRequired],
-                                setInoviceStateEmailCreditError
+                                setInvoiceStateEmailCreditError
                               )(e.target.value)
                             }
-                            errorTitle={inoviceStateEmailCreditError}
+                            errorTitle={invoiceStateEmailCreditError}
                           />
                         </div>
                         <div className="form-input-container">
@@ -783,10 +813,11 @@ export default function Register() {
                       onChange={(e) =>
                         handleInputChange(
                           setAddressLine2,
-                          [validateRequired],
+                          [],
                           setAddressLine2Error
                         )(e.target.value)
                       }
+                      required={false}
                       errorTitle={addressLine2Error}
                     />
                     <LabeledInput
@@ -798,10 +829,11 @@ export default function Register() {
                       onChange={(e) =>
                         handleInputChange(
                           setAddressLine3,
-                          [validateRequired],
+                          [],
                           setAddressLine3Error
                         )(e.target.value)
                       }
+                      required={false}
                       errorTitle={addressLine3Error}
                     />
                   </div>
