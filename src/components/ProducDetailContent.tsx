@@ -24,8 +24,8 @@ interface ProductDetailContentProps {
   showSocial: boolean;
   warningMobile?: any;
   product?: any;
-  selectedVariant:any;
-setSelectedVariant:any;
+  selectedVariant?:any;
+setSelectedVariant?:any;
 }
 
 export default function ProducDetailContent({

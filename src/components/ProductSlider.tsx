@@ -28,8 +28,8 @@ interface ProductSliderProps {
   showWarning: boolean;
   showshort: boolean;
   product?: any;
-  selectedVariant:any;
-  setSelectedVariant:any;}
+  selectedVariant?:any;
+  setSelectedVariant?:any;}
 
 const ProductSlider: React.FC<ProductSliderProps> = ({
   showWarning,
