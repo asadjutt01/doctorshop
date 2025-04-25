@@ -292,7 +292,7 @@ export default function Index() {
                 }}
                 className="primary-button"
               >
-                {loading ? "Procssing..." : "Send Code"}
+                {loading ? "Procssing..." : "Submit"}
               </button>
 
   </>}

@@ -40,7 +40,7 @@ const Product: React.FC = () => {
   const [selectedSubCategory, setSelectedSubCategory] = useState<any>([]);
   const [selectedSubSubCategory, setSelectedSubSubCategory] = useState<any>([]);
   const [selectedSingleProduct, setSelectedSingleProduct] = useState<any>();
-
+ const [selectedVariant, setSelectedVariant] = useState<any>({});
   // const [subCategories, setSubCategories] = useState<SubCategory[]>([]);
   // const [subSubCategories, setSubSubCategories] = useState<SubCategory[]>([]);
   const [categoryProducts, setCategoryProducts] = useState<any[]>([]);
@@ -59,6 +59,7 @@ const Product: React.FC = () => {
           const selectedSingleProduct = await getSingleProduct(Number(productId));
           
           setSelectedSingleProduct(selectedSingleProduct[0]);
+          setSelectedVariant(selectedSingleProduct[0].variant)
           if (selectedSingleProduct[0]?.category) {
             const categoryProducts :any = await getProductList(
               selectedSingleProduct[0]?.category
@@ -70,6 +71,7 @@ const Product: React.FC = () => {
               const selectedSingleProduct = await getSingleProduct(productdetail);
               // console.log("selectedSingleProduct>>>>>>>>>>>>>>>>>>>>",selectedSingleProduct);
             setSelectedSingleProduct(selectedSingleProduct[0]);
+            setSelectedVariant(selectedSingleProduct[0].variant)
             if (selectedSingleProduct[0]?.category) {
               const categoryProducts:any = await getProductList(
                 selectedSingleProduct[0]?.category
@@ -107,6 +109,8 @@ const Product: React.FC = () => {
                     showWarning={true}
                     showshort={false}
                     product={selectedSingleProduct}
+                    selectedVariant={selectedVariant}
+                    setSelectedVariant={setSelectedVariant}
                   />
                 </div>
               </div>
@@ -116,11 +120,15 @@ const Product: React.FC = () => {
                   showSocial={true}
                   warningMobile={false}
                   product={selectedSingleProduct}
+                  selectedVariant={selectedVariant}
+                  setSelectedVariant={setSelectedVariant}
                 />
               </div>
             </div>
           </div>
-          <TabsComponent product={selectedSingleProduct}  />
+          <TabsComponent product={selectedSingleProduct} 
+          selectedVariant={selectedVariant}
+                  setSelectedVariant={setSelectedVariant}  />
         </div>
       </div>
       <RelatedProducts products={categoryProducts} />

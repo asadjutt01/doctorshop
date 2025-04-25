@@ -100,7 +100,7 @@ export default function Footer() {
               <h6>Contact Us</h6>
               <span className="contact-key">Phone </span>
               <Link href="tel:111122223333" className="mb-1">
-                +44(0)3301 133 786
+              +44 (0)3301 331 786
               </Link>
               <span className="contact-key">Email </span>
               <Link href="mailto:demo@gmail.com" className="mb-1">

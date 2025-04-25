@@ -24,6 +24,8 @@ interface ProductDetailContentProps {
   showSocial: boolean;
   warningMobile?: any;
   product?: any;
+  selectedVariant:any;
+setSelectedVariant:any;
 }
 
 export default function ProducDetailContent({
@@ -32,6 +34,8 @@ export default function ProducDetailContent({
   productname,
   warningMobile = true,
   product,
+  selectedVariant,
+setSelectedVariant,
 }: ProductDetailContentProps) {
   const dispatch = useDispatch();
   const router = useRouter();
@@ -40,7 +44,7 @@ export default function ProducDetailContent({
   const [loading, setLoading] = useState<boolean>(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [toastType, setToastType] = useState<"success" | "error" | "info">("success");
-  const [selectedVariant, setSelectedVariant] = useState<any>(product?.variant?.[0] || {});
+  // const [selectedVariant, setSelectedVariant] = useState<any>(product?.variant?.[0] || {});
   const isAuthenticated = useSelector((state: IRootState) => state.auth.isAuthenticated);
 
   const handleIncrement = () => setQuantity(quantity + 1);
@@ -288,7 +292,7 @@ export default function ProducDetailContent({
         {showShort && (
           <div className="short-disc">
             <h6>Short Description:</h6>
-            <p dangerouslySetInnerHTML={{ __html: product?.short_description }} />
+            <p dangerouslySetInnerHTML={{ __html: selectedVariant?.short_description }} />
           </div>
         )}
         {showSocial && (

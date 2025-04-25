@@ -28,12 +28,15 @@ interface ProductSliderProps {
   showWarning: boolean;
   showshort: boolean;
   product?: any;
-}
+  selectedVariant:any;
+  setSelectedVariant:any;}
 
 const ProductSlider: React.FC<ProductSliderProps> = ({
   showWarning,
   showshort,
   product,
+  selectedVariant,
+  setSelectedVariant,
 }) => {
   // console.log("showWarning>>>>>>>>>>>>>>>>>>>", showWarning);
   const [failedImages, setFailedImages] = useState<Set<string | number>>(
@@ -70,7 +73,7 @@ const ProductSlider: React.FC<ProductSliderProps> = ({
 
   return (
     <div className="product-detail-slider">
-      {shouldShowLoader ? (
+      {shouldShowLoader ||  !selectedVariant?.photos || !selectedVariant?.thumbnail_img ? (
         <div
           style={{
             display: "flex",
@@ -109,7 +112,35 @@ const ProductSlider: React.FC<ProductSliderProps> = ({
               swiperRef.current = swiper;
             }}
           >
-            {[product?.thumbnail_image, ...(product?.images || [])]
+          {[selectedVariant?.thumbnail_img, ...(selectedVariant?.photos || [])]
+  .filter((img: string) => img && img.trim() !== "" && img !== "N/A")
+  .map((img: string, index: number) => {
+    const isImageInvalid = failedImages.has(product?.id); // use product.id here instead of selectedVariant?.id for consistency
+
+    return (
+      <SwiperSlide key={index}>
+        <Image
+          src={isImageInvalid ? noimage : img}
+          width={500}
+          height={500}
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+          }}
+          alt="Product image"
+          onError={() => {
+            // Mark image as failed and trigger re-render if needed
+            failedImages.add(product?.id);
+            // Optional: force update state if `failedImages` is a Set stored in useState or useRef
+          }}
+        />
+      </SwiperSlide>
+    );
+  })}
+
+
+            {/* {[product?.thumbnail_image, ...(product?.images || [])]
               .filter((img) => img)
               .map((img: any, index: number) => {
                 const isImageInvalid =
@@ -133,7 +164,7 @@ const ProductSlider: React.FC<ProductSliderProps> = ({
                     />
                   </SwiperSlide>
                 );
-              })}
+              })} */}
 
             {/* <SwiperSlide>
             <Image
@@ -188,32 +219,29 @@ const ProductSlider: React.FC<ProductSliderProps> = ({
               modules={[FreeMode, Navigation, Thumbs]}
               className="mySwiper"
             >
-              {[product?.thumbnail_image, ...(product?.images || [])]
-                .filter((img) => img && img !== "N/A")
-                .map((img: any) => {
-                  const isImageInvalid =
-                    !img ||
-                    img.trim() === "" ||
-                    img === "N/A" ||
-                    failedImages.has(product?.id);
-                  return (
-                    <SwiperSlide>
-                      <Image
-                        src={isImageInvalid ? noimage : img}
-                        width={500}
-                        height={500}
-                        style={{
-                          width: "100%",
-                          height: "100%",
-                          // padding:"10px",
-                          objectFit: "cover",
-                        }}
-                        alt="Description of image"
-                        onError={(e: any) => e.target.src = "/no-image.jpg"}
-                      />
-                    </SwiperSlide>
-                  );
-                })}
+            {[selectedVariant?.thumbnail_img, ...(selectedVariant?.photos || [])]
+  .filter((img: string) => img && img.trim() !== "" && img !== "N/A")
+  .map((img: string, index: number) => {
+    const isImageInvalid = failedImages.has(selectedVariant?.id);
+
+    return (
+      <SwiperSlide key={index}>
+        <Image
+          src={isImageInvalid ? noimage : img}
+          width={500}
+          height={500}
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+          }}
+          alt="Product image"
+          onError={() => failedImages.add(product?.id)}
+        />
+      </SwiperSlide>
+    );
+  })}
+
               {/* <SwiperSlide>
               <Image
                 src={product?.thumbnail_image}

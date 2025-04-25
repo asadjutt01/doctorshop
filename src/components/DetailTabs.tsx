@@ -4,8 +4,13 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 interface TabsComponentProps {
   product?: any; // Ideally, replace `any` with a proper Product type
+  selectedVariant?:any;
+setSelectedVariant?:any;
 }
-const TabsComponent: React.FC<TabsComponentProps> = ({ product }) => {
+const TabsComponent: React.FC<TabsComponentProps> = ({ product,
+  selectedVariant,
+setSelectedVariant,
+ }) => {
   const [activeKey, setActiveKey] = useState("description");
 
   return (
@@ -13,7 +18,7 @@ const TabsComponent: React.FC<TabsComponentProps> = ({ product }) => {
       <div className="tabs-container">
         {/* Navigation Tabs */}
         <Nav variant="tabs" className="custom-tabs">
-          {product?.description && (
+          {selectedVariant?.description && (
             <Nav.Item>
               <Nav.Link eventKey="description">Description</Nav.Link>
             </Nav.Item>
@@ -33,7 +38,7 @@ const TabsComponent: React.FC<TabsComponentProps> = ({ product }) => {
         <Tab.Content className="custom-tab-content">
           {product?.description && (
             <Tab.Pane eventKey="description">
-              <div dangerouslySetInnerHTML={{ __html: product?.description }} />
+              <div dangerouslySetInnerHTML={{ __html: selectedVariant?.description }} />
               {/* <div>
                 <p>
                   <b>The name of your business or website:</b>

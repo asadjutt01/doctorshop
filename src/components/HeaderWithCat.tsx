@@ -348,7 +348,7 @@ export default function HeaderWithCat() {
                 </div> */}
                 <div className="call-us-text-con">
                   <span className="call-us-text">
-                      Call Us <strong>03301 133 786</strong>
+                      Call Us <strong>03301 331 786</strong>
                       </span>
                       </div>
               </div>
