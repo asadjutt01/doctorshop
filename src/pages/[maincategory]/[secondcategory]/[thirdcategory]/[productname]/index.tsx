@@ -161,7 +161,7 @@ const Product: React.FC = () => {
   const [selectedSubCategory, setSelectedSubCategory] = useState<any>([]);
   const [selectedSubSubCategory, setSelectedSubSubCategory] = useState<any>([]);
   const [selectedSingleProduct, setSelectedSingleProduct] = useState<any>();
-
+  const [selectedVariant, setSelectedVariant] = useState<any>({});
   // const [subCategories, setSubCategories] = useState<SubCategory[]>([]);
   // const [subSubCategories, setSubSubCategories] = useState<SubCategory[]>([]);
   const [categoryProducts, setCategoryProducts] = useState<any[]>([]);
@@ -248,7 +248,9 @@ const Product: React.FC = () => {
                   <ProducSlider
                     showWarning={true}
                     showshort={false}
-                    product={selectedSingleProduct} />
+                    product={selectedSingleProduct}
+                    selectedVariant={selectedVariant}
+                    setSelectedVariant={setSelectedVariant} />
                 </div>
               </div>
               <div className="col-lg-6">
@@ -258,6 +260,8 @@ const Product: React.FC = () => {
                   showSocial={true}
                   warningMobile={false}
                   product={selectedSingleProduct}
+                  selectedVariant={selectedVariant}
+                  setSelectedVariant={setSelectedVariant}
                 />
               </div>
             </div>

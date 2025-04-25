@@ -1,35 +1,22 @@
 import React, { useEffect, useRef, useState } from "react";
-// @ts-ignore
 import { Swiper, SwiperSlide } from "swiper/react";
-// @ts-ignore
-import { Autoplay, Pagination } from "swiper/modules";
-import noimage from "../app/images/no-image.jpg";
+import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 import Image from "next/image";
-import ventilation from "../app/images/ventilation.png";
-import coll1 from "../app/images/coll1.png";
-import coll2 from "../app/images/coll2.png";
-import coll3 from "../app/images/coll3.png";
-import coll4 from "../app/images/coll4.png";
-
-import "swiper/css";
-import "swiper/css/pagination";
-
+import { useRouter } from "next/router";
+import noimage from "../app/images/no-image.jpg";
 import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
-// @ts-ignore
-
-import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 import { getItem } from "@/utils/localStorage/localStorage";
-import { useRouter } from "next/router";
 
 interface ProductSliderProps {
   showWarning: boolean;
   showshort: boolean;
   product?: any;
-  selectedVariant?:any;
-  setSelectedVariant?:any;}
+  selectedVariant?: any;
+  setSelectedVariant?: any;
+}
 
 const ProductSlider: React.FC<ProductSliderProps> = ({
   showWarning,
@@ -38,50 +25,66 @@ const ProductSlider: React.FC<ProductSliderProps> = ({
   selectedVariant,
   setSelectedVariant,
 }) => {
-  // console.log("showWarning>>>>>>>>>>>>>>>>>>>", showWarning);
   const [failedImages, setFailedImages] = useState<Set<string | number>>(
     new Set()
   );
   const [thumbsSwiper, setThumbsSwiper] = useState<any | null>(null);
   const swiperRef = useRef<any>(null);
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState(true); // Loader state
-  const [minimumLoadingComplete, setMinimumLoadingComplete] = useState(false); // Persistent loader flag
+  const [isLoading, setIsLoading] = useState(true);
+  const [minimumLoadingComplete, setMinimumLoadingComplete] = useState(false);
   const getPharma: any = getItem("user_type");
 
   // Persistent loader logic
   useEffect(() => {
-    // Set a minimum loading time of 3 seconds
     const timer = setTimeout(() => {
       setMinimumLoadingComplete(true);
-    }, 3000); // 3000ms = 3 seconds
+    }, 3000);
 
-    // Check if product data is available and clear loading state
-    if (product) {
+    if (product && selectedVariant) {
       setIsLoading(false);
     }
 
-    // Cleanup timer on unmount
     return () => clearTimeout(timer);
-  }, [product]);
-  // console.log("product>>>>>>>>>>>>>>>>.",product);
-  // Combined loading condition: show loader until both minimum time and data are ready
-  const shouldShowLoader = isLoading || !minimumLoadingComplete;
+  }, [product, selectedVariant]);
+
+  // Ensure thumbsSwiper is reset if it becomes invalid
+  useEffect(() => {
+    if (thumbsSwiper && !thumbsSwiper.destroyed) {
+      return;
+    }
+    setThumbsSwiper(null);
+  }, [thumbsSwiper]);
+
+  const shouldShowLoader =
+    isLoading || !minimumLoadingComplete || !selectedVariant || !product;
+
   const handleClickPharma = () => {
     router.push("/register-pharma");
   };
 
+  // Handle image errors
+  const handleImageError = (id: string | number) => {
+    setFailedImages((prev) => new Set([...prev, id]));
+  };
+
+  // Filter and prepare images
+  const images = [
+    selectedVariant?.thumbnail_img,
+    ...(selectedVariant?.photos || []),
+  ].filter((img: string) => img && img.trim() !== "" && img !== "N/A");
+
   return (
     <div className="product-detail-slider">
-      {shouldShowLoader ||  !selectedVariant?.photos || !selectedVariant?.thumbnail_img ? (
+      {shouldShowLoader ? (
         <div
           style={{
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
             height: "100%",
-            minHeight: "400px", // Adjust based on your slider height
-            backgroundColor: "rgba(0, 0, 0, 0.1)", // Gray overlay
+            minHeight: "400px",
+            backgroundColor: "rgba(0, 0, 0, 0.1)",
           }}
         >
           <div
@@ -105,95 +108,32 @@ const ProductSlider: React.FC<ProductSliderProps> = ({
         <>
           <Swiper
             spaceBetween={10}
-            thumbs={{ swiper: thumbsSwiper }}
+            thumbs={{ swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null }}
             modules={[FreeMode, Navigation, Thumbs]}
             className="mySwiper2"
-            onSwiper={(swiper: any) => {
+            onSwiper={(swiper) => {
               swiperRef.current = swiper;
             }}
           >
-          {[selectedVariant?.thumbnail_img, ...(selectedVariant?.photos || [])]
-  .filter((img: string) => img && img.trim() !== "" && img !== "N/A")
-  .map((img: string, index: number) => {
-    const isImageInvalid = failedImages.has(product?.id); // use product.id here instead of selectedVariant?.id for consistency
-
-    return (
-      <SwiperSlide key={index}>
-        <Image
-          src={isImageInvalid ? noimage : img}
-          width={500}
-          height={500}
-          style={{
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-          }}
-          alt="Product image"
-          onError={() => {
-            // Mark image as failed and trigger re-render if needed
-            failedImages.add(product?.id);
-            // Optional: force update state if `failedImages` is a Set stored in useState or useRef
-          }}
-        />
-      </SwiperSlide>
-    );
-  })}
-
-
-            {/* {[product?.thumbnail_image, ...(product?.images || [])]
-              .filter((img) => img)
-              .map((img: any, index: number) => {
-                const isImageInvalid =
-                  !img ||
-                  img.trim() === "" ||
-                  img === "N/A" ||
-                  failedImages.has(product?.id);
-                return (
-                  <SwiperSlide key={index}>
-                    <Image
-                      src={isImageInvalid ? noimage : img}
-                      width={500}
-                      height={500}
-                      style={{
-                        width: "100%",
-                        height: "100%",
-                        objectFit: "cover",
-                      }}
-                      alt="Product image"
-                      onError={(e: any) => e.target.src = "/no-image.jpg"}
-                    />
-                  </SwiperSlide>
-                );
-              })} */}
-
-            {/* <SwiperSlide>
-            <Image
-                src={product?.thumbnail_image}
-                width={500}
-                height={500}
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  // padding:"10px",
-                  objectFit: "cover",
-                }}
-                alt="Description of image"
-              />
-            </SwiperSlide>
-            <SwiperSlide>
-            <Image
-                src={product?.thumbnail_image}
-                width={500}
-                height={500}
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  // padding:"10px",
-                  objectFit: "cover",
-                }}
-                alt="Description of image"
-              />
-            </SwiperSlide> */}
+            {images.map((img: string, index: number) => {
+              const isImageInvalid = failedImages.has(selectedVariant?.id);
+              return (
+                <SwiperSlide key={index}>
+                  <Image
+                    src={isImageInvalid ? noimage : img}
+                    width={500}
+                    height={500}
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                    }}
+                    alt="Product image"
+                    onError={() => handleImageError(selectedVariant?.id)}
+                  />
+                </SwiperSlide>
+              );
+            })}
             <div className="controlers-detail-page show-arrow">
               <div
                 className="left-arrow"
@@ -209,116 +149,65 @@ const ProductSlider: React.FC<ProductSliderProps> = ({
               </div>
             </div>
           </Swiper>
-          <div className="dispay-none">
+
+          {/* Thumbs Swiper - Conditionally render to avoid initialization issues */}
+          {images.length > 0 && (
             <Swiper
-              onSwiper={(swiper: any) => setThumbsSwiper(swiper)}
+              onSwiper={(swiper) => setThumbsSwiper(swiper)}
               spaceBetween={10}
               slidesPerView={4}
               freeMode={true}
               watchSlidesProgress={true}
               modules={[FreeMode, Navigation, Thumbs]}
               className="mySwiper"
+              style={{ marginTop: "10px" }} // Optional: Add spacing
             >
-            {[selectedVariant?.thumbnail_img, ...(selectedVariant?.photos || [])]
-  .filter((img: string) => img && img.trim() !== "" && img !== "N/A")
-  .map((img: string, index: number) => {
-    const isImageInvalid = failedImages.has(selectedVariant?.id);
-
-    return (
-      <SwiperSlide key={index}>
-        <Image
-          src={isImageInvalid ? noimage : img}
-          width={500}
-          height={500}
-          style={{
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-          }}
-          alt="Product image"
-          onError={() => failedImages.add(product?.id)}
-        />
-      </SwiperSlide>
-    );
-  })}
-
-              {/* <SwiperSlide>
-              <Image
-                src={product?.thumbnail_image}
-                width={500}
-                height={500}
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  // padding:"10px",
-                  objectFit: "cover",
-                }}
-                alt="Description of image"
-              />
-              </SwiperSlide>
-              <SwiperSlide>
-              <Image
-                src={product?.thumbnail_image}
-                width={500}
-                height={500}
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  // padding:"10px",
-                  objectFit: "cover",
-                }}
-                alt="Description of image"
-              />
-              </SwiperSlide>
-              <SwiperSlide>
-              <Image
-                src={product?.thumbnail_image}
-                width={500}
-                height={500}
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  // padding:"10px",
-                  objectFit: "cover",
-                }}
-                alt="Description of image"
-              />
-              </SwiperSlide> */}
+              {images.map((img: string, index: number) => {
+                // console.log(">>>>>>>>>>>>>>>>>>>>>>>images",images);
+                const isImageInvalid = failedImages.has(selectedVariant?.id);
+                return (
+                  <SwiperSlide key={index}>
+                    <Image
+                      src={isImageInvalid ? noimage : img}
+                      width={100}
+                      height={100}
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                      }}
+                      alt="Thumbnail image"
+                      onError={() => handleImageError(selectedVariant?.id)}
+                    />
+                  </SwiperSlide>
+                );
+              })}
             </Swiper>
-          </div>
-          {showshort ? (
+          )}
+
+          {showshort && product?.short_description && (
             <div className="short-disc">
               <h5 style={{ fontWeight: "bold" }}>Short Description:</h5>
-              <p>{product?.short_description}</p>
+              <p>{product.short_description}</p>
             </div>
-          ) : null}
+          )}
 
-
-
-          {
-            product?.pharmaceutical_product === "true" ? (
-
-              <>
-                {showWarning ? (
-                  <div className="warning-msg">
-                    <h6>Restricted Access, Authorized Use Only</h6>
-                    <p>
-                      Please be advised that access to this product is restricted and
-                      available only to eligible individuals. At Doctor Shop, we are
-                      committed to ensuring the safety and proper use of our
-                      pharmaceuticals.
-                    </p>
-                    <button className="btn-cart" onClick={handleClickPharma} >
-                      Register For A Pharmaceutical Account
-                    </button>
-                  </div>
-                ) : null}
-              </>
-            ) : null
-          }
+          {product?.pharmaceutical_product === "true" && showWarning && (
+            <div className="warning-msg">
+              <h6>Restricted Access, Authorized Use Only</h6>
+              <p>
+                Please be advised that access to this product is restricted and
+                available only to eligible individuals. At Doctor Shop, we are
+                committed to ensuring the safety and proper use of our
+                pharmaceuticals.
+              </p>
+              <button className="btn-cart" onClick={handleClickPharma}>
+                Register For A Pharmaceutical Account
+              </button>
+            </div>
+          )}
         </>
       )}
-
     </div>
   );
 };

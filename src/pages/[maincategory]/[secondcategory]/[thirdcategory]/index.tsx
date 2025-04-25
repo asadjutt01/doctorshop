@@ -38,6 +38,7 @@ const ThirdCategory: React.FC = () => {
   const [paginationLinks, setPaginationLinks] = useState<any>({});
   const [paginationMeta, setPaginationMeta] = useState<any>({});
   const [selectedSingleProduct, setSelectedSingleProduct] = useState<any>();
+  const [selectedVariant, setSelectedVariant] = useState<any>({});
   // Filter states
   const [sortHighToLow, setSortHighToLow] = useState(false);
   const [sortLowToHigh, setSortLowToHigh] = useState(false);
@@ -263,6 +264,8 @@ const ThirdCategory: React.FC = () => {
                         showWarning={true}
                         showshort={false}
                         product={selectedSingleProduct}
+                        selectedVariant={selectedVariant}
+                  setSelectedVariant={setSelectedVariant}
                       />
                     </div>
                   </div>
@@ -273,6 +276,8 @@ const ThirdCategory: React.FC = () => {
                       showSocial={true}
                       warningMobile={false}
                       product={selectedSingleProduct}
+                      selectedVariant={selectedVariant}
+                      setSelectedVariant={setSelectedVariant}
                     />
                   </div>
                 </div>

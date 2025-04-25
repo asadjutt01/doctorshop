@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 import { FaTimes } from "react-icons/fa";
 import ProducSlider from "@/components/ProductSlider";
@@ -20,6 +20,8 @@ const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
 }) => {
   const getPharma: any = getItem("user_type");
   // console.log("selectedProduct>>>>>>>>product>", product);
+
+  const [selectedVariant, setSelectedVariant] = useState<any>({});
   const router = useRouter();
   useEffect(() => {
     if (show) {
@@ -53,7 +55,8 @@ const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
           <div className="row">
             <div className="col-lg-6">
               <div className="slider">
-                <ProducSlider showWarning={false} showshort={true} product={product} />
+                <ProducSlider showWarning={false} showshort={true} product={product}   selectedVariant={selectedVariant}
+                  setSelectedVariant={setSelectedVariant} />
               </div>
             </div>
             <div className="col-lg-6">
@@ -63,6 +66,8 @@ const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                 productname={'Portable Electric Aspirator'}
                 warningMobile={false}
                 product={product}
+                selectedVariant={selectedVariant}
+                setSelectedVariant={setSelectedVariant}
               />
             </div>
           </div>
