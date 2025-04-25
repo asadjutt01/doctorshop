@@ -212,7 +212,7 @@ const Product: React.FC = () => {
           // console.log('productname>>>>>>>>>>>>>>>>>>', productname);
           // console.log('selectedSingleProduct>>>>>>>>>>>>>>>>>>', selectedSingleProduct[0]);
           setSelectedSingleProduct(selectedSingleProduct[0])
-
+          setSelectedVariant(selectedSingleProduct[0].variant);         
         }
       } catch (error) {
         console.error("Error fetching subcategories:", error);
@@ -256,7 +256,6 @@ const Product: React.FC = () => {
               <div className="col-lg-6">
                 <ProducDetailContent
                   showShort={true}
-                  // productname={selectedSingleProduct?.name}
                   showSocial={true}
                   warningMobile={false}
                   product={selectedSingleProduct}
@@ -266,7 +265,8 @@ const Product: React.FC = () => {
               </div>
             </div>
           </div>
-          <TabsComponent product={selectedSingleProduct} />
+          <TabsComponent product={selectedSingleProduct} selectedVariant={selectedVariant}
+                  setSelectedVariant={setSelectedVariant}/>
         </div>
       </div>
       <RelatedProducts products={categoryProducts} />

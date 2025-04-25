@@ -12,7 +12,7 @@ const TabsComponent: React.FC<TabsComponentProps> = ({ product,
 setSelectedVariant,
  }) => {
   const [activeKey, setActiveKey] = useState("description");
-
+console.log("selectedVariant",selectedVariant);
   return (
     <Tab.Container activeKey={activeKey} onSelect={(k: any) => setActiveKey(k)}>
       <div className="tabs-container">
@@ -36,7 +36,7 @@ setSelectedVariant,
 
         {/* Tab Content */}
         <Tab.Content className="custom-tab-content">
-          {product?.description && (
+          {selectedVariant?.description && (
             <Tab.Pane eventKey="description">
               <div dangerouslySetInnerHTML={{ __html: selectedVariant?.description }} />
               {/* <div>

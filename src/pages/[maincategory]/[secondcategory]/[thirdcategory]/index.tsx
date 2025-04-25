@@ -99,6 +99,7 @@ const ThirdCategory: React.FC = () => {
           const selectedSingleProduct = await getSingleProduct(thirdcategory);
           // console.log("selectedSingleProduct>>>>>>>>>>>>>>>>>>>>",selectedSingleProduct);
           setSelectedSingleProduct(selectedSingleProduct[0]);
+          setSelectedVariant(selectedSingleProduct[0].variant)
           if (selectedSingleProduct[0]?.id) {
             const categoryProducts = await getProductList(
               selectedSingleProduct[0]?.category
@@ -282,7 +283,8 @@ const ThirdCategory: React.FC = () => {
                   </div>
                 </div>
               </div>
-              <TabsComponent product={selectedSingleProduct} />
+              <TabsComponent product={selectedSingleProduct}  selectedVariant={selectedVariant}
+                  setSelectedVariant={setSelectedVariant}/>
             </div>
           </div>
           <RelatedProducts products={categoryProducts} />
