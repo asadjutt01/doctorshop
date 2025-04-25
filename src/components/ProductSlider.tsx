@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
+// @ts-ignore
 import { Swiper, SwiperSlide } from "swiper/react";
+// @ts-ignore
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -9,7 +11,6 @@ import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
 import { getItem } from "@/utils/localStorage/localStorage";
-
 interface ProductSliderProps {
   showWarning: boolean;
   showshort: boolean;
@@ -25,9 +26,7 @@ const ProductSlider: React.FC<ProductSliderProps> = ({
   selectedVariant,
   setSelectedVariant,
 }) => {
-  const [failedImages, setFailedImages] = useState<Set<string | number>>(
-    new Set()
-  );
+  const [failedImages, setFailedImages] = useState<Set<string>>(new Set());
   const [thumbsSwiper, setThumbsSwiper] = useState<any | null>(null);
   const swiperRef = useRef<any>(null);
   const router = useRouter();
@@ -48,6 +47,11 @@ const ProductSlider: React.FC<ProductSliderProps> = ({
     return () => clearTimeout(timer);
   }, [product, selectedVariant]);
 
+  // Reset failedImages when selectedVariant changes
+  useEffect(() => {
+    setFailedImages(new Set());
+  }, [selectedVariant]);
+
   // Ensure thumbsSwiper is reset if it becomes invalid
   useEffect(() => {
     if (thumbsSwiper && !thumbsSwiper.destroyed) {
@@ -64,8 +68,8 @@ const ProductSlider: React.FC<ProductSliderProps> = ({
   };
 
   // Handle image errors
-  const handleImageError = (id: string | number) => {
-    setFailedImages((prev) => new Set([...prev, id]));
+  const handleImageError = (img: string) => {
+    setFailedImages((prev) => new Set([...prev, img]));
   };
 
   // Filter and prepare images
@@ -111,12 +115,12 @@ const ProductSlider: React.FC<ProductSliderProps> = ({
             thumbs={{ swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null }}
             modules={[FreeMode, Navigation, Thumbs]}
             className="mySwiper2"
-            onSwiper={(swiper) => {
+            onSwiper={(swiper:any) => {
               swiperRef.current = swiper;
             }}
           >
             {images.map((img: string, index: number) => {
-              const isImageInvalid = failedImages.has(selectedVariant?.id);
+              const isImageInvalid = failedImages.has(img);
               return (
                 <SwiperSlide key={index}>
                   <Image
@@ -129,7 +133,10 @@ const ProductSlider: React.FC<ProductSliderProps> = ({
                       objectFit: "cover",
                     }}
                     alt="Product image"
-                    onError={() => handleImageError(selectedVariant?.id)}
+                    onError={(e) => {
+                      console.error(`Image failed to load: ${img}`, e);
+                      handleImageError(img);
+                    }}
                   />
                 </SwiperSlide>
               );
@@ -150,21 +157,19 @@ const ProductSlider: React.FC<ProductSliderProps> = ({
             </div>
           </Swiper>
 
-          {/* Thumbs Swiper - Conditionally render to avoid initialization issues */}
           {images.length > 0 && (
             <Swiper
-              onSwiper={(swiper) => setThumbsSwiper(swiper)}
+              onSwiper={(swiper:any) => setThumbsSwiper(swiper)}
               spaceBetween={10}
               slidesPerView={4}
               freeMode={true}
               watchSlidesProgress={true}
               modules={[FreeMode, Navigation, Thumbs]}
               className="mySwiper"
-              style={{ marginTop: "10px" }} // Optional: Add spacing
+              style={{ marginTop: "10px" }}
             >
               {images.map((img: string, index: number) => {
-                // console.log(">>>>>>>>>>>>>>>>>>>>>>>images",images);
-                const isImageInvalid = failedImages.has(selectedVariant?.id);
+                const isImageInvalid = failedImages.has(img);
                 return (
                   <SwiperSlide key={index}>
                     <Image
@@ -177,7 +182,10 @@ const ProductSlider: React.FC<ProductSliderProps> = ({
                         objectFit: "cover",
                       }}
                       alt="Thumbnail image"
-                      onError={() => handleImageError(selectedVariant?.id)}
+                      onError={(e) => {
+                        console.error(`Thumbnail failed to load: ${img}`, e);
+                        handleImageError(img);
+                      }}
                     />
                   </SwiperSlide>
                 );
