@@ -52,7 +52,11 @@ interface CartItemProps {
   onDeleteEnd?: () => void;
 }
 
-const CartItem: React.FC<CartItemProps> = ({ item, onDeleteStart, onDeleteEnd }) => {
+const CartItem: React.FC<CartItemProps> = ({
+  item,
+  onDeleteStart,
+  onDeleteEnd,
+}) => {
   const [isLoading, setIsLoading] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const dispatch = useDispatch();
@@ -75,7 +79,9 @@ const CartItem: React.FC<CartItemProps> = ({ item, onDeleteStart, onDeleteEnd })
     formData.append("quantity", updatedQuantity.toString());
     try {
       setIsLoading(true);
-      const responseqty: any = await Service.Cart_Method.cartQuantityUpdate(formData);
+      const responseqty: any = await Service.Cart_Method.cartQuantityUpdate(
+        formData
+      );
       setTotalPrice(responseqty?.price * updatedQuantity);
       getCartCount(dispatch);
       const cartList = await getCartList();
@@ -136,47 +142,50 @@ const CartItem: React.FC<CartItemProps> = ({ item, onDeleteStart, onDeleteEnd })
   return (
     <div className="cart-item relative">
       {deleting ? (
-              <div style={{
-                width:"100%",
-                height:"100%",
-                position:"absolute",
-                display:"flex",
-                justifyContent:"center",
-                alignItems:"center",
-                backdropFilter:"blur(4px)"
-              }}>
+        <div
+          style={{
+            width: "100%",
+            height: "100%",
+            position: "absolute",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            backdropFilter: "blur(4px)",
+          }}
+        >
+          <div
+            style={{
+              // display: "inline-block",
 
-             
-              <div
-                style={{
-                  // display: "inline-block",
-                  
-                  width: "24px",
-                  height: "24px",
-                  border: "3px solid #007bff",
-                  borderTop: "3px solid transparent",
-                  borderRadius: "50%",
-                  animation: "spin 1s linear infinite",
-                  left:"50%"
-                }}
-              />
-               </div>
-            ) : (
-           
-              <button className="remove-item-btn" onClick={() => { handleDelete() }}
-  style={{
-    width: "22px",
-    height: "22px",
-    backgroundColor: "#ffeef0",
-    border: "none",
-    borderRadius: "50%",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    cursor: "pointer",
-  }}
->
-  {/* <svg
+              width: "24px",
+              height: "24px",
+              border: "3px solid #007bff",
+              borderTop: "3px solid transparent",
+              borderRadius: "50%",
+              animation: "spin 1s linear infinite",
+              left: "50%",
+            }}
+          />
+        </div>
+      ) : (
+        <button
+          className="remove-item-btn"
+          onClick={() => {
+            handleDelete();
+          }}
+          style={{
+            width: "22px",
+            height: "22px",
+            backgroundColor: "#ffeef0",
+            border: "none",
+            borderRadius: "50%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            cursor: "pointer",
+          }}
+        >
+          {/* <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
     fill="none"
@@ -188,19 +197,17 @@ const CartItem: React.FC<CartItemProps> = ({ item, onDeleteStart, onDeleteEnd })
   >
     <path d="M3 6h18M9 6v12m6-12v12M10 6V4h4v2" />
   </svg> */}
-   <FaTrash
-                color="#f30a0a"
-                size={10}
-                // onClick={() => { handleDelete() }}
-                className=""
-              />
-</button>
-
-            )}
+          <FaTrash
+            color="#f30a0a"
+            size={10}
+            // onClick={() => { handleDelete() }}
+            className=""
+          />
+        </button>
+      )}
       <div className="cart-item__content ">
         <div className="cart-item__details">
           <div className="cart-item__image-container">
-            
             <Image
               src={item.product_thumbnail_image}
               alt="Glossy pill bottle"
@@ -214,28 +221,46 @@ const CartItem: React.FC<CartItemProps> = ({ item, onDeleteStart, onDeleteEnd })
             <div className="cart-item__info-section">
               {item?.product_code && item.product_code != 0 && (
                 <div className="cart-item__info-section-detail">
-                  <span className="cart-item__info-section-detail-key">Product Code:</span>
-                  <span className="cart-item__info-section-detail-value">{item?.product_code && item.product_code != 0 ? item.product_code : "-"}</span>
+                  <span className="cart-item__info-section-detail-key">
+                    Product Code:
+                  </span>
+                  <span className="cart-item__info-section-detail-value">
+                    {item?.product_code && item.product_code != 0
+                      ? item.product_code
+                      : "-"}
+                  </span>
                 </div>
               )}
               {item?.pip_code && item.pip_code != 0 && (
                 <div className="cart-item__info-section-detail">
-                  <span className="cart-item__info-section-detail-key">PIP Code:</span>
-                  <span className="cart-item__info-section-detail-value">{item?.pip_code && item.pip_code != 0 ? item.pip_code : "-"}</span>
+                  <span className="cart-item__info-section-detail-key">
+                    PIP Code:
+                  </span>
+                  <span className="cart-item__info-section-detail-value">
+                    {item?.pip_code && item.pip_code != 0 ? item.pip_code : "-"}
+                  </span>
                 </div>
               )}
-              {item?.variation  && 
-               (<div className="cart-item__info-section-detail">
-                <span className="cart-item__info-section-detail-key">Variation:</span>
-                <span className="cart-item__info-section-detail-value">{item?.variation 
-                // && item.variation != 0 
-                 ? item.variation : "-"}</span>
-              </div>)}
+              {item?.variation && (
+                <div className="cart-item__info-section-detail">
+                  <span className="cart-item__info-section-detail-key">
+                    Variation:
+                  </span>
+                  <span className="cart-item__info-section-detail-value">
+                    {item?.variation
+                      ? // && item.variation != 0
+                        item.variation
+                      : "-"}
+                  </span>
+                </div>
+              )}
             </div>
           </div>
         </div>
         <div className="cart-item__price-section">
-          <span className="cart-item__price">{totalPrice?.toFixed(2) ?? "-"}</span>
+          <span className="cart-item__price">
+            {totalPrice?.toFixed(2) ?? "-"}
+          </span>
           <div>
             <div className="cart-item__quantity">
               <button
@@ -247,14 +272,22 @@ const CartItem: React.FC<CartItemProps> = ({ item, onDeleteStart, onDeleteEnd })
                   cursor: quantity === 1 ? "not-allowed" : "pointer",
                 }}
               >
-                <AiFillMinusCircle size={26} className="quantity-btn-plus" color="#575757" />
+                <AiFillMinusCircle
+                  size={26}
+                  className="quantity-btn-plus"
+                  color="#575757"
+                />
               </button>
               <span className="cart-item__details-qty">{quantity}</span>
               <button
                 className="cart-item__quantity-btn"
                 onClick={() => handleQuantityChange("increase")}
               >
-                <AiFillPlusCircle size={26} className="quantity-btn-minus" color="#575757" />
+                <AiFillPlusCircle
+                  size={26}
+                  className="quantity-btn-minus"
+                  color="#575757"
+                />
               </button>
             </div>
           </div>
@@ -270,170 +303,356 @@ interface CartSummaryProps {
   deleting?: boolean;
 }
 
-const CartSummary: React.FC<CartSummaryProps> = ({ cartItemsLength, cartItems, deleting = false }) => {
+const CartSummary: React.FC<CartSummaryProps> = ({
+  cartItemsLength,
+  cartItems,
+  deleting = false,
+}) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const [authToken, setAuthToken] = useState<any>(null);
   const [isPharma, setisPharma] = useState<any>(null);
-  const hasPharma = cartItems?.some((product: any) => product?.pharmaceutical_product === "true");
+  const hasPharma = cartItems?.some(
+    (product: any) => product?.pharmaceutical_product === "true"
+  );
 
   useEffect(() => {
     const token: any = getItem("authToken");
-    const isPharma: any = getItem("is_pharmaceutical");
+    const isPharma: any = getItem("is_pharma_approved");
+    // console.log("isPharma",getItem("is_pharma_approved"))
     setAuthToken(token);
     setisPharma(isPharma);
   }, []);
 
-  const cartSummary = useSelector((state: IRootState) => state.cart.cartSummary);
+  const cartSummary = useSelector(
+    (state: IRootState) => state.cart.cartSummary
+  );
   const [toastMessage, setToastMessage] = useState<string | null>(null);
-  const [toastType, setToastType] = useState<"success" | "error" | "info">("success");
+  const [toastType, setToastType] = useState<"success" | "error" | "info">(
+    "success"
+  );
   const closeToast = () => {
     setToastMessage(null);
   };
-
+  // console.log("hasPharma && authToken && isPharma !== 1",hasPharma ,authToken , isPharma); 
   const handleClick = () => {
     if (cartItemsLength > 0) {
       // console.log("authToken>>>>>>", authToken);
       // console.log("hasPharma>>>>", hasPharma);
       // console.log("isPharma>>>", isPharma);
-      if (hasPharma && !authToken) {
-        const data = {
-          fromcheckout: true,
-          hasPharma: true,
-          login: false,
-        };
-        // Show toast
-        setToastType("error");
-        setToastMessage("Pharmaceutical products require registration.");
-        // router.push("/login/");
-        router.push(
-          {
-            pathname: `/login`,
-            query: data,
-          },
-          `/login`,
-          { shallow: true }
-        );
-        // Clear toast after delay
-        setTimeout(() => {
-          setToastMessage(null);
-        }, 1500);
-        return; // Stop further execution
-      }
-      if (!hasPharma && !authToken) {
-        const data = {
-          fromcheckout: true,
-        };
-        // Show toast
-        setToastType("info");
-        setToastMessage("Proceeding to Login as Guest...");
-        // console.log("guest>>>>>>>>>>>>>>");
-        router.push(
-          {
-            pathname: `/checkout-login-register/`,
-            query: data,
-          },
-          `/checkout-login-register/`,
-          { shallow: true }
-        );
-        // Clear toast after delay
-        setTimeout(() => {
-          setToastMessage(null);
-        }, 1500);
-        return; // Stop further execution
-      }
-      if (isPharma === 0 && authToken) {
-        const data = {
-          fromcheckout: true,
-          hasPharma: true,
-          login: true,
-          isPharma: false,
-        };
-        setToastType("info");
-        setToastMessage("Register your pharmaceutical account");
-        router.push(
-          {
-            pathname: `/register-pharma/`,
-            query: data,
-          },
-          `/register-pharma/`,
-          { shallow: true }
-        );
-        return; // Stop further execution
-      }
-      if (isPharma === 1 && authToken) {
-        // Show toast
-        setToastType("info");
-        setToastMessage("Proceeding to checkout...");
-        router.push("/add-to-cart/checkout/");
-        // Clear toast after delay
-        setTimeout(() => {
-          setToastMessage(null);
-        }, 1500);
-        return; // Stop further execution
-      }
+      const customertype: any = getItem("user_type");
+      // if (hasPharma && !authToken) {
+      //   const data = {
+      //     fromcheckout: true,
+      //     hasPharma: true,
+      //     login: false,
+      //   };
+      //   // Show toast
+      //   console.log("1 hasPharma && !authToken");
+      //   setToastType("error");
+      //   setToastMessage("Pharmaceutical products require registration.");
+      //   // router.push("/login/");
+      //   router.push(
+      //     {
+      //       pathname: `/login`,
+      //       query: data,
+      //     },
+      //     `/login`,
+      //     { shallow: true }
+      //   );
+      //   // Clear toast after delay
+      //   setTimeout(() => {
+      //     setToastMessage(null);
+      //   }, 1500);
+      //   return; // Stop further execution
+      // }
+      // if (!hasPharma && !authToken) {
+      //   const data = {
+      //     fromcheckout: true,
+      //   };
+      //   // Show toast
+      //   console.log("2  !hasPharma && !authToken");
+      //   setToastType("info");
+      //   setToastMessage("Proceeding to Login as Guest...");
+      //   // console.log("guest>>>>>>>>>>>>>>");
+      //   router.push(
+      //     {
+      //       pathname: `/checkout-login-register/`,
+      //       query: data,
+      //     },
+      //     `/checkout-login-register/`,
+      //     { shallow: true }
+      //   );
+      //   // Clear toast after delay
+      //   setTimeout(() => {
+      //     setToastMessage(null);
+      //   }, 1500);
+      //   return; // Stop further execution
+      // }
+      // if (isPharma === 1 && authToken) {
+      //   // Show toast
+      //   console.log("4  isPharma === 1 && authToken");
+      //   setToastType("info");
+      //   setToastMessage("Proceeding to checkout...");
+      //   router.push("/add-to-cart/checkout/");
+      //   // Clear toast after delay
+      //   setTimeout(() => {
+      //     setToastMessage(null);
+      //   }, 1500);
+      //   return; // Stop further execution
+      // }
+      // if(hasPharma && authToken && isPharma !== 1){
+      //   const data = {
+      //     fromcheckout: true,
+      //     hasPharma: true,
+      //     login: true,
+      //     isPharma: false,
+      //   };
+      //   console.log("5 hasPharma && authToken && isPharma !== 1");
+      //   setToastType("error");
+      //   setToastMessage("You can't Buy any Pharma Product. Psease Register your Account");
+      //   // router.push(
+      //   //   {
+      //   //     pathname: `/register-pharma/`,
+      //   //     query: data,
+      //   //   },
+      //   //   `/register-pharma/`,
+      //   //   { shallow: true }
+      //   // );
+      //   return; // Stop further execution
+      // }
+      // if (hasPharma && isPharma !== 1 && authToken && customertype !== "customer_guest") {
+      //   const data = {
+      //     fromcheckout: true,
+      //     hasPharma: true,
+      //     login: true,
+      //     isPharma: false,
+      //   };
+      //   console.log("3  isPharma !== 1 && authToken");
+      //   setToastType("info");
+      //   setToastMessage("Register your pharmaceutical account");
+      //   router.push(
+      //     {
+      //       pathname: `/register-pharma/`,
+      //       query: data,
+      //     },
+      //     `/register-pharma/`,
+      //     { shallow: true }
+      //   );
+      //   return; // Stop further execution
+      // }
       // Show toast
-      setToastType("info");
-      setToastMessage("Proceeding to checkout...");
-      router.push("/add-to-cart/checkout/");
+
+      if (!authToken) {
+        if (!hasPharma) {
+          const data = {
+            fromcheckout: true,
+          };
+          // Show toast
+          console.log("2  !hasPharma && !authToken");
+          setToastType("info");
+          setToastMessage("Proceeding to Login as Guest...");
+          // console.log("guest>>>>>>>>>>>>>>");
+          router.push(
+            {
+              pathname: `/checkout-login-register/`,
+              query: data,
+            },
+            `/checkout-login-register/`,
+            { shallow: true }
+          );
+          // Clear toast after delay
+          setTimeout(() => {
+            setToastMessage(null);
+          }, 1500);
+          return; // Stop further execution
+        } else {
+          const data = {
+            fromcheckout: true,
+            hasPharma: true,
+            login: false,
+          };
+          // Show toast
+          // console.log("1 hasPharma && !authToken");
+          setToastType("error");
+          setToastMessage("Pharmaceutical products require registration.");
+          return; // Stop further execution
+        }
+      } else {
+        if (!hasPharma) {
+          console.log("hasPharma  && authToken");
+          setToastType("info");
+          setToastMessage("Proceeding to checkout...");
+          router.push("/add-to-cart/checkout/");
+          // Clear toast after delay
+          setTimeout(() => {
+            setToastMessage(null);
+          }, 1500);
+        } else {
+          if (isPharma !== 1) {
+            // const data = {
+            //   fromcheckout: true,
+            //   hasPharma: true,
+            //   login: true,
+            //   isPharma: false,
+            // };
+            console.log("5 hasPharma && authToken && isPharma !== 1");
+            setToastType("error");
+            setToastMessage(
+              "You can't Buy any Pharma Product. Psease Register your Account"
+            );
+            // router.push(
+            //   {
+            //     pathname: `/register-pharma/`,
+            //     query: data,
+            //   },
+            //   `/register-pharma/`,
+            //   { shallow: true }
+            // );
+          }else{
+            setToastType("info");
+            setToastMessage("Proceeding to checkout...");
+            router.push("/add-to-cart/checkout/");
+            setTimeout(() => {
+              setToastMessage(null);
+            }, 1500);
+          }
+        }
+      }
+      // console.log("6 default");
+      // setToastType("info");
+      // setToastMessage("Proceeding to checkout...");
+      // router.push("/add-to-cart/checkout/");
       // Clear toast after delay
-      setTimeout(() => {
-        setToastMessage(null);
-      }, 1500);
+      // setTimeout(() => {
+      //   setToastMessage(null);
+      // }, 1500);
     }
   };
 
+  // const handleClick = () => {
+  //   if (cartItemsLength <= 0) return;
+
+  //   const customertype = getItem("user_type");
+  //   const showToast = (type, message, redirectPath, query = {}) => {
+  //     setToastType(type);
+  //     setToastMessage(message);
+  //     if (redirectPath) {
+  //       router.push(
+  //         { pathname: redirectPath, query },
+  //         redirectPath,
+  //         { shallow: true }
+  //       );
+  //     }
+  //     setTimeout(() => setToastMessage(null), 1500);
+  //   };
+
+  //   if (hasPharma && !authToken) {
+  //     console.log("Case 1: hasPharma && !authToken");
+  //     showToast(
+  //       "error",
+  //       "Pharmaceutical products require registration.",
+  //       "/login",
+  //       { fromcheckout: true, hasPharma: true, login: false }
+  //     );
+  //     return;
+  //   }
+
+  //   if (!hasPharma && !authToken) {
+  //     console.log("Case 2: !hasPharma && !authToken");
+  //     showToast(
+  //       "info",
+  //       "Proceeding to Login as Guest...",
+  //       "/checkout-login-register",
+  //       { fromcheckout: true }
+  //     );
+  //     return;
+  //   }
+
+  //   if (hasPharma && authToken && isPharma !== 1) {
+  //     console.log("Case 3: hasPharma && authToken && isPharma !== 1");
+  //     showToast(
+  //       "error",
+  //       customertype === "customer_guest"
+  //         ? "You can't buy Pharma products. Please register your account."
+  //         : "Register your pharmaceutical account.",
+  //       customertype !== "customer_guest" ? "/register-pharma" : undefined,
+  //       customertype !== "customer_guest"
+  //         ? { fromcheckout: true, hasPharma: true, login: true, isPharma: false }
+  //         : {}
+  //     );
+  //     return;
+  //   }
+
+  //   if (isPharma === 1 && authToken) {
+  //     console.log("Case 4: isPharma === 1 && authToken");
+  //     showToast("info", "Proceeding to checkout...", "/add-to-cart/checkout");
+  //     return;
+  //   }
+
+  //   console.log("Case 5: Default");
+  //   showToast("info", "Proceeding to checkout...", "/add-to-cart/checkout");
+  // };
   return (
     <div className="cart-summary relative">
       {deleting && (
-                      <div style={{
-                        width:"100%",
-                        height:"100%",
-                        position:"absolute",
-                        display:"flex",
-                        justifyContent:"center",
-                        alignItems:"center",
-                        backdropFilter:"blur(4px)"
-                      }}>
-
-                      
-        
         <div
           style={{
-            // display: "inline-block",
-            // position:"absolute",
-            width: "24px",
-            height: "24px",
-            border: "3px solid #007bff",
-            borderTop: "3px solid transparent",
-            borderRadius: "50%",
-            animation: "spin 1s linear infinite",
-            // marginBottom: "10px",
-            // top:"30%",
-            // left:"50%",
+            width: "100%",
+            height: "100%",
+            position: "absolute",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            backdropFilter: "blur(4px)",
           }}
-        />
+        >
+          <div
+            style={{
+              // display: "inline-block",
+              // position:"absolute",
+              width: "24px",
+              height: "24px",
+              border: "3px solid #007bff",
+              borderTop: "3px solid transparent",
+              borderRadius: "50%",
+              animation: "spin 1s linear infinite",
+              // marginBottom: "10px",
+              // top:"30%",
+              // left:"50%",
+            }}
+          />
         </div>
       )}
       <div className="cart-summary__item">
         <span className="cart-summary__item-key">Net Amount: </span>
-        <span className="cart-summary__item-value">{cartSummary?.sub_total ?? "£0.00"}</span>
+        <span className="cart-summary__item-value">
+          {cartSummary?.sub_total ?? "£0.00"}
+        </span>
       </div>
       <div className="cart-summary__item">
         <span className="cart-summary__item-key">Carriage Charge: </span>
-        <span className="cart-summary__item-value">{cartSummary?.shipping_cost ?? "£0.00"}</span>
+        <span className="cart-summary__item-value">
+          {cartSummary?.shipping_cost ?? "£0.00"}
+        </span>
       </div>
       <div className="cart-summary__item">
         <span className="cart-summary__item-key">Discount: </span>
-        <span className="cart-summary__item-value">{cartSummary?.discount ?? "£0.00"}</span>
+        <span className="cart-summary__item-value">
+          {cartSummary?.discount ?? "£0.00"}
+        </span>
       </div>
       <div className="cart-summary__item">
         <span className="cart-summary__item-key">Vat is 20%: </span>
-        <span className="cart-summary__item-value">{cartSummary?.tax ?? "£0.00"}</span>
+        <span className="cart-summary__item-value">
+          {cartSummary?.tax ?? "£0.00"}
+        </span>
       </div>
       <div className="cart-summary__total">
         <span>Order Total: </span>
-        <span className="primary-text">{cartSummary?.grand_total ?? "£0.00"}</span>
+        <span className="primary-text">
+          {cartSummary?.grand_total ?? "£0.00"}
+        </span>
       </div>
       <div className="cart-summary__delivery_time">
         <span>Delivery:</span>
@@ -444,7 +663,7 @@ const CartSummary: React.FC<CartSummaryProps> = ({ cartItemsLength, cartItems, d
       </span>
       <button
         className="cart-summary__checkout-btn"
-        disabled={!(cartItemsLength > 0)}
+        disabled={!(cartItemsLength > 0)  || (hasPharma && !authToken) || (hasPharma && authToken && isPharma !== 1)}
         onClick={handleClick}
       >
         Check Out
@@ -453,7 +672,7 @@ const CartSummary: React.FC<CartSummaryProps> = ({ cartItemsLength, cartItems, d
         <Toast
           message={toastMessage}
           type={toastType}
-          duration={3000}
+          duration={5000}
           onClose={closeToast}
         />
       )}
@@ -463,10 +682,28 @@ const CartSummary: React.FC<CartSummaryProps> = ({ cartItemsLength, cartItems, d
 
 export default function Index() {
   const dispatch = useDispatch();
+  const router = useRouter();
   const cartsWithList = useSelector((state: IRootState) => state.cart.carts);
-  const cartSummary = useSelector((state: IRootState) => state.cart.cartSummary);
+  const cartSummary = useSelector(
+    (state: IRootState) => state.cart.cartSummary
+  );
   const cartItems: any = cartsWithList?.data[0]?.cart_items;
-  const hasPharma = cartItems?.some((product: any) => product?.pharmaceutical_product === "true");
+  const [authToken, setAuthToken] = useState<any>(null);
+  const [isPharma, setisPharma] = useState<any>(null);
+  // const hasPharma = cartItems?.some(
+  //   (product: any) => product?.pharmaceutical_product === "true"
+  // );
+
+  useEffect(() => {
+    const token: any = getItem("authToken");
+    const isPharma: any = getItem("is_pharma_approved");
+    setAuthToken(token);
+    setisPharma(isPharma);
+  }, []);
+
+  const hasPharma = cartItems?.some(
+    (product: any) => product?.pharmaceutical_product === "true"
+  );
   const user: any = getItem("user");
   const getPharma: any = getItem("user_type");
   const [hydrated, setHydrated] = useState(false);
@@ -513,11 +750,57 @@ export default function Index() {
                     should complete our Online POM Form & we will let you know
                     when your account has been given Pharma Approval.
                   </span>
-                  <Link href={"/register-pharma"}>
+                  <div 
+                  style={{
+                      cursor:"pointer"
+                  }}
+                   onClick={()=>{
+                    if (hasPharma && !authToken) {
+        const data = {
+          fromcheckout: true,
+          hasPharma: true,
+          login: false,
+        };
+        // Show toast
+        // console.log("1 hasPharma && !authToken");
+        // setToastType("error");
+        // setToastMessage("Pharmaceutical products require registration.");
+        // router.push("/login/");
+        router.push(
+          {
+            pathname: `/login`,
+            query: data,
+          },
+          `/login`,
+          { shallow: true }
+        );
+        // Clear toast after delay
+        // setTimeout(() => {
+        //   setToastMessage(null);
+        // }, 1500);
+        return; // Stop further execution
+      }else{
+        const data = {
+          fromcheckout: true,
+          hasPharma: true,
+          login: true,
+        };
+        router.push(
+          {
+            pathname: `/register-pharma`,
+            query: data,
+          },
+          `/register-pharma`,
+          { shallow: true }
+        );
+      }
+                  }} 
+                  // href={"/register-pharma"}
+                  >
                     <div className="register-warning-pill">
                       <span>Register For A Pharmaceutical Account</span>
                     </div>
-                  </Link>
+                  </div>
                 </div>
               ) : null}
               <div className="cart-container">

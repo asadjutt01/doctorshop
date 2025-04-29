@@ -226,6 +226,7 @@ export default function Register() {
       setItem("user_type", response?.user_type);
       setItem("user_id", response?.user_id);
       setItem("is_pharmaceutical", response.is_pharmaceutical);
+      setItem("is_pharma_approved", response.is_pharma_approved);
       setItem("user", response?.user);
       dispatch(login({ user: response.user, token: response.access_token }));
       setToastType("success");

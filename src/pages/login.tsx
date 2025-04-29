@@ -58,6 +58,7 @@ export default function Login() {
         setItem("user_type", response?.user_type);
         setItem("user_id", response?.user?.id);
         setItem("is_pharmaceutical", response.is_pharmaceutical);
+        setItem("is_pharma_approved", response.is_pharma_approved);
         setItem("user", response?.user);
         dispatch(login({ user: response.user, token: response.access_token }));
 
@@ -148,7 +149,7 @@ export default function Login() {
     } catch (error: any) {
       setToastType("error");
       const errorMessage = error.response?.data?.message || "Something went wrong!";
-
+      setPasswordError(error.response?.data?.message === "Incorrect password. Please double-check and try again, ensuring there are no spaces before or after your password" ? error.response?.data?.message   : '')
       setToastMessage(errorMessage);
       console.error("Login Error:", errorMessage);
     } finally {
@@ -199,16 +200,24 @@ export default function Login() {
                     togglePasswordVisibility={togglePasswordVisibility}
                     errorTitle={passwordError}
                   />
+                  {!passwordError && <span style={{
+                    fontSize:"12px",
+                    marginTop:"-10px",
+                    lineHeight:"0.7"
+                  }}>
+                  Please make sure there are no spaces before or after your password when logging in
+                  </span>}
                   <div
                     className="Remember-me-forget"
                     style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}
                   >
-                    <Checkbox
+                    {/* <Checkbox
                       text="Remember me"
                       classname=""
                       isChecked={isChecked}
                       setIsChecked={setIsChecked}
-                    />
+                    /> */}
+                    <div></div>
                     <Link href={'/forget-password'}>
                           <span style={{ color: "#007bff", cursor: "pointer" }}>Forgotten your password?</span>
                     </Link>

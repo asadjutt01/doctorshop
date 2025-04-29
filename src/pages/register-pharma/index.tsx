@@ -21,6 +21,7 @@ import { IRootState } from "@/redux/store";
 export default function Index() {
   const router = useRouter();
   const user_id: any = getItem('user_id');
+  const authToken: any = getItem("authToken");
   const cartsWithList = useSelector((state: IRootState) => state.cart.carts);
   const { query }: any = router;
   // Pharma States
@@ -46,7 +47,7 @@ export default function Index() {
   const [licenseRegisterationDateError, setLicenseRegisterationDateError] = useState<string>("");
   const [licenseHolderEmailError, setLicenseHolderEmailError] = useState<string>("");
   const [signatureError, setSignatureError] = useState<string>("");
-
+ 
   const [isChecked, setIsChecked] = useState<boolean>(false);
 
   const [currentStep, setCurrentStep] = useState(0);
@@ -68,6 +69,36 @@ export default function Index() {
   const cartItems: any = cartsWithList?.data[0]?.cart_items;
   const hasPharma = cartItems?.some((product: any) => product?.pharmaceutical_product === "true");
   ;
+
+  const isFormValid = 
+  companyName && 
+  accountNumber&& 
+  licenseHolderfirstName&& 
+  licenseHolderlastName&& 
+  licenseType&& 
+  licenseNumber&& 
+  // licenseName&& 
+  licenseRegisterationDate&& 
+  licenseHolderEmail&& 
+  signature  &&
+  isChecked &&
+!companyNameError 
+&&
+!accountNumberError 
+&&
+!licenseHolderfirstNameError &&
+!licenseHolderlastNameError
+ &&
+!licenseTypeError &&
+!licenseNumberError 
+// &&
+// !licenseNameError &&
+!licenseRegisterationDateError &&
+!licenseHolderEmailError &&
+!signatureError 
+;
+
+
   const addpharma = async () => {
     try {
       const formData = new FormData();
@@ -121,6 +152,7 @@ export default function Index() {
         }
       setItem("user_id", response.id);
        setItem("is_pharmaceutical", response.is_pharmaceutical);
+       setItem("is_pharma_approved", response.is_pharma_approved);
       // setItem("user_type", response?.user_type);
       setToastType("success");
       setToastMessage("Registration Successful! Your pharma account has been created.");
@@ -396,7 +428,11 @@ export default function Index() {
               <div className="my-2 w-full button-contaioner">
                 <button
                   type="submit"
+                  disabled={!authToken || !isFormValid}
                   className="primary-button"
+                  style={{
+                    backgroundColor: !authToken || !isFormValid  ? "#ccc" : "#0056b3",
+                  }}
                   onClick={nextStep}
                 >
                   Register

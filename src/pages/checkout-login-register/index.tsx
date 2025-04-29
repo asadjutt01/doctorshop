@@ -13,6 +13,7 @@ import Service from "@/services";
 import { useDispatch } from "react-redux";
 import Toast from "@/components/Toast";
 import Swal from "sweetalert2";
+import Link from "next/link";
 
 export default function Login() {
   const [toastMessage, setToastMessage] = useState<string | null>(null);
@@ -45,15 +46,15 @@ export default function Login() {
       formData.append("login_by", "email");
 
       // Show loading alert
-      Swal.fire({
-        title: "Logging In...",
-        text: "Please wait while we authenticate you.",
-        icon: "info",
-        allowOutsideClick: false,
-        didOpen: () => {
-          Swal.showLoading();
-        },
-      });
+      // Swal.fire({
+      //   title: "Logging In...",
+      //   text: "Please wait while we authenticate you.",
+      //   icon: "info",
+      //   allowOutsideClick: false,
+      //   didOpen: () => {
+      //     Swal.showLoading();
+      //   },
+      // });
 
       const response: any = await Service.Auth_Methods.login(formData);
 
@@ -61,6 +62,12 @@ export default function Login() {
 
       if (response && response.access_token) {
         setItem("authToken", response.access_token);
+        setItem("authToken", response?.access_token);
+                setItem("user_type", response?.user_type);
+                setItem("user_id", response?.user?.id);
+                setItem("is_pharmaceutical", response.is_pharmaceutical);
+                setItem("is_pharma_approved", response.is_pharma_approved);
+                setItem("user", response?.user);
         dispatch(login({ user: response.user, token: response.access_token }));
 
         if (query?.fromcheckout === "true") {
@@ -68,30 +75,46 @@ export default function Login() {
           const formData = new FormData();
           formData.append("user_id", response.user?.id);
           formData.append("temp_user_id", temp_user_id);
+          
           const tempResponse: any = await Service.Cart_Method.tempUserIdUpdate(
             formData
           );
           // Success alert
-          Swal.fire({
-            title: "Login Successful!",
-            text: "Redirecting to your checkout...",
-            icon: "success",
-            timer: 2000, // Auto-close in 2 seconds
-            showConfirmButton: false,
-          });
-
-          router.push("/add-to-cart/checkout");
+          // Swal.fire({
+          //   title: "Login Successful!",
+          //   text: "Redirecting to your checkout...",
+          //   icon: "success",
+          //   timer: 2000, // Auto-close in 2 seconds
+          //   showConfirmButton: false,
+          // });
+        
+if (response.is_pharma_approved  === 1) {
+  
+  router.push("/add-to-cart/checkout");
+  setToastType("success");
+  setToastMessage("Login Successful! Redirecting to your checkout...");
+}else if(response.is_pharmaceutical === 1 || response.is_pharma_approved  !== 1){
+  router.push("/");
+  setToastType("success");
+  setToastMessage("Login Successful! Redirecting to your Home please weight while we Your Approve Pharma Account...");
+}else if (response.is_pharmaceutical === 0){
+  router.push("/register-pharma");
+  setToastType("success");
+  setToastMessage("Login Successful! Redirecting to your checkout...");
+}
         } else {
           // console.log('data>>>>>>>',query);
           // console.log('data?.fromcheckout',query?.fromcheckout);
           // Success alert
-          Swal.fire({
-            title: "Login Successful!",
-            text: "Redirecting to your dashboard...",
-            icon: "success",
-            timer: 2000, // Auto-close in 2 seconds
-            showConfirmButton: false,
-          });
+          // Swal.fire({
+          //   title: "Login Successful!",
+          //   text: "Redirecting to your dashboard...",
+          //   icon: "success",
+          //   timer: 2000, // Auto-close in 2 seconds
+          //   showConfirmButton: false,
+          // });
+          setToastType("success");
+          setToastMessage("Login Successful! Redirecting to your dashboard....");
           router.push("/dashboard");
         }
       } else {
@@ -99,27 +122,35 @@ export default function Login() {
         // console.log("No access token received.");
 
         // Error alert
-        Swal.fire({
-          title: "Login Failed!",
-          text: "No access token received. Please try again.",
-          icon: "error",
-        });
+        // Swal.fire({
+        //   title: "Login Failed!",
+        //   text: "No access token received. Please try again.",
+        //   icon: "error",
+        // });
+        setToastType("error");
+        setToastMessage("No access token received. Please try again.");
       }
     } catch (err) {
       setErrorMessage("Invalid email or password");
       console.error("Login Error:", err);
 
       // Error alert
-      Swal.fire({
-        title: "Login Failed!",
-        text: "Invalid email or password. Please try again.",
-        icon: "error",
-      });
+      // Swal.fire({
+      //   title: "Login Failed!",
+      //   text: "Invalid email or password. Please try again.",
+      //   icon: "error",
+      // });
+      setToastType("error");
+      setToastMessage("Invalid email or password. Please try again.");
     } finally {
       setLoading(false);
     }
   };
 
+  
+  const closeToast = () => {
+    setToastMessage(null);
+  };
   return (
     <div>
       <HeaderWithCat />
@@ -179,7 +210,7 @@ export default function Login() {
                     togglePasswordVisibility={togglePasswordVisibility}
                     errorTitle={passwordError}
                   />
-                <div className="Remember-me-forget">
+                {/* <div className="Remember-me-forget">
                   <Checkbox
                     text={"Remember me"}
                     classname={""}
@@ -187,9 +218,25 @@ export default function Login() {
                     setIsChecked={setIsChecked}
                     // labelLink={"/terms-&-conditions"}
                   />
+                  <div></div>
                   <span>Forgotten you psssword?</span>
-                </div>
-              </div>
+                </div> */}
+
+<div
+                    className="Remember-me-forget"
+                    style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}
+                  >
+                    {/* <Checkbox
+                      text="Remember me"
+                      classname=""
+                      isChecked={isChecked}
+                      setIsChecked={setIsChecked}
+                    /> */}
+                    <div></div>
+                    <Link href={'/forget-password'}>
+                          <span style={{ color: "#007bff", cursor: "pointer" }}>Forgotten your password?</span>
+                    </Link>
+                    </div>              </div>
               <button
                 type="submit"
                 className="primary-button"
@@ -198,10 +245,12 @@ export default function Login() {
                 style={{
                   backgroundColor: !isFormValid || loading ? "#ccc" : "#0056b3",
                 }}
-                
               >
                 {loading ? "Logging in..." : "Log in"}
               </button>
+              <Link href={'/register'} className="underline">
+                  Regiter 
+                </Link>
             </div>
             <div className="login-page-card">
               <div className="card-title-container">
@@ -247,6 +296,14 @@ export default function Login() {
             </div>
           </div>
         </div>
+        {toastMessage && (
+              <Toast
+                message={toastMessage}
+                type={toastType}
+                duration={3000}
+                onClose={closeToast}
+              />
+            )}
       </div>
       <Footer />
     </div>
