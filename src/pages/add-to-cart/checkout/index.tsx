@@ -868,11 +868,18 @@ export default function Index() {
                         setSelectedAddressId(item?.id);
                         setCustomerName(deliveryAddressList?.name ?? "");
                         setPhoneNumber(deliveryAddressList?.phone ?? "");
-                        setAddress(
-                          `${item?.address1 ?? ""} ${item?.address2 ?? ""} ${
-                            item?.address3 ?? ""
-                          }`
-                        );
+                       setAddress(
+          `${item?.post_code ?? ""} ${
+            item?.address1 ?? ""
+          } ${item?.address2 ?? ""} ${
+            item?.address3 ?? ""
+          } ${item?.city ?? ""} ${
+            item?.town ?? ""
+          } ${item?.county ?? ""} ${
+            item?.country ?? ""
+          }
+           `
+        );
                         handleCloseSelect();
                       }}
                     />
@@ -921,7 +928,15 @@ export default function Index() {
                       id="Address1"
                       type="text"
                       placeholder="Address"
-                      value={`${item?.address1} ${item?.address2} ${item?.address3}`}
+                      value={`${item?.post_code ?? ""} ${
+                        item?.address1 ?? ""
+                      } ${item?.address2 ?? ""} ${
+                        item?.address3 ?? ""
+                      } ${item?.city ?? ""} ${
+                        item?.town ?? ""
+                      } ${item?.county ?? ""} ${
+                        item?.country ?? ""
+                      }`}
                       label="Address"
                       onChange={(e) =>
                         handleInputChange(
