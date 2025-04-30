@@ -24,7 +24,7 @@ import { login } from "@/redux/store/auth/authConfigSlice";
 
 export default function Register() {
   const user_id: any = getItem('user_id');
-  const credit_id: any = getItem('credit_id');
+  // const credit_id: any = getItem('credit_id');
   const cartsWithList = useSelector((state: IRootState) => state.cart.carts);
   const dispatch = useDispatch();
   const [loading, setLoading] = useState<boolean>(false);
@@ -293,7 +293,7 @@ export default function Register() {
     try {
       const formData = new FormData();
 
-      formData.append("credit_id", credit_id);
+      formData.append("credit_id", user_id);
       formData.append("post_code", postCode || "");
       formData.append("address1", addressLine1 || "");
       formData.append("address2", addressLine2 || "");
@@ -337,10 +337,10 @@ export default function Register() {
         console.log("GGGGGGGGGGGGGGGGG", query?.fromcheckout === "true", query?.hasPharma === 'true' , query?.login === 'false');
         router.push(
           {
-            pathname: `/register-pharma`,
+            pathname: `/login`,
             query: data,
           },
-          `/register-pharma`,
+          `/login`,
           { shallow: true }
         );}else{
           router.push("/");

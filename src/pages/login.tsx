@@ -74,8 +74,10 @@ export default function Login() {
           const tempResponse: any = await Service.Cart_Method.tempUserIdUpdate(
               formData
           );
-          if (response.is_pharmaceutical === 1) {
+          console.log("GGGGGGGGGGGGGGGGG11", query?.fromcheckout === "true", query?.hasPharma === 'true' , query?.login === 'false');
+          if (response.is_pharma_approved === 1) {
             router.push("/add-to-cart/checkout");
+            console.log("GGGGGGGGGGGGGGGGG22", query?.fromcheckout === "true", query?.hasPharma === 'true' , query?.login === 'false');
            } else{ 
           setToastType("success");
           setToastMessage("Login Successful! Welcome back!");
@@ -84,7 +86,7 @@ export default function Login() {
             hasPharma:true,
             login:false,
           };
-          console.log("GGGGGGGGGGGGGGGGG", query?.fromcheckout === "true", query?.hasPharma === 'true' , query?.login === 'false');
+          console.log("GGGGGGGGGGGGGGGGG33", query?.fromcheckout === "true", query?.hasPharma === 'true' , query?.login === 'false');
           router.push(
             {
               pathname: `/register-pharma`,

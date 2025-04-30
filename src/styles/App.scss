@@ -7193,6 +7193,7 @@ $secondary-gray-light: #718096;
     justify-content: space-between;
     gap: 16px;
     width: 100%;
+    flex-direction: column;
     .user-panel-deliveryAddress-card {
       width: 100%;
       padding: 16px;

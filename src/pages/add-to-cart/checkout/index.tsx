@@ -442,7 +442,7 @@ export default function Index() {
       setPhoneNumber(deliveryAddressList?.phone ?? "");
 
       if (
-        Array.isArray(deliveryAddressList?.address) &&
+        Array.isArray(deliveryAddressList?.addresses) &&
         deliveryAddressList.addresses.length > 0
       ) {
         setAddress(
@@ -501,10 +501,10 @@ export default function Index() {
   const handleShowAdd = () => setIsOpenAdd(true);
 
   const [selectedAddressId, setSelectedAddressId] = useState<number>(0);
-  const [customerName, setCustomerName] = useState<string>("Molana Farhan");
-  const [phoneNumber, setPhoneNumber] = useState<string>("+44 012 3456 7890");
+  const [customerName, setCustomerName] = useState<string>("");
+  const [phoneNumber, setPhoneNumber] = useState<string>("");
   const [address, setAddress] = useState<string>(
-    "BT71 7SG, 16-18 The Square, Moy, County Tyrone United Kingdom"
+    ""
   );
 
   const [name, setName] = useState<string>("");
@@ -524,18 +524,14 @@ export default function Index() {
 
   // select Delivery modal states
   // Customer 1
-  const [customerName1, setCustomerName1] = useState<string>("Imran Ali");
-  const [phoneNumber1, setPhoneNumber1] = useState<string>("+44 012 3456 7890");
-  const [address1, setAddress1] = useState<string>(
-    "BT71 7SG, 16-18 The Square, Moy, County Tyrone United Kingdom"
-  );
+  const [customerName1, setCustomerName1] = useState<string>("");
+  const [phoneNumber1, setPhoneNumber1] = useState<string>("");
+  const [address1, setAddress1] = useState<string>("");
 
   // Customer 2
-  const [customerName2, setCustomerName2] = useState<string>("Hassan Ali");
-  const [phoneNumber2, setPhoneNumber2] = useState<string>("+44 017 3458 7890");
-  const [address2, setAddress2] = useState<string>(
-    "BT71 7gG, 16-27 The Square, Moy, County Tyrone United Kingdom"
-  );
+  const [customerName2, setCustomerName2] = useState<string>("");
+  const [phoneNumber2, setPhoneNumber2] = useState<string>("");
+  const [address2, setAddress2] = useState<string>("");
 
   // Error states
   // Customer 1

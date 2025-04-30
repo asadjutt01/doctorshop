@@ -32,7 +32,7 @@ export default function Index() {
   const [licenseType, setLincenseType] = useState<Option | any>(null);
   const [licenseNumber, setLicenseNumber] = useState<string>("");
   const [licenseName, setLicenseName] = useState<string>("");
-  const [licenseRegisterationDate, setLicenseRegisterationDate] = useState<string>("2024-07-05");
+  const [licenseRegisterationDate, setLicenseRegisterationDate] = useState<string>("");
   const [licenseHolderEmail, setLicenseHolderEmail] = useState<string>("");
   const [signature, setSignature] = useState<string>("");
 
@@ -125,7 +125,7 @@ export default function Index() {
       setToastMessage("Registering Pharma Account... Please wait while we process your request.");
 
       const response: any = await Service.Auth_Methods.user_regiser_pharma(formData);
-      if (query?.fromcheckout === "true" && query?.hasPharma === 'true' && query?.login === 'false') {
+      if (query?.fromcheckout === "true" && query?.hasPharma === 'true' && query?.login === 'false'  && response?.is_pharma_approved === 1) {
           setToastType("success");
           setToastMessage("Login Successful! Welcome back!");
           const data = {
@@ -133,7 +133,7 @@ export default function Index() {
             hasPharma:true,
             login:false,
           };
-          // console.log("GGGGGGGGGGGGGGGGG", query?.fromcheckout === "true", query?.hasPharma === 'true' , query?.login === 'false');
+          console.log("GGGGGGGGGGGGGGGGG 1");
           router.push(
             {
               pathname: `/add-to-cart/checkout`,
@@ -143,12 +143,14 @@ export default function Index() {
             { shallow: true }
           );
           // router.push("/register-pharma");
-        }else if(query?.fromcheckout === "true" && query?.hasPharma === 'true' && query?.login === 'true' && query?.isPharma === 'false'){
+        }else if(query?.fromcheckout === "true" && query?.hasPharma === 'true' && query?.login === 'true' && query?.isPharma === 'false' && response.is_pharma_approved === 1){
           router.push("/add-to-cart/checkout");
+          console.log("GGGGGGGGGGGGGGGGG 2");
         } else{
           setToastType("success");
           setToastMessage("Login Successful! Welcome back!");
           router.push("/");
+          console.log("GGGGGGGGGGGGGGGGG 3");
         }
       setItem("user_id", response.id);
        setItem("is_pharmaceutical", response.is_pharmaceutical);
