@@ -12,6 +12,7 @@ import Service from "@/services";
 import { useDispatch } from "react-redux";
 import Toast from "@/components/Toast"; // Assuming this is the path to your Toast component
 import Link from "next/link";
+import { getCartCount } from "@/components/LoadInitialData/LoadInitialData";
 
 export default function Login() {
   const [toastMessage, setToastMessage] = useState<string | null>(null);
@@ -61,7 +62,7 @@ export default function Login() {
         setItem("is_pharma_approved", response.is_pharma_approved);
         setItem("user", response?.user);
         dispatch(login({ user: response.user, token: response.access_token }));
-
+        getCartCount(dispatch);
       //  if (response.is_pharmaceutical === 1) {
       //   router.push("/add-to-cart/checkout");
       //  }

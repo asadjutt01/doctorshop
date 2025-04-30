@@ -14,6 +14,7 @@ import { useDispatch } from "react-redux";
 import Toast from "@/components/Toast";
 import Swal from "sweetalert2";
 import Link from "next/link";
+import { getCartCount } from "@/components/LoadInitialData/LoadInitialData";
 
 export default function Login() {
   const [toastMessage, setToastMessage] = useState<string | null>(null);
@@ -69,7 +70,7 @@ export default function Login() {
                 setItem("is_pharma_approved", response.is_pharma_approved);
                 setItem("user", response?.user);
         dispatch(login({ user: response.user, token: response.access_token }));
-
+ getCartCount(dispatch);
         if (query?.fromcheckout === "true") {
           const temp_user_id: any = getItem("temp_user_id");
           const formData = new FormData();
