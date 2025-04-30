@@ -51,7 +51,10 @@ const Auth_Methods = {
   },
   forget_Password_confirm_reset(params:any){
     return BaseURL.post(APIS_URL.FORGET_PASSWORD_CONFIRM_RESET, params);
-  }
+  },
+  check_Approved_Pharma(params:any){
+    return BaseURL.post(APIS_URL.CHECK_APPROVED_PHARMA, params);
+  },
 };
 
 export default Auth_Methods;

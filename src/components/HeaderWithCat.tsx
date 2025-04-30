@@ -54,12 +54,15 @@ export default function HeaderWithCat() {
   const dispatch = useDispatch();
 
   const [authToken, setAuthToken] = useState<string | null>(null);
+  const [user_type, setuser_type] = useState<string | null>(null);
   const Count: any = useSelector((state: IRootState) => state.cart.count);
   // console.log("<<<<<<<<<<<<<<<<<<<<", Count);
 
-  useEffect(() => {
+   useEffect(() => {
     const token: any = getItem("authToken");
+    const user_type: any = getItem("user_type");
     setAuthToken(token);
+    setuser_type(user_type);
   }, []);
 
   const [subCategory, setSubCategory] = useState<any>([]);
@@ -415,7 +418,9 @@ export default function HeaderWithCat() {
                       >
                         <IoSearchOutline className="search-button-mobile-icon" />
                       </button>
-                      {!authToken && (
+                      {!authToken 
+                      // || user_type === "customer_guest"
+                       && (
                         <div
                           className="flex item-center"
                           style={{ display: "flex", gap: "4px" }}
@@ -435,7 +440,9 @@ export default function HeaderWithCat() {
                           height={24}
                         />
                       </Nav.Link> */}
- {authToken && (
+ {authToken &&  
+//  user_type !== "customer_guest" &&
+   (
                           <BootstrapDropdown>
                             <BootstrapDropdown.Toggle
                               variant="link"
@@ -764,7 +771,9 @@ export default function HeaderWithCat() {
                         )}
                       </div> */}
                       <div className="nav-icon">
-                        {!authToken && (
+                        {!authToken 
+                        // || user_type === "customer_guest"
+                          && (
                           <div
                             className="flex item-center"
                             style={{ display: "flex", gap: "4px" }}
@@ -775,7 +784,9 @@ export default function HeaderWithCat() {
                           </div>
                         )}
 
-                        {authToken && (
+                        {authToken 
+                        // && user_type !== "customer_guest"
+                         && (
                           <BootstrapDropdown>
                             <BootstrapDropdown.Toggle
                               variant="link"

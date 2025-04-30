@@ -216,6 +216,7 @@ const APIS_URL = {
   /* ------------------------------ Auth -------------------------------- */
   AUTH_LOGIN: "/auth/login",
   VERIFY:"/verify",
+  CHECK_APPROVED_PHARMA:"/check_approved_pharma",
   FORGET_PASSWORD:"/password/forget_request",
   FORGET_PASSWORD_VERIFY_CODE:"/password/verifyCode",
   FORGET_PASSWORD_CONFIRM_RESET:"password/confirm_reset",

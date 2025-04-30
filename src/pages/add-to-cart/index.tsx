@@ -301,12 +301,20 @@ interface CartSummaryProps {
   cartItemsLength: number;
   cartItems: any;
   deleting?: boolean;
+  toastMessage:any;
+toastType:any;
+setToastMessage:any;
+setToastType:any;
 }
 
 const CartSummary: React.FC<CartSummaryProps> = ({
   cartItemsLength,
   cartItems,
   deleting = false,
+  toastMessage,
+toastType,
+setToastMessage,
+setToastType,
 }) => {
   const router = useRouter();
   const dispatch = useDispatch();
@@ -327,14 +335,14 @@ const CartSummary: React.FC<CartSummaryProps> = ({
   const cartSummary = useSelector(
     (state: IRootState) => state.cart.cartSummary
   );
-  const [toastMessage, setToastMessage] = useState<string | null>(null);
-  const [toastType, setToastType] = useState<"success" | "error" | "info">(
-    "success"
-  );
+  // const [toastMessage, setToastMessage] = useState<string | null>(null);
+  // const [toastType, setToastType] = useState<"success" | "error" | "info">(
+  //   "success"
+  // );
   const closeToast = () => {
     setToastMessage(null);
   };
-  // console.log("hasPharma && authToken && isPharma !== 1",hasPharma ,authToken , isPharma); 
+  // console.log("hasPharma && authToken && isPharma !== 1",hasPharma ,authToken , isPharma);
   const handleClick = () => {
     if (cartItemsLength > 0) {
       // console.log("authToken>>>>>>", authToken);
@@ -509,7 +517,7 @@ const CartSummary: React.FC<CartSummaryProps> = ({
             //   `/register-pharma/`,
             //   { shallow: true }
             // );
-          }else{
+          } else {
             setToastType("info");
             setToastMessage("Proceeding to checkout...");
             router.push("/add-to-cart/checkout/");
@@ -663,7 +671,11 @@ const CartSummary: React.FC<CartSummaryProps> = ({
       </span>
       <button
         className="cart-summary__checkout-btn"
-        disabled={!(cartItemsLength > 0)  || (hasPharma && !authToken) || (hasPharma && authToken && isPharma !== 1)}
+        disabled={
+          !(cartItemsLength > 0) ||
+          (hasPharma && !authToken) ||
+          (hasPharma && authToken && isPharma !== 1)
+        }
         onClick={handleClick}
       >
         Check Out
@@ -683,6 +695,10 @@ const CartSummary: React.FC<CartSummaryProps> = ({
 export default function Index() {
   const dispatch = useDispatch();
   const router = useRouter();
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [toastType, setToastType] = useState<"success" | "error" | "info">(
+    "success"
+  );
   const cartsWithList = useSelector((state: IRootState) => state.cart.carts);
   const cartSummary = useSelector(
     (state: IRootState) => state.cart.cartSummary
@@ -690,14 +706,17 @@ export default function Index() {
   const cartItems: any = cartsWithList?.data[0]?.cart_items;
   const [authToken, setAuthToken] = useState<any>(null);
   const [isPharma, setisPharma] = useState<any>(null);
+  const [isPharmaRequest, setisPharmaRequest] = useState<any>(null);
   // const hasPharma = cartItems?.some(
   //   (product: any) => product?.pharmaceutical_product === "true"
   // );
 
   useEffect(() => {
     const token: any = getItem("authToken");
+    const isPharmaRequest: any = getItem("is_pharmaceutical");
     const isPharma: any = getItem("is_pharma_approved");
     setAuthToken(token);
+    setisPharmaRequest(isPharmaRequest);
     setisPharma(isPharma);
   }, []);
 
@@ -742,7 +761,9 @@ export default function Index() {
             <>
               <Breadcrumb />
               {hasPharma ? (
-                <div className="pharmaceutical-warning">
+                <>
+                {
+                  isPharma !== 1 && <div className="pharmaceutical-warning">
                   <span className="register-warning-note">
                     Note on (POM) Pharmaceutical items! We can only sell & ship
                     Pharma items to registered medical professionals at
@@ -750,58 +771,65 @@ export default function Index() {
                     should complete our Online POM Form & we will let you know
                     when your account has been given Pharma Approval.
                   </span>
-                  <div 
-                  style={{
-                      cursor:"pointer"
-                  }}
-                   onClick={()=>{
-                    if (hasPharma && !authToken) {
-        const data = {
-          fromcheckout: true,
-          hasPharma: true,
-          login: false,
-        };
-        // Show toast
-        // console.log("1 hasPharma && !authToken");
-        // setToastType("error");
-        // setToastMessage("Pharmaceutical products require registration.");
-        // router.push("/login/");
-        router.push(
-          {
-            pathname: `/login`,
-            query: data,
-          },
-          `/login`,
-          { shallow: true }
-        );
-        // Clear toast after delay
-        // setTimeout(() => {
-        //   setToastMessage(null);
-        // }, 1500);
-        return; // Stop further execution
-      }else{
-        const data = {
-          fromcheckout: true,
-          hasPharma: true,
-          login: true,
-        };
-        router.push(
-          {
-            pathname: `/register-pharma`,
-            query: data,
-          },
-          `/register-pharma`,
-          { shallow: true }
-        );
-      }
-                  }} 
-                  // href={"/register-pharma"}
+                  <div
+                    style={{
+                      cursor: "pointer",
+                    }}
+                    onClick={() => {
+                      if (hasPharma && !authToken) {
+                        const data = {
+                          fromcheckout: true,
+                          hasPharma: true,
+                          login: false,
+                        };
+                        // Show toast
+                        // console.log("1 hasPharma && !authToken");
+                        // setToastType("error");
+                        // setToastMessage("Pharmaceutical products require registration.");
+                        // router.push("/login/");
+                        router.push(
+                          {
+                            pathname: `/login`,
+                            query: data,
+                          },
+                          `/login`,
+                          { shallow: true }
+                        );
+                        // Clear toast after delay
+                        // setTimeout(() => {
+                        //   setToastMessage(null);
+                        // }, 1500);
+                        return; // Stop further execution
+                      } else {
+                     if(isPharmaRequest === 1){   
+                      setToastType("info");
+                      setToastMessage("Your pharmaceutical account Request has already been Recieved");
+                      }else{
+                        const data = {
+                          fromcheckout: true,
+                          hasPharma: true,
+                          login: true,
+                        };
+                        router.push(
+                          {
+                            pathname: `/register-pharma`,
+                            query: data,
+                          },
+                          `/register-pharma`,
+                          { shallow: true }
+                        );
+                        }
+                      }
+                    }}
+                    // href={"/register-pharma"}
                   >
                     <div className="register-warning-pill">
                       <span>Register For A Pharmaceutical Account</span>
                     </div>
                   </div>
                 </div>
+                }
+                </>
               ) : null}
               <div className="cart-container">
                 <div className="cart">
@@ -839,6 +867,10 @@ export default function Index() {
                   cartItemsLength={cartItems?.length}
                   cartItems={cartItems}
                   deleting={!!deletingItem}
+                  toastMessage={toastMessage}
+toastType={toastType}
+                  setToastMessage={setToastMessage}
+setToastType={setToastType}
                 />
               </div>
             </>

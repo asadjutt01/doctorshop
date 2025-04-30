@@ -562,7 +562,12 @@ if(response){
                         Healthcare Organization Type:
                       </div>
                       <div className="detailsItem-value">
-                        {userData?.organization_type || "--"}
+                        {/* {userData?.organization_type || "--"} */}
+                        {healthcareOrganizationTypes?.find(
+                            (item) =>
+                              item.value ===
+                              Number(userData?.organization_type)
+                          )?.label || "--"}
                       </div>
                     </div>
                     <div className="detailsItem">

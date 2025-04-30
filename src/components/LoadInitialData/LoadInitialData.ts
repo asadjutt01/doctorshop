@@ -146,6 +146,23 @@ const LoadInitialData = () => {
         setItem("temp_user_id", temp_user_id); // Store it in localStorage
       }
     };
+const CheckApprovedPharma =async () =>{
+  try {
+    const formData = new FormData();
+  
+      const user_id:any = getItem("user_id")
+      formData.append("user_id", user_id);
+   
+    const response: any = await Service.Auth_Methods.check_Approved_Pharma(formData);
+    // console.log("Count Data >>>>>>", response.count);
+    if (response?.status === "success") {
+      setItem("is_pharma_approved", response.is_pharma_approved);
+    } 
+  } catch (err) {
+    console.error("Error fetching cart count:", err);
+  }
+}
+
     fetchcategoryall();
     // fetchcategorySub();
     fetchCategorySubSpecific();
@@ -155,7 +172,7 @@ const LoadInitialData = () => {
     fetchbestseller();
     getCartCount(dispatch);
     storeTempId();
-
+    CheckApprovedPharma();
   }, [dispatch]);
 
   return null;

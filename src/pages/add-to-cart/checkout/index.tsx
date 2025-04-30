@@ -83,6 +83,10 @@ type CartSummaryProps = {
   error: string;
   setError: (value: string) => void;
   selectedAddressId: any;
+  toastMessage:any;
+toastType:any;
+setToastMessage:any;
+setToastType:any;
 };
 const CartSummary: React.FC<CartSummaryProps> = ({
   name,
@@ -92,6 +96,10 @@ const CartSummary: React.FC<CartSummaryProps> = ({
   error,
   setError,
   selectedAddressId,
+  toastMessage,
+toastType,
+setToastMessage,
+setToastType,
 }) => {
   const stripe = useStripe();
   const elements = useElements();
@@ -118,10 +126,10 @@ const CartSummary: React.FC<CartSummaryProps> = ({
   // };
   const [loading, setLoading] = useState(false);
 
-  const [toastMessage, setToastMessage] = useState<any>(null);
-  const [toastType, setToastType] = useState<"success" | "error" | "info">(
-    "success"
-  );
+  // const [toastMessage, setToastMessage] = useState<any>(null);
+  // const [toastType, setToastType] = useState<"success" | "error" | "info">(
+  //   "success"
+  // );
   const handleLogout = () => {
     dispatch(logout());
     // console.log("It is logging out");
@@ -185,7 +193,7 @@ const CartSummary: React.FC<CartSummaryProps> = ({
           setLoading(false);
           return;
         }
-
+        // console.log("paymentMethod>>>",paymentMethod?.id);
         // 🔹 Initiate Payment Request with Backend
         const formData = new FormData();
         formData.append("payment_type", "cart_payment");
@@ -196,6 +204,7 @@ const CartSummary: React.FC<CartSummaryProps> = ({
         // 🔹 Send Required Data for Stripe Payment
         const formDatastripe = new FormData();
         formDatastripe.append("payment_type", "cart_payment");
+        formDatastripe.append("id", paymentMethod?.id);
         formDatastripe.append("combined_order_id", response?.combined_order_id);
         formDatastripe.append("amount", cartSummary?.grand_total_value);
         formDatastripe.append("grand_total", cartSummary?.grand_total_value);
@@ -214,23 +223,22 @@ const CartSummary: React.FC<CartSummaryProps> = ({
 
         // ✅ Payment Success!
         if (stripeApiresponse?.status === 200) {
-          const formDatasuccess = new FormData();
-          formDatasuccess.append("session_id", stripeApiresponse?.id);
-          const successRespoonse: any = await Service.Cart_Method.stripeSuccess(
-            formDatasuccess
-          );
-          if (successRespoonse && successRespoonse?.result === true) {
+         
             if (
               user_type === "customer_pharmaceuti" ||
               user_type === "customer_credit" ||
               user_type === "customer"
             ) {
               setToastType("success");
-              setToastMessage(`Payment is successful Redirecting to your dashboard...`);
+              setToastMessage(
+                `Payment is successful Redirecting to your dashboard...`
+              );
               router.push("/dashboard");
             } else {
               setToastType("success");
-              setToastMessage(`Payment is successful Redirecting to your home...`);
+              setToastMessage(
+                `Payment is successful Redirecting to your home...`
+              );
               // console.log('successRespoonse>>>>>>>',successRespoonse);
               if (user_type === "customer_guest") {
                 handleLogout();
@@ -245,10 +253,15 @@ const CartSummary: React.FC<CartSummaryProps> = ({
             }
 
             getCartCount(dispatch);
-          }
+        
 
           setLoading(false);
           return;
+        }else{
+          setToastType("erroe");
+              setToastMessage(
+                `Payment is Failed...`
+              );
         }
       } catch (error) {
         setToastType("error");
@@ -415,7 +428,10 @@ export default function Index() {
   const deliveryAddressList: any = useSelector(
     (state: IRootState) => state.user.userAddressList
   );
-
+  const [toastMessage, setToastMessage] = useState<any>(null);
+  const [toastType, setToastType] = useState<"success" | "error" | "info">(
+    "success"
+  );
   const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
@@ -427,47 +443,48 @@ export default function Index() {
 
       if (
         Array.isArray(deliveryAddressList?.address) &&
-        deliveryAddressList.address.length > 0
+        deliveryAddressList.addresses.length > 0
       ) {
         setAddress(
-          `${deliveryAddressList.address[0]?.post_code ?? ""} ${
-            deliveryAddressList.address[0]?.address1 ?? ""
-          } ${deliveryAddressList.address[0]?.address2 ?? ""} ${
-            deliveryAddressList.address[0]?.address3 ?? ""
-          } ${deliveryAddressList.address[0]?.city ?? ""} ${
-            deliveryAddressList.address[0]?.town ?? ""
-          } ${deliveryAddressList.address[0]?.county ?? ""} ${
-            deliveryAddressList.address[0]?.country ?? ""
+          `${deliveryAddressList.addresses[0]?.post_code ?? ""} ${
+            deliveryAddressList.addresses[0]?.address1 ?? ""
+          } ${deliveryAddressList.addresses[0]?.address2 ?? ""} ${
+            deliveryAddressList.addresses[0]?.address3 ?? ""
+          } ${deliveryAddressList.addresses[0]?.city ?? ""} ${
+            deliveryAddressList.addresses[0]?.town ?? ""
+          } ${deliveryAddressList.addresses[0]?.county ?? ""} ${
+            deliveryAddressList.addresses[0]?.country ?? ""
           }
            `
         );
-        setSelectedAddressId(deliveryAddressList.address[0]?.id);
+        setSelectedAddressId(deliveryAddressList.addresses[0]?.id);
       } else {
         // setPhoneNumber(phoneNumber1);
         // setAddress("");
       }
     }
   }, [deliveryAddressList]);
-  useEffect(() => {
-    const fetchCartcart = async () => {
-      try {
-        const cartSummary: any = await getCartSummary(); // ✅ Now it returns data correctly
-        console.log("cartSummary>>>>>11", cartSummary);
-        const cartList = await getCartList(); // ✅ Now it returns data correctly
-        const deliveryAdderssList = await getCartMultiAddress(); // ✅ Now it returns data correctly
-        if (cartSummary) {
-          dispatch(setCartSummary(cartSummary)); // ✅ Dispatch to Redux store
-        }
-        if (cartList) {
-          dispatch(setCartsWithList(cartList)); // ✅ Dispatch to Redux store
-        }
-        if (deliveryAdderssList) {
-          dispatch(setUserAddressList(deliveryAdderssList)); // ✅ Dispatch to Redux store
-        }
-      } catch (error) {
-        console.error("Error fetching products:", error);
+  const fetchCartcart = async () => {
+    try {
+      const cartSummary: any = await getCartSummary(); // ✅ Now it returns data correctly
+      console.log("cartSummary>>>>>11", cartSummary);
+      const cartList = await getCartList(); // ✅ Now it returns data correctly
+      const deliveryAdderssList = await getCartMultiAddress(); // ✅ Now it returns data correctly
+      if (cartSummary) {
+        dispatch(setCartSummary(cartSummary)); // ✅ Dispatch to Redux store
       }
-    };
+      if (cartList) {
+        dispatch(setCartsWithList(cartList)); // ✅ Dispatch to Redux store
+      }
+      if (deliveryAdderssList) {
+        dispatch(setUserAddressList(deliveryAdderssList)); // ✅ Dispatch to Redux store
+      }
+    } catch (error) {
+      console.error("Error fetching products:", error);
+    }
+  };
+  useEffect(() => {
+    
     fetchCartcart();
   }, [dispatch]);
   // delivery-modal select
@@ -549,6 +566,60 @@ export default function Index() {
   const [cityError, setCityError] = useState<string>("");
   const [countyError, setCountyError] = useState<string>("");
   const [countryError, setCountryError] = useState<string>("");
+
+  const handleAddNewAddress = async () => {
+    try {
+      
+                 
+      const user_id: any = getItem("user_id");
+      const formData = new FormData();
+
+      formData.append("credit_id", user_id);
+      formData.append("post_code", postCode || "");
+      formData.append("address1", addressLine1 || "");
+      formData.append("address2", addressLine2 || "");
+      formData.append("address3", addressLine3 || "");
+      formData.append("town", town || "");
+      formData.append("city", city || "");
+      formData.append("county", county || "");
+      formData.append("country", country.label || "");
+
+      // console.log("FormData to be sent:", Object.fromEntries(formData.entries()));
+
+      setToastType("info");
+      setToastMessage(
+        "Adding Address... Please wait while we save your delivery address."
+      );
+
+      const response: any =
+        await Service.Customer_Address_Method.addadress_customer(formData);
+
+      // console.log("Address Response:", response);
+      if(response){
+        setToastType("success");
+      setToastMessage("Address Added! Your delivery address has been saved.");
+      fetchCartcart();
+      handleCloseAdd();
+      handleShowSelect();
+      setPostCode("");
+      setAddressLine1("");
+      setAddressLine2("");
+      setAddressLine3("");
+      setTown("");
+      setCity("");
+      setCounty("");
+      setCountry({ label: "", value: "" });
+      }
+      return response;
+    } catch (err) {
+      console.error("Address Error:", err);
+      setToastType("error");
+      setToastMessage(
+        "Failed to Add Address! Something went wrong. Please try again."
+      );
+      throw err;
+    }
+  };
 
   return (
     <Elements stripe={stripePromise}>
@@ -749,6 +820,10 @@ export default function Index() {
                 error={error}
                 setError={setError}
                 selectedAddressId={selectedAddressId}
+                toastMessage={toastMessage}
+                toastType={toastType}
+                setToastMessage={setToastMessage}
+                setToastType={setToastType}
                 // grand_total_value={cartSummary?.grand_total_value}
               />
             </div>
@@ -781,8 +856,8 @@ export default function Index() {
             </button>
           </div>
           {deliveryAddressList &&
-            deliveryAddressList.address?.length > 0 &&
-            deliveryAddressList.address?.map((item: any, index: number) => {
+            deliveryAddressList.addresses?.length > 0 &&
+            deliveryAddressList.addresses?.map((item: any, index: number) => {
               return (
                 <div
                   className="checkout-delivery__form bg-gray-custom-model"
@@ -816,7 +891,7 @@ export default function Index() {
                       id={`customerName${index + 1}`}
                       type="text"
                       placeholder="Customer Name"
-                      value={deliveryAddressList?.name}
+                      value={deliveryAddressList?.name ?? customerName1}
                       label="Customer Name"
                       onChange={(e) =>
                         handleInputChange(
@@ -831,7 +906,7 @@ export default function Index() {
                     <LabeledPhoneInput
                       id="phoneNumber1"
                       label="Phone Number"
-                      value={item?.phoneNumber ?? phoneNumber1}
+                      value={deliveryAddressList?.phone ?? phoneNumber1}
                       onChange={(value) =>
                         handleInputChange(
                           setPhoneNumber1,
@@ -1077,8 +1152,9 @@ export default function Index() {
               <button
                 className="save-button-add-delivery-model"
                 onClick={() => {
-                  handleCloseAdd();
-                  handleShowSelect();
+                  // handleCloseAdd();
+                  // handleShowSelect();
+                  handleAddNewAddress();
                 }}
               >
                 Add New

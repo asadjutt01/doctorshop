@@ -112,7 +112,7 @@ const MyOrders = () => {
       // console.log("Orders Data >>>>>>", response);
 
       if (response) {
-        setnewOrdersData(response.orders); // Assuming response contains an 'orders' array
+        setnewOrdersData(response.orders.reverse()); // Assuming response contains an 'orders' array
       } else {
         // console.log("No orders received.");
       }
@@ -131,7 +131,7 @@ const MyOrders = () => {
       // console.log("Orders Data >>>>>>", response);
 
       if (response) {
-        setdeliveredData(response.orders); // Assuming response contains an 'orders' array
+        setdeliveredData(response.orders.reverse()); // Assuming response contains an 'orders' array
       } else {
         // console.log("No orders received.");
       }
@@ -150,7 +150,7 @@ const MyOrders = () => {
       // console.log("Orders Data >>>>>>", response);
 
       if (response) {
-        setcanceledData(response.orders); // Assuming response contains an 'orders' array
+        setcanceledData(response.orders.reverse()); // Assuming response contains an 'orders' array
       } else {
         // console.log("No orders received.");
       }
