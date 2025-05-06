@@ -38,5 +38,8 @@ const Cart_Method = {
     cartDelete(params:any) {
         return BaseURL.post(APIS_URL.CART_DELETE,params);
     },
+    cartCheckoutPaymentOrder(params:any){
+        return BaseURL.post(APIS_URL.PAYMENT_ORDER,params);
+    }
 };
 export default Cart_Method;

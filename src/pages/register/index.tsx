@@ -40,6 +40,7 @@ export default function Register() {
   // Personal Details States
   const [firstName, setFirstName] = useState<string>("");
   const [lastName, setLastName] = useState<string>("");
+  const [bussinessName, setBussinessName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [mobileNumber, setMobileNumber] = useState<string>("");
@@ -55,6 +56,7 @@ export default function Register() {
   // Personal Details Error States
   const [firstNameError, setFirstNameError] = useState<string>("");
   const [lastNameError, setLastNameError] = useState<string>("");
+  const [bussinessNameError, setBussinessNameError] = useState<string>("");
   const [emailError, setEmailError] = useState<string>("");
   const [passwordError, setPasswordError] = useState<string>("");
   const [mobileNumberError, setMobileNumberError] = useState<string>("");
@@ -87,7 +89,8 @@ export default function Register() {
   const [firstNameCredit, setFirstNameCredit] = useState<string>("");
   const [lastNameCredit, setLastNameCredit] = useState<string>("");
   const [emailCredit, setEmailCredit] = useState<string>("");
-  const [companyNameCredit, setCompanyNameCredit] = useState<string>("");
+  const [bussinessNameCredit, setBussinessNameCredit] = useState<string>("");
+  // const [companyNameCredit, setCompanyNameCredit] = useState<string>("");
   const [departmentNameCredit, setDepartmentNameCredit] = useState<string>("");
   const [invoiceStateEmailCredit, setInvoiceStateEmailCredit] = useState<string>("");
   const [phoneNumberCredit, setPhoneNumberCredit] = useState<string>("");
@@ -97,7 +100,8 @@ export default function Register() {
   const [firstNameCreditError, setFirstNameCreditError] = useState<string>("");
   const [lastNameCreditError, setLastNameCreditError] = useState<string>("");
   const [emailCreditError, setEmailCreditError] = useState<string>("");
-  const [companyNameCreditError, setCompanyNameCreditError] = useState<string>("");
+  // const [companyNameCreditError, setCompanyNameCreditError] = useState<string>("");
+  const [bussinessNameCreditError, setBussinessNameCreditError] = useState<string>("");
   const [phoneNumberCreditError, setPhoneNumberCreditError] = useState<string>("");
   const [mobileNumberCreditError, setMobileNumberCreditError] = useState<string>("");
   const [departmentNameCreditError, setDepartmentNameCreditError] = useState<string>("");
@@ -120,7 +124,7 @@ export default function Register() {
       firstName && lastName && email && password && confirmPassword && mobileNumber && password === confirmPassword &&
       (healthOrganizationType.value !== 9 || healthOrganizationName)) ||
     (healthOrganizationType.value <= 2 &&
-      firstNameCredit && lastNameCredit && emailCredit && companyNameCredit &&
+      firstNameCredit && lastNameCredit && emailCredit && bussinessNameCredit &&
       departmentNameCredit && invoiceStateEmailCredit && phoneNumberCredit && mobileNumberCredit)
   );
 
@@ -188,6 +192,7 @@ export default function Register() {
 
       formData.append("first_name", firstName || "");
       formData.append("last_name", lastName || "");
+      
       formData.append("email", email || "");
       formData.append("organization_type", healthOrganizationType?.value || "");
       formData.append("password", password || "");
@@ -200,11 +205,14 @@ export default function Register() {
         formData.set("email", emailCredit || "");
         formData.set("phone_number", phoneNumberCredit || "");
         formData.set("mobile_number", mobileNumberCredit || "");
-        formData.append("company_name", companyNameCredit || "");
+        formData.append("bussiness_name", bussinessNameCredit || ""); // bussiness Name
         formData.append("department_name", departmentNameCredit || "");
         formData.append("statement_email", invoiceStateEmailCredit || "");
       } else if (healthOrganizationType?.value === 9) {
         formData.append("organization_name", healthOrganizationName || "");
+        
+      }else{
+        formData.append("bussiness_name", bussinessName || "");
       }
 
       // console.log("FormData to be sent:", Object.fromEntries(formData.entries()));
@@ -264,7 +272,7 @@ export default function Register() {
       setEmailCredit("");
       setPhoneNumberCredit("");
       setMobileNumberCredit("");
-      setCompanyNameCredit("");
+      setBussinessNameCredit("");
       setDepartmentNameCredit("");
       setInvoiceStateEmailCredit("");
       setHealthOrganizationName("");
@@ -526,6 +534,22 @@ export default function Register() {
                             }
                             errorTitle={lastNameError}
                           />
+                          <LabeledInput
+                            id="bussinessNameCredit"
+                            type="text"
+                            placeholder="Bussiness Name"
+                            value={bussinessName}
+                            label="Bussiness Name"
+                            required={true}
+                            onChange={(e) =>
+                              handleInputChange(
+                                setBussinessName,
+                                [],
+                                setBussinessNameError
+                              )(e.target.value)
+                            }
+                            errorTitle={bussinessNameError}
+                          />
                         </div>
                         <div className="form-input-container">
                           <LabeledInput
@@ -662,6 +686,7 @@ export default function Register() {
                             }
                             errorTitle={lastNameCreditError}
                           />
+
                         </div>
                         <div className="form-input-container">
                           <LabeledInput
@@ -681,20 +706,20 @@ export default function Register() {
                             errorTitle={emailCreditError}
                           />
                           <LabeledInput
-                            id="companyNameCredit"
+                            id="bussinessNameCredit"
                             type="text"
-                            placeholder="Company Name"
-                            value={companyNameCredit}
-                            label="Company Name"
+                            placeholder="Bussiness Name"
+                            value={bussinessNameCredit}
+                            label="Bussiness Name"
                             required={true}
                             onChange={(e) =>
                               handleInputChange(
-                                setCompanyNameCredit,
+                                setBussinessNameCredit,
                                 [validateRequired],
-                                setCompanyNameCreditError
+                                setBussinessNameCreditError
                               )(e.target.value)
                             }
-                            errorTitle={companyNameCreditError}
+                            errorTitle={bussinessNameCreditError}
                           />
                         </div>
                         <div className="form-input-container">

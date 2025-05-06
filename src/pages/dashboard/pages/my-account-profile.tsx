@@ -58,6 +58,7 @@ const MyAccountProfile = () => {
   // Personal Details States
   const [firstName, setFirstName] = useState<string>("");
   const [lastName, setLastName] = useState<string>("");
+  const [bussinessName, setBussinessName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [mobileNumber, setMobileNumber] = useState<string>("");
@@ -66,6 +67,7 @@ const MyAccountProfile = () => {
   // Personal Details Error States
   const [firstNameError, setFirstNameError] = useState<string>("");
   const [lastNameError, setLastNameError] = useState<string>("");
+  const [bussinessNameError, setBussinessNameError] = useState<string>("");
   const [emailError, setEmailError] = useState<string>("");
   const [passwordError, setPasswordError] = useState<string>("");
   const [mobileNumberError, setMobileNumberError] = useState<string>("");
@@ -75,13 +77,13 @@ const MyAccountProfile = () => {
   const [firstNameCredit, setFirstNameCredit] = useState<string>("");
   const [lastNameCredit, setLastNameCredit] = useState<string>("");
   const [emailCredit, setEmailCredit] = useState<string>("");
-  const [companyNameCredit, setCompanyNameCredit] = useState<string>("");
+  // const [companyNameCredit, setCompanyNameCredit] = useState<string>("");
   const [departmentNameCredit, setDepartmentNameCredit] = useState<string>("");
   const [invoiceStateEmailCredit, setInvoiceStateEmailCredit] =
     useState<string>("");
   const [phoneNumberCredit, setPhoneNumberCredit] = useState<string>("");
   const [mobileNumberCredit, setMobileNumberCredit] = useState<string>("");
-
+  const [bussinessNameCredit, setBussinessNameCredit] = useState<string>("");
   // Personal Details Error States Credit
   const [firstNameCreditError, setFirstNameCreditError] = useState<string>("");
   const [lastNameCreditError, setLastNameCreditError] = useState<string>("");
@@ -96,6 +98,7 @@ const MyAccountProfile = () => {
     useState<string>("");
   const [invoiceStateEmailCreditError, setInvoiceStateEmailCreditError] =
     useState<string>("");
+    const [bussinessNameCreditError, setBussinessNameCreditError] = useState<string>("");
 
   // Add Delivery Modal States
   const [addressId, setAddressId] = useState<string>("");
@@ -201,6 +204,7 @@ const MyAccountProfile = () => {
     if (Number(userData?.organization_type > 2)) {
       setFirstName(userData?.name);
       setLastName(userData?.last_name);
+      setBussinessName(userData?.company_name)
       setEmail(userData?.email);
       setHealthOrganizationName(userData?.organization_name);
       setMobileNumber(userData?.mobile_number);
@@ -210,7 +214,7 @@ const MyAccountProfile = () => {
       setFirstNameCredit(userData?.name);
       setLastNameCredit(userData?.last_name);
       setEmailCredit(userData?.email);
-      setCompanyNameCredit(userData?.company_name);
+      setBussinessNameCredit(userData?.company_name);
       setDepartmentNameCredit(userData?.department_name);
       setInvoiceStateEmailCredit(userData?.statement_email);
       setPhoneNumberCredit(userData?.phone_number);
@@ -324,11 +328,14 @@ const MyAccountProfile = () => {
         formData.set("email", emailCredit || "");
         formData.set("phone_number", phoneNumberCredit || "");
         formData.set("mobile_number", mobileNumberCredit || "");
-        formData.append("company_name", companyNameCredit || "");
+        formData.append("bussiness_name", bussinessNameCredit || ""); // bussiness Name
+        // formData.append("company_name", companyNameCredit || "");
         formData.append("department_name", departmentNameCredit || "");
         formData.append("statement_email", invoiceStateEmailCredit || "");
       } else if (healthOrganizationType?.value === 9) {
         formData.append("organization_name", healthOrganizationName || "");
+      }else{
+        formData.append("bussiness_name", bussinessName || "");
       }
 
       // console.log("FormData to be sent:", Object.fromEntries(formData.entries()));
@@ -352,6 +359,7 @@ const MyAccountProfile = () => {
 
       setFirstName("");
       setLastName("");
+      setBussinessName("")
       setEmail("");
       setHealthOrganizationType(null);
       setPassword("");
@@ -362,7 +370,7 @@ const MyAccountProfile = () => {
       setEmailCredit("");
       setPhoneNumberCredit("");
       setMobileNumberCredit("");
-      setCompanyNameCredit("");
+      setBussinessNameCredit("");
       setDepartmentNameCredit("");
       setInvoiceStateEmailCredit("");
       setHealthOrganizationName("");
@@ -626,7 +634,7 @@ if(response){
                     )}
                     {userData?.company_name && (
                       <div className="detailsItem">
-                        <div className="detailsItem-label">Company Name:</div>
+                        <div className="detailsItem-label">Bussiness Name:</div>
                         <div className="detailsItem-value">
                           {userData?.company_name || "--"}
                         </div>
@@ -1122,6 +1130,22 @@ if(response){
                     }
                     errorTitle={lastNameError}
                   />
+                  <LabeledInput
+                                              id="bussinessNameCredit"
+                                              type="text"
+                                              placeholder="Bussiness Name"
+                                              value={bussinessName}
+                                              label="Bussiness Name"
+                                              required={true}
+                                              onChange={(e) =>
+                                                handleInputChange(
+                                                  setBussinessName,
+                                                  [],
+                                                  setBussinessNameError
+                                                )(e.target.value)
+                                              }
+                                              errorTitle={bussinessNameError}
+                                            />
                 </div>
                 <div className="form-input-container">
                   <LabeledInput
@@ -1293,22 +1317,22 @@ if(response){
                     }
                     errorTitle={emailCreditError}
                   />
-                  <LabeledInput
-                    id="companyNameCredit"
-                    type="text"
-                    placeholder="Company Name"
-                    value={companyNameCredit}
-                    label="Company Name"
-                    required={true}
-                    onChange={(e) =>
-                      handleInputChange(
-                        setCompanyNameCredit,
-                        [validateRequired],
-                        setCompanyNameCreditError
-                      )(e.target.value)
-                    }
-                    errorTitle={companyNameCreditError}
-                  />
+                 <LabeledInput
+                            id="bussinessNameCredit"
+                            type="text"
+                            placeholder="Bussiness Name"
+                            value={bussinessNameCredit}
+                            label="Bussiness Name"
+                            required={true}
+                            onChange={(e) =>
+                              handleInputChange(
+                                setBussinessNameCredit,
+                                [validateRequired],
+                                setBussinessNameCreditError
+                              )(e.target.value)
+                            }
+                            errorTitle={bussinessNameCreditError}
+                          />
                 </div>
                 <div className="form-input-container">
                   <LabeledInput

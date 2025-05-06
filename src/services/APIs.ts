@@ -236,6 +236,7 @@ const APIS_URL = {
   TEMP_USER_ID_UPDATE: "user_id_update",
   CART_QUANTITY_UPDATE: "carts/change-quantity",
   CART_DELETE: "carts/delete",
+  PAYMENT_ORDER:"payment_order",
 
   /* ------------------------------  Currencies  -------------------------------- */
   CURRENCIES_LIST: "/currencies",

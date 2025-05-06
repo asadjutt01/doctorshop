@@ -19,7 +19,6 @@ const Auth_Methods = {
       throw error;
     }
   },
-
   user_regiser(params: any) {
     return BaseURL.post(APIS_URL.USER_Register, params);
   },

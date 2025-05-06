@@ -782,11 +782,6 @@ export default function Index() {
                           hasPharma: true,
                           login: false,
                         };
-                        // Show toast
-                        // console.log("1 hasPharma && !authToken");
-                        // setToastType("error");
-                        // setToastMessage("Pharmaceutical products require registration.");
-                        // router.push("/login/");
                         router.push(
                           {
                             pathname: `/login`,
@@ -795,11 +790,7 @@ export default function Index() {
                           `/login`,
                           { shallow: true }
                         );
-                        // Clear toast after delay
-                        // setTimeout(() => {
-                        //   setToastMessage(null);
-                        // }, 1500);
-                        return; // Stop further execution
+                        return; 
                       } else {
                      if(isPharmaRequest === 1){   
                       setToastType("info");
@@ -821,7 +812,6 @@ export default function Index() {
                         }
                       }
                     }}
-                    // href={"/register-pharma"}
                   >
                     <div className="register-warning-pill">
                       <span>Register For A Pharmaceutical Account</span>
