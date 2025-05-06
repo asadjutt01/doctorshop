@@ -185,17 +185,17 @@ orderData,
         }
         // console.log("paymentMethod>>>",paymentMethod?.id);
         // 🔹 Initiate Payment Request with Backend
-        const formData = new FormData();
-        formData.append("payment_type", "cart_payment");
-        formData.append("user_id", orderData?.user_id);
-        // formData.append("address_id", selectedAddressId);
-        const response: any = await Service.Cart_Method.cartCheckout(formData);
+        // const formData = new FormData();
+        // formData.append("payment_type", "cart_payment");
+        // formData.append("user_id", orderData?.user_id);
+        // // formData.append("address_id", selectedAddressId);
+        // const response: any = await Service.Cart_Method.cartCheckout(formData);
 
         // 🔹 Send Required Data for Stripe Payment
         const formDatastripe = new FormData();
         formDatastripe.append("payment_type", "cart_payment");
         formDatastripe.append("id", paymentMethod?.id);
-        formDatastripe.append("combined_order_id", response?.combined_order_id);
+        formDatastripe.append("combined_order_id", orderData?.combined_order_id);
         formDatastripe.append("amount", orderData?.grand_total);
         formDatastripe.append("grand_total", orderData?.grand_total);
         formDatastripe.append("user_id", user_id);
@@ -296,7 +296,9 @@ orderData,
       <div className="cart-summary__item">
         <span className="cart-summary__item-key">Net Amount: </span>
         <span className="cart-summary__item-value">
-          {orderData?.subtotal ?? "£0.00"}
+          £{orderData?.subtotal != null
+    ? (Math.floor(Number(orderData.subtotal) * 100) / 100).toFixed(2)
+    : "0.00"}
         </span>
       </div>
       <div className="cart-summary__item">
@@ -556,8 +558,8 @@ const CartItem: React.FC<CartItemProps> = ({
               {totalPrice?.toFixed(2) ?? "-"}
             </span>
             <div>
-              <div className="cart-item__quantity">
-                {/* <button
+              {/* <div className="cart-item__quantity">
+                <button
                   className="cart-item__quantity-btn"
                   onClick={() => handleQuantityChange("decrease")}
                   disabled={quantity === 1}
@@ -571,9 +573,9 @@ const CartItem: React.FC<CartItemProps> = ({
                     className="quantity-btn-plus"
                     color="#575757"
                   />
-                </button> */}
+                </button>
                 <span className="cart-item__details-qty">{quantity}</span>
-                {/* <button
+                <button
                   className="cart-item__quantity-btn"
                   onClick={() => handleQuantityChange("increase")}
                 >
@@ -582,7 +584,12 @@ const CartItem: React.FC<CartItemProps> = ({
                     className="quantity-btn-minus"
                     color="#575757"
                   />
-                </button> */}
+                </button>
+              </div> */}
+              <div>
+                <span style={{
+                  fontSize:"14px"
+                }}>Quantity: {quantity}</span>
               </div>
             </div>
           </div>
