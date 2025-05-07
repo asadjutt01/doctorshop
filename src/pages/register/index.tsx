@@ -206,7 +206,7 @@ export default function Register() {
         formData.set("phone_number", phoneNumberCredit || "");
         formData.set("mobile_number", mobileNumberCredit || "");
         formData.append("bussiness_name", bussinessNameCredit || ""); // bussiness Name
-        formData.append("department_name", departmentNameCredit || "");
+        // formData.append("department_name", departmentNameCredit || "");
         formData.append("statement_email", invoiceStateEmailCredit || "");
       } else if (healthOrganizationType?.value === 9) {
         formData.append("organization_name", healthOrganizationName || "");
@@ -723,9 +723,9 @@ export default function Register() {
                           />
                         </div>
                         <div className="form-input-container">
-                          <LabeledInput
+                          {/* <LabeledInput
                             id="departmentNameCredit"
-                            type="email"
+                            type="text"
                             placeholder="Department Name"
                             value={departmentNameCredit}
                             label="Department Name"
@@ -738,7 +738,7 @@ export default function Register() {
                               )(e.target.value)
                             }
                             errorTitle={departmentNameCreditError}
-                          />
+                          /> */}
                           <LabeledInput
                             id="invoiceStateEmailCredit"
                             type="text"
