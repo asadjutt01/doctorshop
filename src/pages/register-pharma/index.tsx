@@ -111,7 +111,7 @@ export default function Index() {
         formData.append("license_name", licenseName || "");
       }
 
-      formData.append("company_name", companyName || "");
+      formData.append("bussiness_name", companyName || "");
       formData.append("account_number", accountNumber || "");
       formData.append("license_type", licenseType.value || "");
       formData.append("registration_date", licenseRegisterationDate || "");

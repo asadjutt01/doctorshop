@@ -78,6 +78,7 @@ const router = useRouter();
   
         const res :any = await Service.Auth_Methods.verify_email(formData);
         setItem("authToken", res?.token);
+        setItem("user_id", res?.user?.id);
         if (res?.success === true) {
           setResMessage(res?.message || "Email verified successfully!");
           setToastMessage(res?.message || "Email verified successfully!");
