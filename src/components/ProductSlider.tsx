@@ -122,15 +122,17 @@ const ProductSlider: React.FC<ProductSliderProps> = ({
             {images.map((img: string, index: number) => {
               const isImageInvalid = failedImages.has(img);
               return (
-                <SwiperSlide key={index}>
+                <SwiperSlide key={index} style={{
+                  maxHeight:"600px"
+                }}>
                   <Image
                     src={isImageInvalid ? noimage : img}
                     width={500}
-                    height={500}
+                    height={600}
                     style={{
                       width: "100%",
-                      height: "100%",
-                      objectFit: "cover",
+                      maxHeight: "100%",
+                      objectFit: "contain",
                     }}
                     alt="Product image"
                     onError={(e) => {

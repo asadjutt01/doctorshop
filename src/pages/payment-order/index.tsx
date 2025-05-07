@@ -196,10 +196,11 @@ orderData,
         formDatastripe.append("payment_type", "cart_payment");
         formDatastripe.append("id", paymentMethod?.id);
         formDatastripe.append("combined_order_id", orderData?.combined_order_id);
+        // formDatastripe.append("combined_order_id", orderData?.order_id);
         formDatastripe.append("amount", orderData?.grand_total);
         formDatastripe.append("grand_total", orderData?.grand_total);
         formDatastripe.append("user_id", user_id);
-
+        formDatastripe.append("order_type", "from_erp");
         // Get `clientSecret` for Payment Intent
         const stripeApiresponse: any =
           await Service.Cart_Method.stripeCheckoutSession(formDatastripe);
@@ -221,9 +222,9 @@ orderData,
             ) {
               setToastType("success");
               setToastMessage(
-                `Payment is successful Redirecting to your dashboard...`
+                `Payment is successful Redirecting to your home...`
               );
-              router.push("/dashboard");
+              router.push("/");
             } else {
               setToastType("success");
               setToastMessage(
@@ -628,6 +629,7 @@ export default function Index() {
       const formData = new FormData();
       formData.append("user_id", user_id);
       formData.append("order_id", order_id);
+      
 
       const response: any = await Service.Cart_Method.cartCheckoutPaymentOrder(formData);
 
