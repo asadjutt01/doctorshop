@@ -534,7 +534,11 @@ export default function Register() {
                             }
                             errorTitle={lastNameError}
                           />
-                          <LabeledInput
+                         
+                        </div>
+                       
+                        <div className="form-input-container">
+                        <LabeledInput
                             id="bussinessNameCredit"
                             type="text"
                             placeholder="Bussiness Name"
