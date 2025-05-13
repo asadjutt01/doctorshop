@@ -56,7 +56,7 @@ export default function HeroSlider() {
     },
     // Add more banner objects as needed
   ];
-  const handleNavigate = (id: number, slug: string) => {
+  const handleNavigate = (slug: string) => {
     const data = {
       productName: slug,
     };
@@ -73,39 +73,6 @@ export default function HeroSlider() {
     <div>
       <div className="hero-section" >
         <Carousel>
-          {/* {Banners.map((banner:any)=>{
-          <Carousel.Item
-            className="carousel-item-bg"
-            style={{
-              backgroundImage: `url(${hero1.src})`,
-            }}
-          >
-            <div className="slide-content">
-              <div className="lg-container slide-content-inner-container">
-                <div className="content">
-                  <h1>
-                    AirX Nebuliser Face Mask Kit with 8ml Chamber & Tubing 2.1m
-                    Crush & Kink Resistant
-                  </h1>
-                  <p>
-                    AirX Nebuliser Face Mask Kit minimise the residual volume
-                    and reduce drug wastage. At a driving gas flow of 8 L/min,
-                    74% of the volume output will be particles less than 5
-                    microns in diameter with a mass median diameter (MMD) of 3.3
-                    microns.
-                  </p>
-                  <p>
-                    <span>Product Code:</span> <span>GXM-786NMKA</span>
-                  </p>
-                  <div className="prize-vat">
-                    <h2>£1.85</h2>
-                    <span>£2.22 inc VAT</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </Carousel.Item>
-         }) } */}
           {banners.map((banner) => (
             <Carousel.Item
               key={banner.id}
@@ -113,7 +80,7 @@ export default function HeroSlider() {
               style={{
                 backgroundImage: `url(${banner.image})`,
               }}
-              onClick={() => handleNavigate(banner.id, banner.slug)}
+              onClick={() => handleNavigate(banner.slug)}
             >
               <div className="slide-content">
                 <div className="lg-container slide-content-inner-container">
@@ -138,7 +105,7 @@ export default function HeroSlider() {
       <div className="hero-section-mobile">
         <Carousel>
         {banners.map((banner) => (
-    <Carousel.Item key={banner.id}>
+    <Carousel.Item key={banner.id} onClick={() => handleNavigate(banner.slug)}>
       <Image
         src={banner.image_mobile}
         alt="Home-Banner"
@@ -147,7 +114,6 @@ export default function HeroSlider() {
         height={320}
         style={{ width: "100%",
           height: "100%",
-          // objectFit:"contain",
          }}
       />
       <div className="slide-content">
@@ -172,36 +138,3 @@ export default function HeroSlider() {
     </div>
   );
 }
-{/* {Banners.map((banner:any)=>{
-          <Carousel.Item
-            className="carousel-item-bg"
-            style={{
-              backgroundImage: `url(${hero1.src})`,
-            }}
-          >
-            <div className="slide-content">
-              <div className="lg-container slide-content-inner-container">
-                <div className="content">
-                  <h1>
-                    AirX Nebuliser Face Mask Kit with 8ml Chamber & Tubing 2.1m
-                    Crush & Kink Resistant
-                  </h1>
-                  <p>
-                    AirX Nebuliser Face Mask Kit minimise the residual volume
-                    and reduce drug wastage. At a driving gas flow of 8 L/min,
-                    74% of the volume output will be particles less than 5
-                    microns in diameter with a mass median diameter (MMD) of 3.3
-                    microns.
-                  </p>
-                  <p>
-                    <span>Product Code:</span> <span>GXM-786NMKA</span>
-                  </p>
-                  <div className="prize-vat">
-                    <h2>£1.85</h2>
-                    <span>£2.22 inc VAT</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </Carousel.Item>
-         }) } */}
