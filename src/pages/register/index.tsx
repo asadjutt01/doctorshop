@@ -125,7 +125,7 @@ export default function Register() {
       (healthOrganizationType.value !== 9 || healthOrganizationName)) ||
     (healthOrganizationType.value <= 2 &&
       firstNameCredit && lastNameCredit && emailCredit && bussinessNameCredit &&
-      departmentNameCredit && invoiceStateEmailCredit && phoneNumberCredit && mobileNumberCredit)
+      invoiceStateEmailCredit && phoneNumberCredit && mobileNumberCredit)
   );
 
   const isDeliveryDetailsValid =
