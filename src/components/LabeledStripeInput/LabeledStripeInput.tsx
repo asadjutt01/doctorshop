@@ -28,7 +28,7 @@ const LabeledStripeInput: React.FC<LabeledStripeInputProps> = ({
           {id === "card-cvc" && <CardCvcElement className="w-full" />}
         </div>
         {errorTitle && (
-          <span className="text-red-500 text-xxxs w-full p-1" style={{ color: "red", fontSize: "12px" }}>
+          <span className="text-red-500 text-xxxs w-full p-1 mb-0" style={{ color: "red", fontSize: "12px" }}>
             {errorTitle}
           </span>
         )}

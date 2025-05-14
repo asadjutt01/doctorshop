@@ -64,7 +64,7 @@ const LabeledInput: React.FC<LabeledInputProps> = ({
 )}
         {errorTitle && (
           <p
-            className="text-red-500 text-xxxs w-full p-1"
+            className="text-red-500 text-xxxs w-full p-1 mb-0"
             style={{
               color: "red",
               fontSize: "12px",

@@ -148,31 +148,38 @@ export default function Register() {
 
   const [currentStep, setCurrentStep] = useState(0);
   const steps = [{ label: "Personal Detail" }, { label: "Delivery Address" }];
+  const [errors, setError] = useState({})
 
+   
   const nextStep = async () => {
-    setLoading(true);
+    // setLoading(true);
 
     if (currentStep === 0 && isPersonalDetailsValid) {
+      setCurrentStep(1);
+      // try {
+      //   const res = await handleRegister();
+      //   setCurrentStep(1);
+      // } catch (err) {
+      //   console.error("Registration failed:", err);
+      // } finally {
+      //   setLoading(false);
+      // }
+      return ;
+    } 
+     if (currentStep === 1 && isDeliveryDetailsValid) {
+      setLoading(true);
       try {
-        const res = await handleRegister();
-        setCurrentStep(1);
-      } catch (err) {
-        console.error("Registration failed:", err);
-      } finally {
-        setLoading(false);
-      }
-    } else if (currentStep === 1 && isDeliveryDetailsValid) {
-      try {
+        await handleRegister();
         await add_delivrey_adress();
-        // console.log("Address added successfully!");
       } catch (err) {
         console.error("Address addition failed:", err);
       } finally {
         setLoading(false);
       }
-    } else {
-      setLoading(false);
-    }
+      return ;
+    } 
+  setLoading(false);
+  
   };
 
   const previousStep = () => {
@@ -190,45 +197,38 @@ export default function Register() {
     try {
       const formData = new FormData();
 
-      formData.append("first_name", firstName || "");
-      formData.append("last_name", lastName || "");
+      formData.append("first_name", firstName?.trim() || "");
+      formData.append("last_name", lastName?.trim() || "");
       
-      formData.append("email", email || "");
+      formData.append("email", email?.trim() || "");
       formData.append("organization_type", healthOrganizationType?.value || "");
-      formData.append("password", password || "");
-      formData.append("confirm_password", confirmPassword || "");
-      formData.append("mobile_number", mobileNumber || "");
+      formData.append("password",password?.trim()  || "");
+      formData.append("confirm_password", confirmPassword?.trim() || "");
+      formData.append("mobile_number", mobileNumber?.trim() || "");
 
       if (healthOrganizationType?.value <= 2) {
-        formData.set("first_name", firstNameCredit || "");
-        formData.set("last_name", lastNameCredit || "");
-        formData.set("email", emailCredit || "");
-        formData.set("phone_number", phoneNumberCredit || "");
-        formData.set("mobile_number", mobileNumberCredit || "");
-        formData.append("bussiness_name", bussinessNameCredit || ""); // bussiness Name
+        formData.set("first_name", firstNameCredit?.trim() || "");
+        formData.set("last_name", lastNameCredit?.trim() || "");
+        formData.set("email", emailCredit?.trim() || "");
+        formData.set("phone_number", phoneNumberCredit?.trim() || "");
+        formData.set("mobile_number", mobileNumberCredit?.trim() || "");
+        formData.append("bussiness_name", bussinessNameCredit?.trim() || ""); // bussiness Name
         // formData.append("department_name", departmentNameCredit || "");
-        formData.append("statement_email", invoiceStateEmailCredit || "");
+        formData.append("statement_email", invoiceStateEmailCredit?.trim() || "");
       } else if (healthOrganizationType?.value === 9) {
-        formData.append("organization_name", healthOrganizationName || "");
+        formData.append("organization_name", healthOrganizationName?.trim() || "");
         
       }else{
-        formData.append("bussiness_name", bussinessName || "");
+        formData.append("bussiness_name", bussinessName?.trim() || "");
       }
 
       // console.log("FormData to be sent:", Object.fromEntries(formData.entries()));
 
-      setToastType("info");
-      setToastMessage("Registering... Please wait while we create your account.");
+      // setToastType("info");
+      // setToastMessage("Registering... Please wait while we create your account.");
 
       const response: any = await Service.Auth_Methods.user_regiser(formData);
-
-      // console.log("Registration Response:", response);
-      // setItem("user_id", response?.user_id);
-
-      // setItem("user", response?.user);
-      // setItem("user_type", response?.user_type);
-
-
+ 
       setItem("credit_id", response?.credit_id);
       setItem("authToken", response?.token);
       setItem("user_type", response?.user_type);
@@ -237,8 +237,34 @@ export default function Register() {
       setItem("is_pharma_approved", response.is_pharma_approved);
       setItem("user", response?.user);
       dispatch(login({ user: response.user, token: response.access_token }));
-      setToastType("success");
-      setToastMessage(response?.message || "Registration Successful! Your account has been created.");
+      
+  
+if (response?.status == false) {
+  setError(response?.errors)
+  setToastType("error");
+
+  if (response?.errors) {
+const Errors = response?.errors
+    for (const error in Errors) {
+         
+            const element = Errors[error];
+            if(element?.length > 0){
+               setToastType("error");
+              setToastMessage(element[0] ||"Registration Failed! Something went wrong. Please try again.");
+              if(error === "email"){
+               setEmailError(element[0])
+               setEmailCreditError(element[0])
+              }
+            }
+      
+        }
+    
+  }
+}else{
+  setToastType("success");
+setToastMessage(response?.message || "Registration Successful! Your account has been created.");
+}
+      // setToastMessage(response?.message || "Registration Successful! Your account has been created.");
 
       // const cart_data = getItem('cart_data')
       // if (cart_data && Object.keys(cart_data).length > 0) {
@@ -280,18 +306,21 @@ export default function Register() {
       setEmailCreditError("")
       return response;
     } catch (err:any) {
-      const errorMessage =
-      err.response?.data?.message;
-      console.error("Registration Error:", err);
-      setToastType("error");
-      setToastMessage(errorMessage ||"Registration Failed! Something went wrong. Please try again.");
-      if(errorMessage === "Email already exists. Please use a different email address."){
-        setEmailError(errorMessage)
-        setEmailCreditError(errorMessage)
-    
-      }
-
-    
+      if(err.response?.data?.status == false){
+        setError(err.response?.data?.errors)
+        const Errors =  err.response?.data?.errors
+        for (const error in Errors) {
+            const element = Errors[error];
+            if(element?.length > 0){
+               setToastType("error");
+              setToastMessage(element[0] ||"Registration Failed! Something went wrong. Please try again.");
+              if(error === "email"){
+               setEmailError(element[0])
+               setEmailCreditError(element[0])
+              }
+            }
+        }
+    }
       throw err;
     }
   };
@@ -313,14 +342,14 @@ export default function Register() {
 
       // console.log("FormData to be sent:", Object.fromEntries(formData.entries()));
 
-      setToastType("info");
-      setToastMessage("Adding Address... Please wait while we save your delivery address.");
+      // setToastType("info");
+      // setToastMessage("Adding Address... Please wait while we save your delivery address.");
 
       const response:any = await Service.Customer_Address_Method.addadress_customer(formData);
 
       // console.log("Address Response:", response);
-      setToastType("success");
-      setToastMessage(response?.message || "Address Added! Your delivery address has been saved.");
+      // setToastType("success");
+      // setToastMessage(response?.message || "Address Added! Your delivery address has been saved.");
 
       // const is_pharmaceutical =  getItem("is_pharmaceutical")
       if (query?.fromcheckout === "true" && query?.hasPharma === 'true' && query?.login === 'false') {
@@ -332,9 +361,6 @@ export default function Register() {
         const tempResponse: any = await Service.Cart_Method.tempUserIdUpdate(
             formData
         );
-     
-        // setToastType("success");
-        // setToastMessage("Login Successful! Welcome back!");
         const user_type: any = getItem("user_type")
         if(user_type !== "customer_credit"){
           const data = {
@@ -353,51 +379,11 @@ export default function Register() {
         );}else{
           router.push("/");
         }
-      
-        // router.push("/register-pharma");
+    
       } else  {
-      //   setToastType("success");
-      // setToastMessage("Login Successful! Welcome back!");
       router.push("/");
       }
-
-
-
-      // if (query?.fromcheckout === "true" && query?.hasPharma === 'true') {
-      //   const data = {
-      //     fromcheckout: true,
-      //     hasPharma: true,
-      //     login: false,
-      //   };
-      //   router.push(
-      //     {
-      //       pathname: `/register-pharma`,
-      //       query: data,
-      //     },
-      //     `/register-pharma`,
-      //     { shallow: true }
-      //   );
-      //   // setToastType("success");
-      //   // setToastMessage("Login Successful! Welcome back!");
-      //   // router.push("/register-pharma");
-      // } else {
-      //   setToastType("success");
-      //   setToastMessage("Login Successful! Welcome back!");
-      //   router.push("/");
-      // }
-      // setTimeout(() => {
-      //   if (hasPharma ) {
-      //     router.push("/register-pharma/");
-      //   } else {
-      //     router.push("/");
-      //   }
-      // }, 1500); // Delay redirect to show success toast
-
-      // Reset form fields
-      
-      
-      
-      
+         
       setPostCode("");
       setAddressLine1("");
       setAddressLine2("");
@@ -812,7 +798,7 @@ export default function Register() {
               )}
               {currentStep === 1 && (
                 <div className="register-form">
-                  <div className="switch-select-container">
+                  {/* <div className="switch-select-container">
                     <div className="switch-select">
                       <SwitchSingle
                         checked={isCheckedSendCode}
@@ -820,7 +806,7 @@ export default function Register() {
                       />
                       <span className="switch-select-text">Manual Entry</span>
                     </div>
-                  </div>
+                  </div> */}
                   <div className="form-input-container">
                     <LabeledInput
                       id="postCode"
@@ -956,7 +942,29 @@ export default function Register() {
                 </div>
               )}
 
-              <div className="my-2 w-full button-contaioner">
+              <div className="my-2 w-full button-contaioner gap-4">
+                {currentStep === 1 &&   <button
+                  type="submit"
+                  className="secondary-button"
+                  onClick={()=>{
+                    setCurrentStep(0)
+                  }}
+                  // disabled={
+                  //   (currentStep === 0 && !isPersonalDetailsValid) ||
+                  //   (currentStep === 1 && !isDeliveryDetailsValid) ||
+                  //   loading
+                  // }
+                  style={{
+                    // backgroundColor:
+                    //   (currentStep === 0 && !isPersonalDetailsValid) ||
+                    //     (currentStep === 1 && !isDeliveryDetailsValid) ||
+                    //     loading
+                    //     ? "#ccc"
+                    //     : undefined
+                  }}
+                >
+                  {"Back"}
+                </button>}
                 <button
                   type="submit"
                   className="primary-button"
@@ -995,4 +1003,3 @@ export default function Register() {
     </div>
   );
 }
-
