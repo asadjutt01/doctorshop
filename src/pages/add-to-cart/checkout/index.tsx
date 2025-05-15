@@ -1144,7 +1144,7 @@ export default function Index() {
                 onChange={(e) =>
                   handleInputChange(
                     setCounty,
-                    [validateRequired],
+                    [],
                     setCountyError
                   )(e.target.value)
                 }

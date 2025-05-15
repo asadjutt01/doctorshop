@@ -24,7 +24,7 @@ export default function HeroSlider() {
         slug:"airx-nebuliser-face-mask-kit-with-8ml-chamber-tubing-21m-crush-kink-resistant",
       description:
         "AirX Nebuliser Face Mask Kit minimise the residual volume and reduce drug wastage. At a driving gas flow of 8 L/min, 74% of the volume output will be particles less than 5 microns in diameter with a mass median diameter (MMD) of 3.3 microns.",
-      productCode: "GXM-786SCLB",
+      productCode: "GXM-786NMKA",
       price: "£1.85",
       priceWithVat: "£2.22 inc VAT",
     },
@@ -37,7 +37,7 @@ export default function HeroSlider() {
         slug:"genx-midstream-urine-container-30ml",
       description:
         "GenX Specimen Container 30ml with Label designed for efficient specimen collection.",
-      productCode: "GXM-786NMKA",
+      productCode: "GXM-786SCL",
       price: "£0.79",
       priceWithVat: "£0.95 inc VAT",
     },

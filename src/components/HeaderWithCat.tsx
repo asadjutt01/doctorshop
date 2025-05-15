@@ -42,6 +42,7 @@ import Toast from "./Toast";
 import { getCartCount } from "./LoadInitialData/LoadInitialData";
 
 import { v4 as uuidv4 } from "uuid";
+import PersonalDetailbar from "./PersonalDetailbar";
 export default function HeaderWithCat() {
   const [isActive, setIsActive] = useState(false);
   const [iscategory, setIscategory] = useState(false);
@@ -51,6 +52,9 @@ export default function HeaderWithCat() {
   const categories = useSelector(
     (state: IRootState) => state.category.first_category_all
   );
+   const deliveryAddressList: any = useSelector(
+      (state: IRootState) => state.user.userAddressList
+    );
   const dispatch = useDispatch();
 
   const [authToken, setAuthToken] = useState<string | null>(null);
@@ -357,7 +361,7 @@ export default function HeaderWithCat() {
               </div>
             </div>
           </div>
-
+           <PersonalDetailbar user_type={user_type} authToken={authToken}/>
           <div>
             <div className="header" onMouseLeave={handleMouseLeave}>
               <div className="lg-container header-main">

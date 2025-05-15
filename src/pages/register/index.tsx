@@ -132,7 +132,7 @@ export default function Register() {
     postCode && addressLine1 
     // && addressLine2 && addressLine3
      &&
-    town && city && county && country && isChecked;
+    town && city  && country && isChecked;
 
   useEffect(() => {
   if (
@@ -329,7 +329,7 @@ setToastMessage(response?.message || "Registration Successful! Your account has 
   const add_delivrey_adress = async () => {
     try {
       const formData = new FormData();
-
+ const user_id: any = getItem("user_id");
       formData.append("credit_id", user_id);
       formData.append("post_code", postCode || "");
       formData.append("address1", addressLine1 || "");
@@ -915,7 +915,7 @@ setToastMessage(response?.message || "Registration Successful! Your account has 
                       onChange={(e) =>
                         handleInputChange(
                           setCounty,
-                          [validateRequired],
+                          [],
                           setCountyError
                         )(e.target.value)
                       }

@@ -4,7 +4,11 @@ import HeaderWithCat from "@/components/HeaderWithCat";
 import Footer from "@/components/Footer";
 import LabeledInput from "@/components/LabeledInputProps/LabeledInputProps ";
 import { handleInputChange, handleSelectChange } from "@/utils/functions";
-import { validateEmail, validatePhoneNumber, validateRequired } from "@/validation/Validation";
+import {
+  validateEmail,
+  validatePhoneNumber,
+  validateRequired,
+} from "@/validation/Validation";
 import LabeledSelect from "@/components/LabeledSelect/LabeledSelect";
 import { Option } from "@/types/types";
 import Switch from "@/components/Switch";
@@ -23,310 +27,337 @@ import { useDispatch } from "react-redux";
 import Toast from "@/components/Toast";
 
 export default function Index() {
-    const user_id: any = getItem("user_id");
-    const dispatch = useDispatch()
-    const router = useRouter();
-    const { query }: any = router;
-    const [toastMessage, setToastMessage] = useState<string | null>(null);
-    const [toastType, setToastType] = useState<"success" | "error" | "info">("success");
-    // Personal Details States
-    const [firstName, setFirstName] = useState<string>("")
-    const [lastName, setLastName] = useState<string>("")
-    const [email, setEmail] = useState<string>("");
-    const [mobileNumber, setMobileNumber] = useState<string>("");
-    // Personal Details Error States
-    const [firstNameError, setFirstNameError] = useState<string>("")
-    const [lastNameError, setLastNameError] = useState<string>("")
-    const [emailError, setEmailError] = useState<string>("");
-    const [mobileNumberError, setMobileNumberError] = useState<string>("");
+  const user_id: any = getItem("user_id");
+  const dispatch = useDispatch();
+  const router = useRouter();
+  const { query }: any = router;
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [toastType, setToastType] = useState<"success" | "error" | "info">(
+    "success"
+  );
+  // Personal Details States
+  const [firstName, setFirstName] = useState<string>("");
+  const [lastName, setLastName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [mobileNumber, setMobileNumber] = useState<string>("");
+  // Personal Details Error States
+  const [firstNameError, setFirstNameError] = useState<string>("");
+  const [lastNameError, setLastNameError] = useState<string>("");
+  const [emailError, setEmailError] = useState<string>("");
+  const [mobileNumberError, setMobileNumberError] = useState<string>("");
 
-    const [isCheckedSendCode, setIsCheckedSendCode] = useState<boolean>(true);
+  const [isCheckedSendCode, setIsCheckedSendCode] = useState<boolean>(true);
 
-    // Delivery Details States
-    const [postCode, setPostCode] = useState<string>("");
-    const [addressLine1, setAddressLine1] = useState<string>("");
-    const [addressLine2, setAddressLine2] = useState<string>("");
-    const [addressLine3, setAddressLine3] = useState<string>("");
-    const [town, setTown] = useState<string>("");
-    const [city, setCity] = useState<string>("");
-    const [county, setCounty] = useState<string>("");
-    const [country, setCountry] = useState<Option | any>(null);
+  // Delivery Details States
+  const [postCode, setPostCode] = useState<string>("");
+  const [addressLine1, setAddressLine1] = useState<string>("");
+  const [addressLine2, setAddressLine2] = useState<string>("");
+  const [addressLine3, setAddressLine3] = useState<string>("");
+  const [town, setTown] = useState<string>("");
+  const [city, setCity] = useState<string>("");
+  const [county, setCounty] = useState<string>("");
+  const [country, setCountry] = useState<Option | any>(null);
 
+  // Delivery Details Error States
+  const [postCodeError, setPostCodeError] = useState<string>("");
+  const [addressLine1Error, setAddressLine1Error] = useState<string>("");
+  const [addressLine2Error, setAddressLine2Error] = useState<string>("");
+  const [addressLine3Error, setAddressLine3Error] = useState<string>("");
+  const [townError, setTownError] = useState<string>("");
+  const [cityError, setCityError] = useState<string>("");
+  const [countyError, setCountyError] = useState<string>("");
+  const [countryError, setCountryError] = useState<string>("");
 
+  useEffect(() => {}, [dispatch]);
+const [loading, setLoading] = useState<boolean>(false);
+  const [currentStep, setCurrentStep] = useState(0);
+  const steps = [{ label: "Personal Detail" }, { label: "Delivery Address" }];
+  const [errors, setError] = useState({});
 
-    // Delivery Details Error States
-    const [postCodeError, setPostCodeError] = useState<string>("");
-    const [addressLine1Error, setAddressLine1Error] = useState<string>("");
-    const [addressLine2Error, setAddressLine2Error] = useState<string>("");
-    const [addressLine3Error, setAddressLine3Error] = useState<string>("");
-    const [townError, setTownError] = useState<string>("");
-    const [cityError, setCityError] = useState<string>("");
-    const [countyError, setCountyError] = useState<string>("");
-    const [countryError, setCountryError] = useState<string>("");
+  const isPersonalDetailsValid = firstName && lastName && email && mobileNumber;
 
+  const isDeliveryDetailsValid =
+    postCode &&
+    addressLine1 &&
+    // addressLine2 &&
+    // addressLine3 &&
+    town &&
+    city &&
+    country;
 
+  const nextStep = async () => {
+    if (currentStep === 0) {
+      setCurrentStep(1);
+      // try {
+      //     await addpersnol_detail();
+      //     setCurrentStep(1);
+      // } catch (err) {
+      //     console.error("Registration failed:", err);
+      // } finally {
+      //     ;
+      // }
+        return ;
+    } 
+    if (currentStep === 1) {
+        setLoading(true)
+      try {
+        await addpersnol_detail();
+        await add_delivrey_adress();
+        // console.log("Address added successfully!");
+        // if (query?.fromcheckout === 'true') {
+        //     router.push("/add-to-cart/checkout");
+        // }
+        // Add your success navigation here if needed
+      } catch (err) {
+        console.error("Address addition failed:", err);
+      } finally {
+        setLoading(false)
+      }
+        return ;
+    } 
+    setLoading(false)
+  };
 
+  const previousStep = () => {
+    if (currentStep > 0) {
+      setCurrentStep((prev) => prev - 1);
+    }
+  };
 
-    useEffect(() => {
+  const addpersnol_detail = async () => {
+    try {
+      const formData = new FormData();
+      formData.append("first_name", firstName || "");
+      formData.append("last_name", lastName || "");
+      formData.append("email", email || "");
+      formData.append("mobile_number", mobileNumber || "");
 
-    }, [dispatch])
+      // console.log("FormData to be sent:", Object.fromEntries(formData.entries()));
 
+      // setToastType("info"); // Toast: Info
+      // setToastMessage("Registering User... Please wait while we process your request.");
 
+      const response: any = await Service.Auth_Methods.guest_user_pharma(
+        formData
+      );
+      // console.log("Response:", response?.id);
+      setItem("user_id", response?.user_id);
+      setItem("user_type", response?.user_type);
+      setItem("authToken", response.token);
+      dispatch(login({ user: response, token: response.token }));
+      if (response?.status == false) {
+        setError(response?.errors);
+        setToastType("error");
 
-
-
-    const [currentStep, setCurrentStep] = useState(0);
-    const steps = [
-        { label: "Personal Detail" },
-        { label: "Delivery Address" },
-    ];
-
-    const isPersonalDetailsValid =  firstName &&
-    lastName &&
-    email && 
-    mobileNumber ;
-    
-      const isDeliveryDetailsValid =
-        postCode &&
-addressLine1 &&
-// addressLine2 &&
-// addressLine3 &&
-town &&
-city &&
-county &&
-country;
-    
-    const nextStep = async () => {
-
-        if (currentStep === 0) {
-            try {
-                await addpersnol_detail();
-                setCurrentStep(1);
-            } catch (err) {
-                console.error("Registration failed:", err);
-            } finally {
-                ;
+        if (response?.errors) {
+          const Errors = response?.errors;
+          for (const error in Errors) {
+            const element = Errors[error];
+            if (element?.length > 0) {
+              setToastType("error");
+              setToastMessage(
+                element[0] ||
+                  "Registration Failed! Something went wrong. Please try again."
+              );
+              if (error === "email") {
+                setEmailError(element[0]);
+                //    setEmailCreditError(element[0])
+              }
             }
-        } else if (currentStep === 1) {
-            try {
-                await add_delivrey_adress();
-                // console.log("Address added successfully!");
-                // if (query?.fromcheckout === 'true') {
-                //     router.push("/add-to-cart/checkout");
-                // }
-                // Add your success navigation here if needed
-            } catch (err) {
-                console.error("Address addition failed:", err);
-            } finally {
-
-            }
+          }
+        }
+      } else {
+        if (query?.fromcheckout === "true") {
+          const temp_user_id: any = getItem("temp_user_id");
+          const formData = new FormData();
+          formData.append("user_id", response?.user_id);
+          formData.append("temp_user_id", temp_user_id);
+          const tempResponse: any = await Service.Cart_Method.tempUserIdUpdate(
+            formData
+          );
+          // Success alert
+          setToastType("success"); // Toast: Success
+          setToastMessage(
+            "Registration Successful! Your personal details have been saved successfully."
+          );
         } else {
-
+          setToastType("success"); // Toast: Success
+          setToastMessage(
+            "Registration Successful! Your personal details have been saved successfully."
+          );
         }
-    };
+      }
 
-    const previousStep = () => {
-        if (currentStep > 0) {
-            setCurrentStep((prev) => prev - 1);
-        }
-    };
+      // Reset form fields after successful registration
+      setFirstName("");
+      setLastName("");
+      setEmail("");
+      setMobileNumber("");
 
-
-
-    const addpersnol_detail = async () => {
-        try {
-            const formData = new FormData();
-            formData.append("first_name", firstName || "");
-            formData.append("last_name", lastName || "");
-            formData.append("email", email || "");
-            formData.append("mobile_number", mobileNumber || "");
-
-            // console.log("FormData to be sent:", Object.fromEntries(formData.entries()));
-
-            setToastType("info"); // Toast: Info
-            setToastMessage("Registering User... Please wait while we process your request.");
-
-            const response: any = await Service.Auth_Methods.guest_user_pharma(formData);
-            // console.log("Response:", response?.id);
-            setItem("user_id", response?.user_id);
-            setItem("user_type", response?.user_type);
-            setItem("authToken", response.token);
-            dispatch(login({ user: response, token: response.token }));
-            if (query?.fromcheckout === "true") {
-                const temp_user_id: any = getItem("temp_user_id");
-                const formData = new FormData();
-                formData.append("user_id", response?.user_id);
-                formData.append("temp_user_id", temp_user_id);
-                const tempResponse: any = await Service.Cart_Method.tempUserIdUpdate(
-                    formData
-                );
-                // Success alert
-                setToastType("success"); // Toast: Success
-                setToastMessage("Registration Successful! Your personal details have been saved successfully.");
-            } else {
-                setToastType("success"); // Toast: Success
-                setToastMessage("Registration Successful! Your personal details have been saved successfully.");
+      return response;
+    } catch (err: any) {
+      if (err.response?.data?.status == false) {
+        setError(err.response?.data?.errors);
+        const Errors = err.response?.data?.errors;
+        for (const error in Errors) {
+          const element = Errors[error];
+          if (element?.length > 0) {
+            setToastType("error");
+            setToastMessage(
+              element[0] ||
+                "Registration Failed! Something went wrong. Please try again."
+            );
+            if (error === "email") {
+              setEmailError(element[0]);
             }
-
-
-            // Reset form fields after successful registration
-            setFirstName("");
-            setLastName("");
-            setEmail("");
-            setMobileNumber("");
-
-            return response;
-        } catch (err) {
-            console.error("Registration Error:", err);
-
-            setToastType("error"); // Toast: Error
-            setToastMessage("Registration Failed! Something went wrong. Please try again.");
-
-            throw err;
+          }
         }
-    };
+      }
 
+      throw err;
+    }
+  };
 
-    const add_delivrey_adress = async () => {
-        try {
-            const formData = new FormData();
+  const add_delivrey_adress = async () => {
+    try {
+      const formData = new FormData();
+ const user_id: any = getItem("user_id");
+      formData.append("credit_id", user_id);
+      formData.append("post_code", postCode || "");
+      formData.append("address1", addressLine1 || "");
+      formData.append("address2", addressLine2 || "");
+      formData.append("address3", addressLine3 || "");
+      formData.append("town", town || "");
+      formData.append("city", city || "");
+      formData.append("county", county || "");
+      formData.append("country", country.label || "");
+      // formData.append("user_id", user_id);
+      // console.log("FormData to be sent:", Object.fromEntries(formData.entries()));
 
-            formData.append("credit_id", user_id);
-            formData.append("post_code", postCode || "");
-            formData.append("address1", addressLine1 || "");
-            formData.append("address2", addressLine2 || "");
-            formData.append("address3", addressLine3 || "");
-            formData.append("town", town || "");
-            formData.append("city", city || "");
-            formData.append("county", county || "");
-            formData.append("country", country.label || "");
-            // formData.append("user_id", user_id);
-            // console.log("FormData to be sent:", Object.fromEntries(formData.entries()));
+    //   setToastType("info"); // Toast: Info
+    //   setToastMessage(
+    //     "Adding Delivery Address... Please wait while we process your request."
+    //   );
 
-            setToastType("info"); // Toast: Info
-            setToastMessage("Adding Delivery Address... Please wait while we process your request.");
+      const response = await Service.Customer_Address_Method.addadress_customer(
+        formData
+      );
+      // console.log("Response:", response);
+      if (query?.fromcheckout === "true") {
+        // setToastType("success"); // Toast: Success
+        // setToastMessage(
+        //   "Address Added Successfully! Your delivery address has been saved."
+        // );
+        router.push("/add-to-cart/checkout");
+      } else {
+        // setToastType("success"); // Toast: Success
+        // setToastMessage(
+        //   "Address Added Successfully! Your delivery address has been saved."
+        // );
+        router.push("/");
+      }
 
-            const response = await Service.Customer_Address_Method.addadress_customer(formData);
-            // console.log("Response:", response);
-            if (query?.fromcheckout === "true") {
-                setToastType("success"); // Toast: Success
-                setToastMessage("Address Added Successfully! Your delivery address has been saved.");
-                router.push("/add-to-cart/checkout");
-            } else {
-                setToastType("success"); // Toast: Success
-                setToastMessage("Address Added Successfully! Your delivery address has been saved.");
-                router.push("/");
-            }
+      // Reset form fields after successful address addition
+      setPostCode("");
+      setAddressLine1("");
+      setAddressLine2("");
+      setAddressLine3("");
+      setTown("");
+      setCity("");
+      setCounty("");
+      setCountry({ label: "", value: "" }); // Adjust based on your country object structure
 
+      return response;
+    } catch (err) {
+      console.error("Address Addition Error:", err);
 
+      setToastType("error"); // Toast: Error
+      setToastMessage(
+        "Failed to Add Address! Something went wrong. Please try again."
+      );
 
-            // Reset form fields after successful address addition
-            setPostCode("");
-            setAddressLine1("");
-            setAddressLine2("");
-            setAddressLine3("");
-            setTown("");
-            setCity("");
-            setCounty("");
-            setCountry({ label: "", value: "" }); // Adjust based on your country object structure
+      throw err;
+    }
+  };
 
-            return response;
-        } catch (err) {
-            console.error("Address Addition Error:", err);
+  const closeToast = () => {
+    setToastMessage(null);
+  };
 
-            setToastType("error"); // Toast: Error
-            setToastMessage("Failed to Add Address! Something went wrong. Please try again.");
+  return (
+    <div>
+      <HeaderWithCat />
+      <div className="register-page">
+        <div className="lg-container">
+          <div className="register-container">
+            <div className="register-page-card">
+              <div className="card-title-container">
+                <h2 className="card-title">Guest Account Details</h2>
+              </div>
 
-            throw err;
-        }
-    };
+              <Stepper
+                width={"50%"}
+                currentStep={currentStep}
+                steps={steps}
+                setCurrentStep={setCurrentStep}
+              />
 
-    const closeToast = () => {
-        setToastMessage(null);
-    };
+              {currentStep === 0 && (
+                <div className="register-form">
+                  <div className="form-input-container">
+                    <LabeledInput
+                      id="firstName"
+                      type="text"
+                      placeholder="First Name"
+                      value={firstName}
+                      label="First Name"
+                      required={true}
+                      onChange={(e) =>
+                        handleInputChange(
+                          setFirstName,
+                          [validateRequired],
+                          setFirstNameError
+                        )(e.target.value)
+                      }
+                      errorTitle={firstNameError}
+                    />
 
-    return (
-        <div>
+                    <LabeledInput
+                      id="lastName"
+                      type="text"
+                      placeholder="Last Name"
+                      value={lastName}
+                      label="Last Name"
+                      required={true}
+                      onChange={(e) =>
+                        handleInputChange(
+                          setLastName,
+                          [validateRequired],
+                          setLastNameError
+                        )(e.target.value)
+                      }
+                      errorTitle={lastNameError}
+                    />
+                  </div>
+                  <div className="form-input-container">
+                    <LabeledInput
+                      id="email"
+                      type="email"
+                      placeholder="Email"
+                      value={email}
+                      label="Email"
+                      required={true}
+                      onChange={(e) =>
+                        handleInputChange(
+                          setEmail,
+                          [validateRequired, validateEmail],
+                          setEmailError
+                        )(e.target.value)
+                      }
+                      errorTitle={emailError}
+                    />
 
-            <HeaderWithCat />
-            <div className="register-page">
-                <div className="lg-container">
-                    <div className="register-container">
-                        <div className="register-page-card">
-                            <div className="card-title-container">
-                                <h2 className="card-title">Guest Account Details</h2>
-                            </div>
-
-                            <Stepper
-                                width={'50%'}
-                                currentStep={currentStep}
-                                steps={steps}
-                                setCurrentStep={setCurrentStep}
-                            />
-
-
-                            {currentStep === 0 && (<div className="register-form">
-
-
-                                <div className="form-input-container">
-                                    <LabeledInput
-                                        id="firstName"
-                                        type="text"
-                                        placeholder="First Name"
-                                        value={firstName}
-                                        label="First Name"
-                                        required={true}
-                                        onChange={(e) =>
-                                            handleInputChange(
-                                                setFirstName,
-                                                [
-                                                    validateRequired
-                                                ],
-                                                setFirstNameError
-                                            )(e.target.value)
-                                        }
-                                        errorTitle={firstNameError} />
-
-                                    <LabeledInput
-                                        id="lastName"
-                                        type="text"
-                                        placeholder="Last Name"
-                                        value={lastName}
-
-                                        label="Last Name"
-                                        required={true}
-                                        onChange={(e) =>
-                                            handleInputChange(
-                                                setLastName,
-                                                [
-                                                    validateRequired
-                                                ],
-                                                setLastNameError
-                                            )(e.target.value)
-                                        }
-                                        errorTitle={lastNameError} />
-                                </div>
-                                <div className="form-input-container">
-                                    <LabeledInput
-                                        id="email"
-                                        type="email"
-                                        placeholder="Email"
-                                        value={email}
-                                        label="Email"
-                                        required={true}
-                                        onChange={(e) =>
-                                            handleInputChange(
-                                                setEmail,
-                                                [
-                                                    validateRequired,
-                                                    validateEmail
-                                                ],
-                                                setEmailError
-                                            )(e.target.value)
-                                        }
-                                        errorTitle={emailError} />
-
-                                    {/* <LabeledInput
+                    {/* <LabeledInput
                                         id="phoneNumber"
 
                                         type="phone"
@@ -346,7 +377,7 @@ country;
                                         }
                                         errorTitle={phoneNumberError} /> */}
 
-                                    {/* <LabeledPhoneInput
+                    {/* <LabeledPhoneInput
                                        id="phoneNumber"
                                         label="Phone Number"
                                         value={phoneNumber}
@@ -359,21 +390,23 @@ country;
                                         errorTitle={phoneNumberError}
                                         disabled={false}
                                     /> */}
-                                    <LabeledPhoneInput
-                                        id="mobileNumber"
-                                        label="Mobile Number"
-                                        value={mobileNumber}
-                                        onChange={(value) =>
-                                            handleInputChange(setMobileNumber, [validateRequired], setMobileNumberError)(
-                                                value || ""
-                                            )
-                                        }
-                                        placeholder="Enter phone number"
-                                        errorTitle={mobileNumberError}
-                                        disabled={false}
-                                    />
-                                </div>
-                                {/* <div className="" style={{ display: "flex", justifyContent: "flex-end" }}>
+                    <LabeledPhoneInput
+                      id="mobileNumber"
+                      label="Mobile Number"
+                      value={mobileNumber}
+                      onChange={(value) =>
+                        handleInputChange(
+                          setMobileNumber,
+                          [validateRequired],
+                          setMobileNumberError
+                        )(value || "")
+                      }
+                      placeholder="Enter phone number"
+                      errorTitle={mobileNumberError}
+                      disabled={false}
+                    />
+                  </div>
+                  {/* <div className="" style={{ display: "flex", justifyContent: "flex-end" }}>
 
 
                                     <div className="switch-select-container">
@@ -391,178 +424,148 @@ country;
                                         <button type="submit" className="primary-button-small">Send Code</button>
                                     </div>
                                 </div> */}
+                </div>
+              )}
+              {currentStep === 1 && (
+                <div className="register-form">
+                  {/* <div className="switch-select-container">
+                    <div className="switch-select">
+                      <SwitchSingle
+                        checked={isCheckedSendCode}
+                        onToggle={setIsCheckedSendCode}
+                      />
 
+                      <span className="switch-select-text">Manual Entry</span>
+                    </div>
+                  </div> */}
+                  <div className="form-input-container">
+                    <LabeledInput
+                      id="postCode"
+                      type="text"
+                      placeholder="Post Code"
+                      value={postCode}
+                      label="Post Code"
+                      onChange={(e) =>
+                        handleInputChange(
+                          setPostCode,
+                          [validateRequired],
+                          setPostCodeError
+                        )(e.target.value)
+                      }
+                      errorTitle={postCodeError}
+                    />
 
-                            </div>)}
-                            {currentStep === 1 && (
-                                <div className="register-form">
-                                    <div className="switch-select-container">
+                    <LabeledInput
+                      id="addressLine1"
+                      type="text"
+                      placeholder="Address Line 1"
+                      value={addressLine1}
+                      label="Address Line 1"
+                      onChange={(e) =>
+                        handleInputChange(
+                          setAddressLine1,
+                          [validateRequired],
+                          setAddressLine1Error
+                        )(e.target.value)
+                      }
+                      errorTitle={addressLine1Error}
+                    />
+                  </div>
+                  <div className="form-input-container">
+                    <LabeledInput
+                      id="addressLine2"
+                      type="text"
+                      placeholder="Address Line 2"
+                      value={addressLine2}
+                      label="Address Line 2"
+                      onChange={(e) =>
+                        handleInputChange(
+                          setAddressLine2,
+                          [],
+                          setAddressLine2Error
+                        )(e.target.value)
+                      }
+                      required={false}
+                      errorTitle={addressLine2Error}
+                    />
 
-                                        <div className="switch-select">
-                                            <SwitchSingle
-                                                checked={isCheckedSendCode}
-                                                onToggle={setIsCheckedSendCode}
-                                            />
+                    <LabeledInput
+                      id="addressLine3"
+                      type="text"
+                      placeholder="Address Line 3"
+                      value={addressLine3}
+                      label="Address Line 3"
+                      onChange={(e) =>
+                        handleInputChange(
+                          setAddressLine3,
+                          [],
+                          setAddressLine3Error
+                        )(e.target.value)
+                      }
+                      required={false}
+                      errorTitle={addressLine3Error}
+                    />
+                  </div>
+                  <div className="form-input-container">
+                    <LabeledInput
+                      id="town"
+                      type="text"
+                      placeholder="Town"
+                      value={town}
+                      label="Town"
+                      onChange={(e) =>
+                        handleInputChange(
+                          setTown,
+                          [validateRequired],
+                          setTownError
+                        )(e.target.value)
+                      }
+                      errorTitle={townError}
+                    />
 
-                                            <span className="switch-select-text">
-                                                Manual Entry
-                                            </span>
-                                        </div>
+                    <LabeledInput
+                      id="city"
+                      type="text"
+                      placeholder="City"
+                      value={city}
+                      label="City"
+                      onChange={(e) =>
+                        handleInputChange(
+                          setCity,
+                          [validateRequired],
+                          setCityError
+                        )(e.target.value)
+                      }
+                      errorTitle={cityError}
+                    />
+                  </div>
+                  <div className="form-input-container">
+                    <LabeledInput
+                      id="county"
+                      type="text"
+                      placeholder="County"
+                      value={county}
+                      label="County"
+                      onChange={(e) =>
+                        handleInputChange(
+                          setCounty,
+                          [],
+                          setCountyError
+                        )(e.target.value)
+                      }
+                      errorTitle={countyError}
+                    />
+                    <LabeledSelect
+                      id="country"
+                      label="Country"
+                      options={CountryName}
+                      onChange={handleSelectChange(setCountry)}
+                      value={country}
+                      required={false}
+                    />
+                  </div>
 
-                                    </div>
-                                    <div className="form-input-container">
-
-
-                                        <LabeledInput
-                                            id="postCode"
-                                            type="text"
-                                            placeholder="Post Code"
-                                            value={postCode}
-                                            label="Post Code"
-                                            onChange={(e) =>
-                                                handleInputChange(
-                                                    setPostCode,
-                                                    [
-                                                        validateRequired
-                                                    ],
-                                                    setPostCodeError
-                                                )(e.target.value)
-                                            }
-                                            errorTitle={postCodeError}
-                                        />
-
-
-
-                                        <LabeledInput
-                                            id="addressLine1"
-                                            type="text"
-                                            placeholder="Address Line 1"
-                                            value={addressLine1}
-                                            label="Address Line 1"
-                                            onChange={(e) =>
-                                                handleInputChange(
-                                                    setAddressLine1,
-                                                    [
-                                                        validateRequired
-                                                    ],
-                                                    setAddressLine1Error
-                                                )(e.target.value)
-                                            }
-                                            errorTitle={addressLine1Error}
-                                        />
-
-                                    </div>
-                                    <div className="form-input-container">
-
-
-                                        <LabeledInput
-                                            id="addressLine2"
-                                            type="text"
-                                            placeholder="Address Line 2"
-                                            value={addressLine2}
-                                            label="Address Line 2"
-
-                                            onChange={(e) =>
-                                                handleInputChange(
-                                                    setAddressLine2,
-                                                    [],
-                                                    setAddressLine2Error
-                                                )(e.target.value)
-                                            }
-                                            required={false}
-                                            errorTitle={addressLine2Error}
-                                        />
-
-
-                                        <LabeledInput
-                                            id="addressLine3"
-                                            type="text"
-                                            placeholder="Address Line 3"
-                                            value={addressLine3}
-                                            label="Address Line 3"
-
-                                            onChange={(e) =>
-                                                handleInputChange(
-                                                    setAddressLine3,
-                                                    [],
-                                                    setAddressLine3Error
-                                                )(e.target.value)
-                                            }
-                                            required={false}
-                                            errorTitle={addressLine3Error}
-                                        />
-
-                                    </div>
-                                    <div className="form-input-container">
-
-
-                                        <LabeledInput
-                                            id="town"
-                                            type="text"
-                                            placeholder="Town"
-                                            value={town}
-                                            label="Town"
-                                            onChange={(e) =>
-                                                handleInputChange(
-                                                    setTown,
-                                                    [
-                                                        validateRequired
-                                                    ],
-                                                    setTownError
-                                                )(e.target.value)
-                                            }
-                                            errorTitle={townError} />
-
-
-
-                                        <LabeledInput
-                                            id="city"
-                                            type="text"
-                                            placeholder="City"
-                                            value={city}
-                                            label="City"
-                                            onChange={(e) =>
-                                                handleInputChange(
-                                                    setCity,
-                                                    [
-                                                        validateRequired
-                                                    ],
-                                                    setCityError
-                                                )(e.target.value)
-                                            }
-                                            errorTitle={cityError}
-                                        />
-
-                                    </div>
-                                    <div className="form-input-container">
-                                        <LabeledInput
-                                            id="county"
-                                            type="text"
-                                            placeholder="County"
-                                            value={county}
-                                            label="County"
-                                            onChange={(e) =>
-                                                handleInputChange(
-                                                    setCounty,
-                                                    [
-                                                        validateRequired
-                                                    ],
-                                                    setCountyError
-                                                )(e.target.value)
-                                            }
-                                            errorTitle={countyError}
-                                        />
-                                        <LabeledSelect
-                                            id="country"
-                                            label="Country"
-                                            options={CountryName}
-                                            onChange={handleSelectChange(setCountry)}
-                                            value={country}
-                                            required={false}
-                                        />
-                                    </div>
-
-                                    {/* <div className="">
+                  {/* <div className="">
                                         <Checkbox
                                             text={"Terms & Condition"}
                                             labelLink={'/terms&condition'}
@@ -572,40 +575,42 @@ country;
                                         />
 
                                     </div> */}
-                                </div>
-
-                            )}
-
-                            <div className="my-2 w-full button-contaioner">
-
-                                <button
-                                disabled={
-                                    (currentStep === 0 && !isPersonalDetailsValid) ||
-                                    (currentStep === 1 && !isDeliveryDetailsValid) 
-                                  }
-                                  style={{
-                                    backgroundColor:
-                                      (currentStep === 0 && !isPersonalDetailsValid) ||
-                                        (currentStep === 1 && !isDeliveryDetailsValid) 
-                                        ? "#ccc"
-                                        : undefined
-                                  }}
-                                type="submit" className="primary-button" onClick={nextStep}>Next</button>
-                            </div>
-
-                        </div>
-                    </div>
                 </div>
-                {toastMessage && (
-                    <Toast
-                        message={toastMessage}
-                        type={toastType}
-                        duration={3000}
-                        onClose={closeToast}
-                    />
-                )}
+              )}
+
+              <div className="my-2 w-full button-contaioner">
+                <button
+                  disabled={
+                    (currentStep === 0 && !isPersonalDetailsValid) ||
+                    (currentStep === 1 && !isDeliveryDetailsValid) || loading
+                  }
+                  style={{
+                    backgroundColor:
+                      (currentStep === 0 && !isPersonalDetailsValid) ||
+                      (currentStep === 1 && !isDeliveryDetailsValid) || loading
+                        ? "#ccc"
+                        : undefined,
+                  }}
+                  type="submit"
+                  className="primary-button"
+                  onClick={nextStep}
+                >
+                  Next
+                </button>
+              </div>
             </div>
-            <Footer />
+          </div>
         </div>
-    );
+        {toastMessage && (
+          <Toast
+            message={toastMessage}
+            type={toastType}
+            duration={3000}
+            onClose={closeToast}
+          />
+        )}
+      </div>
+      <Footer />
+    </div>
+  );
 }

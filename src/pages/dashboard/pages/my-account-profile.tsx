@@ -1015,7 +1015,7 @@ if(response){
               onChange={(e) =>
                 handleInputChange(
                   setCounty,
-                  [validateRequired],
+                  [],
                   setCountyError
                 )(e.target.value)
               }

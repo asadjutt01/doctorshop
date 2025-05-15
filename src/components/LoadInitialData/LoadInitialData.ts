@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import {
   getCartList,
+  getCartMultiAddress,
   getCartSummary,
   getCategoryAll,
   getCategorySub,
@@ -30,16 +31,17 @@ import {
 import Service from "@/services";
 import { v4 as uuidv4 } from "uuid";
 import { getItem, setItem } from "@/utils/localStorage/localStorage";
+import { setUserAddressList } from "@/redux/store/user/userConfigSlice";
 
 export const getCartCount = async (dispatch: any) => {
   try {
     const formData = new FormData();
-     const authToken: any = getItem("authToken");
-    if(Boolean(authToken)){
-      const user_id:any = getItem("user_id")
+    const authToken: any = getItem("authToken");
+    if (Boolean(authToken)) {
+      const user_id: any = getItem("user_id");
       formData.append("user_id", user_id);
-    } else{
-      const temp_user_id:any = getItem("temp_user_id")
+    } else {
+      const temp_user_id: any = getItem("temp_user_id");
       formData.append("temp_user_id", temp_user_id);
     }
     const response: any = await Service.Cart_Method.getCartCount(formData);
@@ -56,12 +58,11 @@ export const getCartCount = async (dispatch: any) => {
 
 const LoadInitialData = () => {
   const dispatch = useDispatch();
- 
-  
+
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const products :any= await getProductList();
+        const products: any = await getProductList();
         if (products.data?.length > 0) {
           dispatch(setProducts(products.data));
         }
@@ -140,29 +141,35 @@ const LoadInitialData = () => {
 
     const storeTempId = () => {
       let temp_user_id = getItem("temp_user_id"); // Check if temp_user_id exists in storage
-  
+
       if (!temp_user_id) {
         temp_user_id = uuidv4(); // Generate new UUID
         setItem("temp_user_id", temp_user_id); // Store it in localStorage
       }
     };
-const CheckApprovedPharma =async () =>{
-  try {
-    const formData = new FormData();
-  
-      const user_id:any = getItem("user_id")
-      formData.append("user_id", user_id);
-   
-    const response: any = await Service.Auth_Methods.check_Approved_Pharma(formData);
-    // console.log("Count Data >>>>>>", response.count);
-    if (response?.status === "success") {
-      setItem("is_pharma_approved", response.is_pharma_approved);
-    } 
-  } catch (err) {
-    console.error("Error fetching cart count:", err);
-  }
-}
+    const CheckApprovedPharma = async () => {
+      try {
+        const formData = new FormData();
 
+        const user_id: any = getItem("user_id");
+        formData.append("user_id", user_id);
+
+        const response: any = await Service.Auth_Methods.check_Approved_Pharma(
+          formData
+        );
+        // console.log("Count Data >>>>>>", response.count);
+        if (response?.status === "success") {
+          setItem("is_pharma_approved", response.is_pharma_approved);
+        }
+      } catch (err) {
+        console.error("Error fetching cart count:", err);
+      }
+    };
+const getdeliveryAdderssList = async () => {
+ const deliveryAdderssList = await getCartMultiAddress();
+dispatch(setUserAddressList(deliveryAdderssList)); // ✅ Dispatch to Redux store
+}
+   
     fetchcategoryall();
     // fetchcategorySub();
     fetchCategorySubSpecific();
@@ -172,8 +179,12 @@ const CheckApprovedPharma =async () =>{
     fetchbestseller();
     getCartCount(dispatch);
     storeTempId();
-    CheckApprovedPharma();
-  }, [dispatch]);
+    const user_id: any = getItem("user_id");
+    if (user_id) {
+      CheckApprovedPharma();
+      getdeliveryAdderssList();
+    }
+  }, []);
 
   return null;
 };

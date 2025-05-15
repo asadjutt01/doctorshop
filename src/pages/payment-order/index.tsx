@@ -636,6 +636,7 @@ export default function Index() {
       // Do something with CartList here
       if(response?.success === true){
       setOrderData(response)
+      setItem("user_id",response?.user_id)
       setCartItems(response?.products)
       setIsLoading(false)
     }
