@@ -38,7 +38,7 @@ export default function PersonalDetailbar({authToken, user_type}:any) {
   const allValid = Array.isArray(deliveryAddressList?.addresses)
     ? deliveryAddressList?.addresses.every(isValidAddress)
     : false;
-console.log("authToken", authToken , user_type !== "customer_guest", !allValid  );
+// console.log("authToken", authToken , user_type !== "customer_guest", !allValid  );
 
   return (
     <>
