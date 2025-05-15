@@ -1,10 +1,12 @@
 import { IRootState } from "@/redux/store";
 import { getItem } from "@/utils/localStorage/localStorage";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 export default function PersonalDetailbar({authToken, user_type}:any) {
 
+  const router = useRouter();
 
 //   const [authToken, setAuthToken] = useState<string | null>(null);
 //   const [user_type, setuser_type] = useState<string | null>(null);
@@ -38,14 +40,13 @@ export default function PersonalDetailbar({authToken, user_type}:any) {
   const allValid = Array.isArray(deliveryAddressList?.addresses)
     ? deliveryAddressList?.addresses.every(isValidAddress)
     : false;
-// console.log("authToken", authToken , user_type !== "customer_guest", !allValid  );
 
   return (
     <>
       {authToken && user_type !== "customer_guest" && !allValid   && (
         <div className="personal-detail-valid-top-bar">
           <span>Your profile information is incomplete. Please check your profile and add the missing details.</span>
-          <button className="btn profile-btn">Go to Profile</button>
+          <button className="btn profile-btn" onClick={() => router.push("/dashboard/my-account-profile")}>Go to Profile</button>
         </div>
       )}
     </>
