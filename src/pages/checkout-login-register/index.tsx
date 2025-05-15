@@ -15,6 +15,7 @@ import Toast from "@/components/Toast";
 import Swal from "sweetalert2";
 import Link from "next/link";
 import { getCartCount } from "@/components/LoadInitialData/LoadInitialData";
+import { getCartMultiAddress } from "@/utils/fetchData/fetchDataFunction";
 
 export default function Login() {
   const [toastMessage, setToastMessage] = useState<string | null>(null);
@@ -88,7 +89,8 @@ export default function Login() {
           //   timer: 2000, // Auto-close in 2 seconds
           //   showConfirmButton: false,
           // });
-        
+         const deliveryAdderssList = await getCartMultiAddress();
+      setItem("userAddressList",deliveryAdderssList);
 if (response.is_pharma_approved  === 1) {
   
   router.push("/add-to-cart/checkout");
@@ -118,6 +120,7 @@ if (response.is_pharma_approved  === 1) {
           setToastMessage("Login Successful! Redirecting to your dashboard....");
           router.push("/dashboard");
         }
+        
       } else {
         setErrorMessage("Login failed: No access token received");
         // console.log("No access token received.");

@@ -13,6 +13,8 @@ import { useDispatch } from "react-redux";
 import Toast from "@/components/Toast"; // Assuming this is the path to your Toast component
 import Link from "next/link";
 import { getCartCount } from "@/components/LoadInitialData/LoadInitialData";
+import { setUserAddressList } from "@/redux/store/user/userConfigSlice";
+import { getCartMultiAddress } from "@/utils/fetchData/fetchDataFunction";
 
 export default function Login() {
   const [toastMessage, setToastMessage] = useState<string | null>(null);
@@ -63,6 +65,8 @@ export default function Login() {
         setItem("user", response?.user);
         dispatch(login({ user: response.user, token: response.access_token }));
         getCartCount(dispatch);
+        const deliveryAdderssList = await getCartMultiAddress();
+              setItem("userAddressList",deliveryAdderssList);
       //  if (response.is_pharmaceutical === 1) {
       //   router.push("/add-to-cart/checkout");
       //  }
@@ -102,6 +106,8 @@ export default function Login() {
         setToastMessage("Login Successful! Welcome back!");
         router.push("/");
         }
+  
+   
         // const cart_data = getItem('cart_data')
         // if (cart_data && Object.keys(cart_data).length > 0) {
         //   try {

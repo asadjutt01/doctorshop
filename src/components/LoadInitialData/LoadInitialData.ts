@@ -165,11 +165,16 @@ const LoadInitialData = () => {
         console.error("Error fetching cart count:", err);
       }
     };
-const getdeliveryAdderssList = async () => {
- const deliveryAdderssList = await getCartMultiAddress();
-dispatch(setUserAddressList(deliveryAdderssList)); // ✅ Dispatch to Redux store
-}
-   
+    const getdeliveryAdderssList = async () => {
+      const deliveryAdderssList = await getCartMultiAddress();
+      dispatch(setUserAddressList(deliveryAdderssList)); // ✅ Dispatch to Redux store
+    };
+
+    const user_id: any = getItem("user_id");
+    if (user_id) {
+      CheckApprovedPharma();
+      // getdeliveryAdderssList();
+    }
     fetchcategoryall();
     // fetchcategorySub();
     fetchCategorySubSpecific();
@@ -179,11 +184,6 @@ dispatch(setUserAddressList(deliveryAdderssList)); // ✅ Dispatch to Redux stor
     fetchbestseller();
     getCartCount(dispatch);
     storeTempId();
-    const user_id: any = getItem("user_id");
-    if (user_id) {
-      CheckApprovedPharma();
-      getdeliveryAdderssList();
-    }
   }, []);
 
   return null;
