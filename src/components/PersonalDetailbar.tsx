@@ -14,7 +14,9 @@ export default function PersonalDetailbar({authToken, user_type}:any) {
 //         setAuthToken(token);
 //         setuser_type(user_type);
 //       }, []);
-  const deliveryAddressList: any = [];
+ const deliveryAddressList: any = useSelector(
+    (state: IRootState) => state.user.userAddressList
+  );
   const requiredFields = [
     "post_code",
     "address1",
@@ -32,11 +34,12 @@ export default function PersonalDetailbar({authToken, user_type}:any) {
         field in address && address[field] !== null && address[field] !== ""
     );
   };
-
   // ✅ deliveryAddressList is the array directly
   const allValid = Array.isArray(deliveryAddressList?.addresses)
     ? deliveryAddressList?.addresses.every(isValidAddress)
     : false;
+console.log("authToken", authToken , user_type !== "customer_guest", !allValid  );
+
   return (
     <>
       {authToken && user_type !== "customer_guest" && !allValid   && (
