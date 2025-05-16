@@ -960,7 +960,7 @@ export default function HeaderWithCat() {
                               key={result.id}
                               href={`/products/${generateSlug(
                                 result.name
-                              )}/${result.id}`}
+                              )}`}
                               onClick={() => {
                                 setIsMobileSearchOpen(false);
                                 setSearchQuery("");
