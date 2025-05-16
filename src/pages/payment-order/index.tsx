@@ -222,8 +222,10 @@ orderData,
             // ) {
               setToastType("success");
               setToastMessage("Payment is successful Redirecting to your home...");
-              router.push("/");
               console.log('successRespoonse>>>>>>>',"Payment is successful Redirecting to your home...");
+              console.log('toastMessage>>>>>>>',toastMessage);
+              router.push("/");
+              
             // } else {
               // setToastType("success");
               // setToastMessage(
