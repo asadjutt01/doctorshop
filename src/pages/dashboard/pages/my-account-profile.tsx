@@ -26,6 +26,7 @@ import Toast from "@/components/Toast";
 import LabeledDateTime from "@/components/LabeledDateTime/LabeledDateTime";
 import Link from "next/link";
 import Checkbox from "@/components/CheckBox/CheckBox";
+import { getCartMultiAddress } from "@/utils/fetchData/fetchDataFunction";
 
 interface RowData {
   id: number;
@@ -98,7 +99,8 @@ const MyAccountProfile = () => {
     useState<string>("");
   const [invoiceStateEmailCreditError, setInvoiceStateEmailCreditError] =
     useState<string>("");
-    const [bussinessNameCreditError, setBussinessNameCreditError] = useState<string>("");
+  const [bussinessNameCreditError, setBussinessNameCreditError] =
+    useState<string>("");
 
   // Add Delivery Modal States
   const [addressId, setAddressId] = useState<string>("");
@@ -163,6 +165,7 @@ const MyAccountProfile = () => {
     { label: "Other", value: 9 },
   ];
   const [isOpenAdd, setIsOpenAdd] = useState(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const [isOpenAddEdit, setIsOpenAddEdit] = useState(false);
   const handleShowAdd = (address: any) => {
     setIsOpenAdd(true);
@@ -204,7 +207,7 @@ const MyAccountProfile = () => {
     if (Number(userData?.organization_type > 2)) {
       setFirstName(userData?.name);
       setLastName(userData?.last_name);
-      setBussinessName(userData?.company_name)
+      setBussinessName(userData?.company_name);
       setEmail(userData?.email);
       setHealthOrganizationName(userData?.organization_name);
       setMobileNumber(userData?.mobile_number);
@@ -334,7 +337,7 @@ const MyAccountProfile = () => {
         formData.append("statement_email", invoiceStateEmailCredit || "");
       } else if (healthOrganizationType?.value === 9) {
         formData.append("organization_name", healthOrganizationName || "");
-      }else{
+      } else {
         formData.append("bussiness_name", bussinessName || "");
       }
 
@@ -355,25 +358,25 @@ const MyAccountProfile = () => {
         handleCloseEditUser();
 
         setToastType("success");
-      setToastMessage("Update Successful! Your account has been Updated.");
+        setToastMessage("Update Successful! Your account has been Updated.");
 
-      setFirstName("");
-      setLastName("");
-      setBussinessName("")
-      setEmail("");
-      setHealthOrganizationType(null);
-      setPassword("");
-      setConfirmPassword("");
-      setMobileNumber("");
-      setFirstNameCredit("");
-      setLastNameCredit("");
-      setEmailCredit("");
-      setPhoneNumberCredit("");
-      setMobileNumberCredit("");
-      setBussinessNameCredit("");
-      setDepartmentNameCredit("");
-      setInvoiceStateEmailCredit("");
-      setHealthOrganizationName("");
+        setFirstName("");
+        setLastName("");
+        setBussinessName("");
+        setEmail("");
+        setHealthOrganizationType(null);
+        setPassword("");
+        setConfirmPassword("");
+        setMobileNumber("");
+        setFirstNameCredit("");
+        setLastNameCredit("");
+        setEmailCredit("");
+        setPhoneNumberCredit("");
+        setMobileNumberCredit("");
+        setBussinessNameCredit("");
+        setDepartmentNameCredit("");
+        setInvoiceStateEmailCredit("");
+        setHealthOrganizationName("");
       }
     } catch (err) {
       console.error("Registration Error:", err);
@@ -384,7 +387,7 @@ const MyAccountProfile = () => {
     }
   };
 
-  const handleUpdateUserPharma = async ()=>{
+  const handleUpdateUserPharma = async () => {
     try {
       const formData = new FormData();
 
@@ -404,28 +407,30 @@ const MyAccountProfile = () => {
       formData.append("registration_date", licenseRegisterationDate || "");
       formData.append("Signature", signature || "");
 
-            setToastType("info");
-            setToastMessage("Updating Pharma Account... Please wait while we process your request.");
-      
-            const response: any = await Service.Auth_Methods.user_regiser_pharma_update(formData);
-if(response){
-  setToastType("success");
-  setToastMessage("Update Successful! Your account has been Updated.");
-  getUserInfo();
-  getUserInfoPharma();
-  handleCloseEditUserPharma();
-setCompanyName("");
-setAccountNumber("");
-setLicenseHolderfirstName("");
-setLicenseHolderlastName("");
-setLincenseType(null);
-setLicenseNumber("");
-setLicenseName("");
-setLicenseRegisterationDate("");
-setLicenseHolderEmail("");
-setSignature("");
+      setToastType("info");
+      setToastMessage(
+        "Updating Pharma Account... Please wait while we process your request."
+      );
 
-}
+      const response: any =
+        await Service.Auth_Methods.user_regiser_pharma_update(formData);
+      if (response) {
+        setToastType("success");
+        setToastMessage("Update Successful! Your account has been Updated.");
+        getUserInfo();
+        getUserInfoPharma();
+        handleCloseEditUserPharma();
+        setCompanyName("");
+        setAccountNumber("");
+        setLicenseHolderfirstName("");
+        setLicenseHolderlastName("");
+        setLincenseType(null);
+        setLicenseNumber("");
+        setLicenseName("");
+        setLicenseRegisterationDate("");
+        setLicenseHolderEmail("");
+        setSignature("");
+      }
     } catch (error) {
       console.error("Registration Error:", error);
       setToastType("error");
@@ -433,9 +438,19 @@ setSignature("");
         "Error While Updating ! Something went wrong. Please try again."
       );
     }
-  }
-  const handleUpdateAddress = async ()=>{
+  };
+
+  const isDeliveryDetailsValid =
+    postCode &&
+    addressLine1 &&
+    // && addressLine2 && addressLine3
+    town &&
+    city &&
+    country;
+
+  const handleUpdateAddress = async () => {
     try {
+      setLoading(true);
       const formData = new FormData();
 
       formData.append("address_id", addressId);
@@ -451,34 +466,45 @@ setSignature("");
       // console.log("FormData to be sent:", Object.fromEntries(formData.entries()));
 
       setToastType("info");
-      setToastMessage("Updating Address... Please wait while we save your delivery address.");
-            const response: any = await Service.Customer_Address_Method.address_update(formData);
-if(response){
-  setToastType("success");
-  setToastMessage("Update Successful! Your delivery address has been Updated.");
-  getUserInfo();
-  getUserInfoPharma();
-  handleCloseAdd();
-  setPostCode("");
-  setAddressLine1("");
-  setAddressLine2("");
-  setAddressLine3("");
-  setTown("");
-  setCity("");
-  setCounty("");
-  setCountry(null);
+      setToastMessage(
+        "Updating Address... Please wait while we save your delivery address."
+      );
+      const response: any =
+        await Service.Customer_Address_Method.address_update(formData);
+      if (response) {
+        setToastType("success");
+        setToastMessage(
+          "Update Successful! Your delivery address has been Updated."
+        );
 
-}
+        const deliveryAdderssList = await getCartMultiAddress();
+        setItem("userAddressList", deliveryAdderssList);
+        getUserInfo();
+        getUserInfoPharma();
+        handleCloseAdd();
+        setPostCode("");
+        setAddressLine1("");
+        setAddressLine2("");
+        setAddressLine3("");
+        setTown("");
+        setCity("");
+        setCounty("");
+        setCountry(null);
+        setLoading(false);
+      }
     } catch (error) {
       console.error("Registration Error:", error);
       setToastType("error");
       setToastMessage(
         "Error While Updating ! Something went wrong. Please try again."
       );
+    } finally {
+      setLoading(false);
     }
-  }
-  const handleAddNewAddress = async ()=>{
+  };
+  const handleAddNewAddress = async () => {
     try {
+      setLoading(true);
       const formData = new FormData();
 
       formData.append("credit_id", user_id);
@@ -494,14 +520,18 @@ if(response){
       // console.log("FormData to be sent:", Object.fromEntries(formData.entries()));
 
       setToastType("info");
-      setToastMessage("Adding Address... Please wait while we save your delivery address.");
+      setToastMessage(
+        "Adding Address... Please wait while we save your delivery address."
+      );
 
-      const response:any = await Service.Customer_Address_Method.addadress_customer(formData);
+      const response: any =
+        await Service.Customer_Address_Method.addadress_customer(formData);
 
       // console.log("Address Response:", response);
       setToastType("success");
       setToastMessage("Address Added! Your delivery address has been saved.");
-      
+      const deliveryAdderssList = await getCartMultiAddress();
+      setItem("userAddressList", deliveryAdderssList);
       getUserInfo();
       getUserInfoPharma();
       handleCloseAdd();
@@ -513,15 +543,19 @@ if(response){
       setCity("");
       setCounty("");
       setCountry({ label: "", value: "" });
-
+      setLoading(false);
       return response;
     } catch (err) {
       console.error("Address Error:", err);
       setToastType("error");
-      setToastMessage("Failed to Add Address! Something went wrong. Please try again.");
+      setToastMessage(
+        "Failed to Add Address! Something went wrong. Please try again."
+      );
       throw err;
+    } finally {
+      setLoading(false);
     }
-  }
+  };
 
   const closeToast = () => {
     setToastMessage(null);
@@ -572,10 +606,9 @@ if(response){
                       <div className="detailsItem-value">
                         {/* {userData?.organization_type || "--"} */}
                         {healthcareOrganizationTypes?.find(
-                            (item) =>
-                              item.value ===
-                              Number(userData?.organization_type)
-                          )?.label || "--"}
+                          (item) =>
+                            item.value === Number(userData?.organization_type)
+                        )?.label || "--"}
                       </div>
                     </div>
                     <div className="detailsItem">
@@ -722,9 +755,7 @@ if(response){
                         </div>
                       </div>
                       <div className="detailsItem">
-                        <div className="detailsItem-label">
-                          Signature:
-                        </div>
+                        <div className="detailsItem-label">Signature:</div>
                         <div className="detailsItem-value">
                           {pharmaUserData?.Signature || "--"}
                         </div>
@@ -1013,11 +1044,7 @@ if(response){
               value={county}
               label="County"
               onChange={(e) =>
-                handleInputChange(
-                  setCounty,
-                  [],
-                  setCountyError
-                )(e.target.value)
+                handleInputChange(setCounty, [], setCountyError)(e.target.value)
               }
               errorTitle={countyError}
             />
@@ -1033,11 +1060,18 @@ if(response){
           <div className="add-delivery-model">
             <button
               className="save-button-add-delivery-model"
-              onClick={()=>{if(isOpenAdd){
-                handleAddNewAddress();
-              }else{
-                handleUpdateAddress();
-              }}}
+              disabled={!isDeliveryDetailsValid || loading}
+              style={{
+                backgroundColor:
+                  (!isDeliveryDetailsValid || loading) ? "#ccc" : undefined,
+              }}
+              onClick={() => {
+                if (isOpenAdd) {
+                  handleAddNewAddress();
+                } else {
+                  handleUpdateAddress();
+                }
+              }}
             >
               {isOpenAdd ? "Add New" : "Update"} Address
             </button>
@@ -1131,21 +1165,21 @@ if(response){
                     errorTitle={lastNameError}
                   />
                   <LabeledInput
-                                              id="bussinessNameCredit"
-                                              type="text"
-                                              placeholder="Bussiness Name"
-                                              value={bussinessName}
-                                              label="Bussiness Name"
-                                              required={true}
-                                              onChange={(e) =>
-                                                handleInputChange(
-                                                  setBussinessName,
-                                                  [],
-                                                  setBussinessNameError
-                                                )(e.target.value)
-                                              }
-                                              errorTitle={bussinessNameError}
-                                            />
+                    id="bussinessNameCredit"
+                    type="text"
+                    placeholder="Bussiness Name"
+                    value={bussinessName}
+                    label="Bussiness Name"
+                    required={true}
+                    onChange={(e) =>
+                      handleInputChange(
+                        setBussinessName,
+                        [],
+                        setBussinessNameError
+                      )(e.target.value)
+                    }
+                    errorTitle={bussinessNameError}
+                  />
                 </div>
                 <div className="form-input-container">
                   <LabeledInput
@@ -1317,22 +1351,22 @@ if(response){
                     }
                     errorTitle={emailCreditError}
                   />
-                 <LabeledInput
-                            id="bussinessNameCredit"
-                            type="text"
-                            placeholder="Bussiness Name"
-                            value={bussinessNameCredit}
-                            label="Bussiness Name"
-                            required={true}
-                            onChange={(e) =>
-                              handleInputChange(
-                                setBussinessNameCredit,
-                                [validateRequired],
-                                setBussinessNameCreditError
-                              )(e.target.value)
-                            }
-                            errorTitle={bussinessNameCreditError}
-                          />
+                  <LabeledInput
+                    id="bussinessNameCredit"
+                    type="text"
+                    placeholder="Bussiness Name"
+                    value={bussinessNameCredit}
+                    label="Bussiness Name"
+                    required={true}
+                    onChange={(e) =>
+                      handleInputChange(
+                        setBussinessNameCredit,
+                        [validateRequired],
+                        setBussinessNameCreditError
+                      )(e.target.value)
+                    }
+                    errorTitle={bussinessNameCreditError}
+                  />
                 </div>
                 <div className="form-input-container">
                   <LabeledInput

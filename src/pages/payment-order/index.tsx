@@ -225,12 +225,13 @@ orderData,
                 `Payment is successful Redirecting to your home...`
               );
               router.push("/");
+              console.log('successRespoonse>>>>>>>',"Payment is successful Redirecting to your home... 1");
             } else {
               setToastType("success");
               setToastMessage(
                 `Payment is successful Redirecting to your home...`
               );
-              // console.log('successRespoonse>>>>>>>',successRespoonse);
+              console.log('successRespoonse>>>>>>>',"Payment is successful Redirecting to your home...");
               router.push("/");
             }
             const cartList = await getCartList();
