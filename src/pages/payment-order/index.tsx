@@ -215,25 +215,23 @@ orderData,
         // ✅ Payment Success!
         if (stripeApiresponse?.status === 200) {
          
-            if (
-              user_type === "customer_pharmaceuti" ||
-              user_type === "customer_credit" ||
-              user_type === "customer"
-            ) {
+            // if (
+            //   user_type === "customer_pharmaceuti" ||
+            //   user_type === "customer_credit" ||
+            //   user_type === "customer"
+            // ) {
               setToastType("success");
-              setToastMessage(
-                `Payment is successful Redirecting to your home...`
-              );
+              setToastMessage("Payment is successful Redirecting to your home...");
               router.push("/");
-              console.log('successRespoonse>>>>>>>',"Payment is successful Redirecting to your home... 1");
-            } else {
-              setToastType("success");
-              setToastMessage(
-                `Payment is successful Redirecting to your home...`
-              );
               console.log('successRespoonse>>>>>>>',"Payment is successful Redirecting to your home...");
-              router.push("/");
-            }
+            // } else {
+              // setToastType("success");
+              // setToastMessage(
+              //   `Payment is successful Redirecting to your home...`
+              // );
+              // console.log('successRespoonse>>>>>>>',"Payment is successful Redirecting to your home...");
+              // router.push("/");
+            // }
             const cartList = await getCartList();
             const cartSummary: any = await getCartSummary();
             // if (cartSummary && cartList) {
@@ -347,7 +345,7 @@ orderData,
         <Toast
           message={toastMessage}
           type={toastType}
-          duration={3000} // Adjust as needed
+          duration={4000} // Adjust as needed
           onClose={closeToast}
         />
       )}
