@@ -92,10 +92,10 @@ const CartSummary: React.FC<CartSummaryProps> = ({
   error,
   setError,
   selectedAddressId,
-  toastMessage,
-toastType,
-setToastMessage,
-setToastType,
+//   toastMessage,
+// toastType,
+// setToastMessage,
+// setToastType,
 orderData,
 }) => {
   const stripe = useStripe();
@@ -121,10 +121,10 @@ orderData,
   // };
   const [loading, setLoading] = useState(false);
 
-  // const [toastMessage, setToastMessage] = useState<any>(null);
-  // const [toastType, setToastType] = useState<"success" | "error" | "info">(
-  //   "success"
-  // );
+  const [toastMessage, setToastMessage] = useState<any>(null);
+  const [toastType, setToastType] = useState<"success" | "error" | "info">(
+    "success"
+  );
   const handleLogout = () => {
     dispatch(logout());
     // console.log("It is logging out");
@@ -245,7 +245,7 @@ orderData,
           setLoading(false);
           return;
         }else{
-          setToastType("erroe");
+          setToastType("error");
               setToastMessage(
                 `Payment is Failed...`
               );
