@@ -260,12 +260,10 @@ const MyAccountProfile = () => {
   const handleCloseEditUserPharma = () => {
     setIsOpenEditUserPharma(false);
   };
-
   const [userData, setUserData] = useState<any>(null);
   const [pharmaUserData, setPharmaUserData] = useState<any>(null);
   const user_id: any = getItem("user_id");
   // const pharma_id: any = getItem("pharma_id");
-
   const getUserInfo = async () => {
     const formData = new FormData();
     formData.append("id", user_id);
@@ -307,6 +305,31 @@ const MyAccountProfile = () => {
     }
   }, [user_id]);
 
+    const isPersonalDetailsValid =
+    healthOrganizationType &&
+    ((healthOrganizationType.value > 2 &&
+      firstName &&
+      lastName &&
+      email &&
+      mobileNumber &&
+      (healthOrganizationType.value !== 9 || healthOrganizationName)) ||
+      (healthOrganizationType.value <= 2 &&
+        firstNameCredit &&
+        lastNameCredit &&
+        emailCredit &&
+        bussinessNameCredit &&
+        invoiceStateEmailCredit &&
+        phoneNumberCredit &&
+        mobileNumberCredit));
+
+
+   const isDeliveryDetailsValid =
+    postCode &&
+    addressLine1 &&
+    // && addressLine2 && addressLine3
+    town &&
+    city &&
+    country;
   const hasPharmaData = Boolean(pharmaUserData?.is_pharmaceutical);
   // pharmaUserData && pharmaUserData.user_type === "customer_pharmaceuti";
 
@@ -314,6 +337,7 @@ const MyAccountProfile = () => {
   // console.log("pharmaUserData>>>>>>>>>>>>>>>>>>>>>", pharmaUserData);
   const handleUpdateUser = async () => {
     try {
+       setLoading(true);
       const formData = new FormData();
 
       formData.append("user_id", user_id || "");
@@ -377,6 +401,7 @@ const MyAccountProfile = () => {
         setDepartmentNameCredit("");
         setInvoiceStateEmailCredit("");
         setHealthOrganizationName("");
+        setLoading(false);
       }
     } catch (err) {
       console.error("Registration Error:", err);
@@ -384,6 +409,8 @@ const MyAccountProfile = () => {
       setToastMessage(
         "Error While Updating ! Something went wrong. Please try again."
       );
+    }finally{
+      setLoading(false);
     }
   };
 
@@ -440,13 +467,7 @@ const MyAccountProfile = () => {
     }
   };
 
-  const isDeliveryDetailsValid =
-    postCode &&
-    addressLine1 &&
-    // && addressLine2 && addressLine3
-    town &&
-    city &&
-    country;
+ 
 
   const handleUpdateAddress = async () => {
     try {
@@ -944,6 +965,7 @@ const MyAccountProfile = () => {
               type="text"
               placeholder="Post Code"
               value={postCode}
+              required={true}
               label="Post Code"
               onChange={(e) =>
                 handleInputChange(
@@ -959,6 +981,7 @@ const MyAccountProfile = () => {
               type="text"
               placeholder="Address Line 1"
               value={addressLine1}
+              required={true}
               label="Address Line 1"
               onChange={(e) =>
                 handleInputChange(
@@ -1010,6 +1033,7 @@ const MyAccountProfile = () => {
               type="text"
               placeholder="Town"
               value={town}
+              required={true}
               label="Town"
               onChange={(e) =>
                 handleInputChange(
@@ -1025,6 +1049,7 @@ const MyAccountProfile = () => {
               type="text"
               placeholder="City"
               value={city}
+              required={true}
               label="City"
               onChange={(e) =>
                 handleInputChange(
@@ -1054,7 +1079,7 @@ const MyAccountProfile = () => {
               options={CountryName}
               onChange={handleSelectChange(setCountry)}
               value={country}
-              required={false}
+              required={true}
             />
           </div>
           <div className="add-delivery-model">
@@ -1104,7 +1129,7 @@ const MyAccountProfile = () => {
               options={healthcareOrganizationTypes}
               onChange={handleSelectChange(setHealthOrganizationType)}
               value={healthOrganizationType}
-              required={false}
+              required={true}
             />
           </div>
 
@@ -1170,7 +1195,7 @@ const MyAccountProfile = () => {
                     placeholder="Bussiness Name"
                     value={bussinessName}
                     label="Bussiness Name"
-                    required={true}
+                    required={false}
                     onChange={(e) =>
                       handleInputChange(
                         setBussinessName,
@@ -1202,6 +1227,7 @@ const MyAccountProfile = () => {
                     id="mobileNumber"
                     label="Mobile Number"
                     value={mobileNumber}
+                    required={true}
                     onChange={(value) =>
                       handleInputChange(
                         setMobileNumber,
@@ -1369,7 +1395,7 @@ const MyAccountProfile = () => {
                   />
                 </div>
                 <div className="form-input-container">
-                  <LabeledInput
+                  {/* <LabeledInput
                     id="departmentNameCredit"
                     type="email"
                     placeholder="Department Name"
@@ -1384,7 +1410,7 @@ const MyAccountProfile = () => {
                       )(e.target.value)
                     }
                     errorTitle={departmentNameCreditError}
-                  />
+                  /> */}
                   <LabeledInput
                     id="invoiceStateEmailCredit"
                     type="text"
@@ -1407,6 +1433,7 @@ const MyAccountProfile = () => {
                     id="mobileNumberCredit"
                     label="Mobile Number"
                     value={mobileNumberCredit}
+                    required={true}
                     onChange={(value) =>
                       handleInputChange(
                         setMobileNumberCredit,
@@ -1422,6 +1449,7 @@ const MyAccountProfile = () => {
                     id="phoneNumberCredit"
                     label="Phone Number"
                     value={phoneNumberCredit}
+                    required={true}
                     onChange={(value) =>
                       handleInputChange(
                         setPhoneNumberCredit,
@@ -1459,6 +1487,18 @@ const MyAccountProfile = () => {
             <button
               type="submit"
               className="primary-button"
+               disabled={
+                    
+                    (!isPersonalDetailsValid ||
+                    loading)
+                  }
+                  style={{
+                    backgroundColor:
+                       (!isPersonalDetailsValid ||
+                    loading)
+                        ? "#ccc"
+                        : undefined,
+                  }}
               onClick={() => {
                 handleUpdateUser();
               }}

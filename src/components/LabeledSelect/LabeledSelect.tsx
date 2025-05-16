@@ -2,6 +2,7 @@ import React from "react";
 import Select, { components } from "react-select";
 // import Asterisk from "../Asterisk/Asterisk";
 import { Option } from "@/types/types";
+import Asterisk from "../Asterisk/Asterisk";
 
 interface LabeledSelectProps {
   id: string;
@@ -105,7 +106,7 @@ const LabeledSelect: React.FC<LabeledSelectProps> = ({
           className={"form-group__label"}
         >
           {label}
-          {/* {required ? <Asterisk color="red" /> : null} */}
+          {required ? <Asterisk color="red" /> : null}
         </label>
       </div>
       <div className="w-full">

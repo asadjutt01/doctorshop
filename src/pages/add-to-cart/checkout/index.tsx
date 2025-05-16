@@ -562,10 +562,17 @@ export default function Index() {
   const [cityError, setCityError] = useState<string>("");
   const [countyError, setCountyError] = useState<string>("");
   const [countryError, setCountryError] = useState<string>("");
+    const [loading, setLoading] = useState<boolean>(false);
 
+const isDeliveryDetailsValid =
+    postCode &&
+    addressLine1 &&
+    town &&
+    city &&
+    country;
   const handleAddNewAddress = async () => {
     try {
-      
+       setLoading(true);
                  
       const user_id: any = getItem("user_id");
       const formData = new FormData();
@@ -605,6 +612,7 @@ export default function Index() {
       setCity("");
       setCounty("");
       setCountry({ label: "", value: "" });
+       setLoading(false);
       }
       return response;
     } catch (err) {
@@ -614,6 +622,8 @@ export default function Index() {
         "Failed to Add Address! Something went wrong. Please try again."
       );
       throw err;
+    }finally{
+       setLoading(false);
     }
   };
 
@@ -712,6 +722,7 @@ export default function Index() {
                             type="text"
                             placeholder="Name on Card"
                             value={name}
+                            required={true}
                             label="Name on Card"
                             onChange={(e) =>
                               handleInputChange(
@@ -1042,6 +1053,7 @@ export default function Index() {
                 type="text"
                 placeholder="Post Code"
                 value={postCode}
+                required={true}
                 label="Post Code"
                 onChange={(e) =>
                   handleInputChange(
@@ -1057,6 +1069,7 @@ export default function Index() {
                 type="text"
                 placeholder="Address Line 1"
                 value={addressLine1}
+                required={true}
                 label="Address Line 1"
                 onChange={(e) =>
                   handleInputChange(
@@ -1108,6 +1121,7 @@ export default function Index() {
                 type="text"
                 placeholder="Town"
                 value={town}
+                required={true}
                 label="Town"
                 onChange={(e) =>
                   handleInputChange(
@@ -1123,6 +1137,7 @@ export default function Index() {
                 type="text"
                 placeholder="City"
                 value={city}
+                required={true}
                 label="City"
                 onChange={(e) =>
                   handleInputChange(
@@ -1156,12 +1171,17 @@ export default function Index() {
                 options={CountryName}
                 onChange={handleSelectChange(setCountry)}
                 value={country}
-                required={false}
+                required={true}
               />
             </div>
             <div className="add-delivery-model">
               <button
                 className="save-button-add-delivery-model"
+                disabled={!isDeliveryDetailsValid || loading}
+              style={{
+                backgroundColor:
+                  (!isDeliveryDetailsValid || loading) ? "#ccc" : undefined,
+              }}
                 onClick={() => {
                   // handleCloseAdd();
                   // handleShowSelect();

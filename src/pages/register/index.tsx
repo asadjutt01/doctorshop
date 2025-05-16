@@ -16,26 +16,36 @@ import { CountryName } from "@/constants/constant";
 import LabeledPhoneInput from "@/components/LabeledPhoneInput/LabeledPhoneInput";
 import { useRouter } from "next/router";
 import Service from "@/services";
-import { getItem, removeItem, setItem } from "@/utils/localStorage/localStorage";
+import {
+  getItem,
+  removeItem,
+  setItem,
+} from "@/utils/localStorage/localStorage";
 import Toast from "@/components/Toast"; // Import the Toast component
 import { useDispatch, useSelector } from "react-redux";
 import { IRootState } from "@/redux/store";
 import { login } from "@/redux/store/auth/authConfigSlice";
 
 export default function Register() {
-  const user_id: any = getItem('user_id');
+  const user_id: any = getItem("user_id");
   // const credit_id: any = getItem('credit_id');
   const cartsWithList = useSelector((state: IRootState) => state.cart.carts);
   const dispatch = useDispatch();
   const [loading, setLoading] = useState<boolean>(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
-  const [toastType, setToastType] = useState<"success" | "error" | "info">("success");
+  const [toastType, setToastType] = useState<"success" | "error" | "info">(
+    "success"
+  );
   const router = useRouter();
   const { query }: any = router;
-  const [healthOrganizationType, setHealthOrganizationType] = useState<Option | any>(null);
-  const [healthOrganizationName, setHealthOrganizationName] = useState<string>("");
+  const [healthOrganizationType, setHealthOrganizationType] = useState<
+    Option | any
+  >(null);
+  const [healthOrganizationName, setHealthOrganizationName] =
+    useState<string>("");
 
-  const [healthOrganizationNameError, setHealthOrganizationNameError] = useState<string>("");
+  const [healthOrganizationNameError, setHealthOrganizationNameError] =
+    useState<string>("");
 
   // Personal Details States
   const [firstName, setFirstName] = useState<string>("");
@@ -46,12 +56,11 @@ export default function Register() {
   const [mobileNumber, setMobileNumber] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
 
-
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
 
-  const togglePasswordVisibility = (setShowPassword:any) => {
-    setShowPassword((prev:any) => !prev);
+  const togglePasswordVisibility = (setShowPassword: any) => {
+    setShowPassword((prev: any) => !prev);
   };
   // Personal Details Error States
   const [firstNameError, setFirstNameError] = useState<string>("");
@@ -92,7 +101,8 @@ export default function Register() {
   const [bussinessNameCredit, setBussinessNameCredit] = useState<string>("");
   // const [companyNameCredit, setCompanyNameCredit] = useState<string>("");
   const [departmentNameCredit, setDepartmentNameCredit] = useState<string>("");
-  const [invoiceStateEmailCredit, setInvoiceStateEmailCredit] = useState<string>("");
+  const [invoiceStateEmailCredit, setInvoiceStateEmailCredit] =
+    useState<string>("");
   const [phoneNumberCredit, setPhoneNumberCredit] = useState<string>("");
   const [mobileNumberCredit, setMobileNumberCredit] = useState<string>("");
 
@@ -101,11 +111,16 @@ export default function Register() {
   const [lastNameCreditError, setLastNameCreditError] = useState<string>("");
   const [emailCreditError, setEmailCreditError] = useState<string>("");
   // const [companyNameCreditError, setCompanyNameCreditError] = useState<string>("");
-  const [bussinessNameCreditError, setBussinessNameCreditError] = useState<string>("");
-  const [phoneNumberCreditError, setPhoneNumberCreditError] = useState<string>("");
-  const [mobileNumberCreditError, setMobileNumberCreditError] = useState<string>("");
-  const [departmentNameCreditError, setDepartmentNameCreditError] = useState<string>("");
-  const [invoiceStateEmailCreditError, setInvoiceStateEmailCreditError] = useState<string>("");
+  const [bussinessNameCreditError, setBussinessNameCreditError] =
+    useState<string>("");
+  const [phoneNumberCreditError, setPhoneNumberCreditError] =
+    useState<string>("");
+  const [mobileNumberCreditError, setMobileNumberCreditError] =
+    useState<string>("");
+  const [departmentNameCreditError, setDepartmentNameCreditError] =
+    useState<string>("");
+  const [invoiceStateEmailCreditError, setInvoiceStateEmailCreditError] =
+    useState<string>("");
 
   const healthcareOrganizationTypes = [
     { label: "GP Surgery", value: 1 },
@@ -119,38 +134,51 @@ export default function Register() {
     { label: "Other", value: 9 },
   ];
 
-  const isPersonalDetailsValid = healthOrganizationType && (
-    (healthOrganizationType.value > 2 &&
-      firstName && lastName && email && password && confirmPassword && mobileNumber && password === confirmPassword &&
+  const isPersonalDetailsValid =
+    healthOrganizationType &&
+    ((healthOrganizationType.value > 2 &&
+      firstName &&
+      lastName &&
+      email &&
+      password &&
+      confirmPassword &&
+      mobileNumber &&
+      password === confirmPassword &&
       (healthOrganizationType.value !== 9 || healthOrganizationName)) ||
-    (healthOrganizationType.value <= 2 &&
-      firstNameCredit && lastNameCredit && emailCredit && bussinessNameCredit &&
-      invoiceStateEmailCredit && phoneNumberCredit && mobileNumberCredit)
-  );
+      (healthOrganizationType.value <= 2 &&
+        firstNameCredit &&
+        lastNameCredit &&
+        emailCredit &&
+        bussinessNameCredit &&
+        invoiceStateEmailCredit &&
+        phoneNumberCredit &&
+        mobileNumberCredit));
 
   const isDeliveryDetailsValid =
-    postCode && addressLine1 
+    postCode &&
+    addressLine1 &&
     // && addressLine2 && addressLine3
-     &&
-    town && city  && country && isChecked;
+    town &&
+    city &&
+    country &&
+    isChecked;
 
   useEffect(() => {
-  if (
-    password.length > 0 &&
-    confirmPassword.length > 0 &&
-    password !== confirmPassword
-  ) {
-    setConfirmPasswordError("Passwords do not match");
-  } else {
-    setConfirmPasswordError("");
-  }
-}, [password, confirmPassword]);
+    if (
+      password.length > 0 &&
+      confirmPassword.length > 0 &&
+      password !== confirmPassword
+    ) {
+      setConfirmPasswordError("Passwords do not match");
+    } else {
+      setConfirmPasswordError("");
+    }
+  }, [password, confirmPassword]);
 
   const [currentStep, setCurrentStep] = useState(0);
   const steps = [{ label: "Personal Detail" }, { label: "Delivery Address" }];
-  const [errors, setError] = useState({})
+  const [errors, setError] = useState({});
 
-   
   const nextStep = async () => {
     // setLoading(true);
 
@@ -164,9 +192,9 @@ export default function Register() {
       // } finally {
       //   setLoading(false);
       // }
-      return ;
-    } 
-     if (currentStep === 1 && isDeliveryDetailsValid) {
+      return;
+    }
+    if (currentStep === 1 && isDeliveryDetailsValid) {
       setLoading(true);
       try {
         await handleRegister();
@@ -176,10 +204,9 @@ export default function Register() {
       } finally {
         setLoading(false);
       }
-      return ;
-    } 
-  setLoading(false);
-  
+      return;
+    }
+    setLoading(false);
   };
 
   const previousStep = () => {
@@ -190,19 +217,19 @@ export default function Register() {
   const cartItems: any = cartsWithList?.data[0]?.cart_items;
   // console.log("cartItems>>>>>>>>>>>>>>>>>>>>>>>>>>>in register>", cartItems);
   // console.log("cartItems>>>>>>>>>>>>>>>>>>>>>>>>>>>in register>", cartsWithList);
-  const hasPharma = cartItems?.some((product: any) => product?.pharmaceutical_product === "true");
-  ;
-
+  const hasPharma = cartItems?.some(
+    (product: any) => product?.pharmaceutical_product === "true"
+  );
   const handleRegister = async () => {
     try {
       const formData = new FormData();
 
       formData.append("first_name", firstName?.trim() || "");
       formData.append("last_name", lastName?.trim() || "");
-      
+
       formData.append("email", email?.trim() || "");
       formData.append("organization_type", healthOrganizationType?.value || "");
-      formData.append("password",password?.trim()  || "");
+      formData.append("password", password?.trim() || "");
       formData.append("confirm_password", confirmPassword?.trim() || "");
       formData.append("mobile_number", mobileNumber?.trim() || "");
 
@@ -214,11 +241,16 @@ export default function Register() {
         formData.set("mobile_number", mobileNumberCredit?.trim() || "");
         formData.append("bussiness_name", bussinessNameCredit?.trim() || ""); // bussiness Name
         // formData.append("department_name", departmentNameCredit || "");
-        formData.append("statement_email", invoiceStateEmailCredit?.trim() || "");
+        formData.append(
+          "statement_email",
+          invoiceStateEmailCredit?.trim() || ""
+        );
       } else if (healthOrganizationType?.value === 9) {
-        formData.append("organization_name", healthOrganizationName?.trim() || "");
-        
-      }else{
+        formData.append(
+          "organization_name",
+          healthOrganizationName?.trim() || ""
+        );
+      } else {
         formData.append("bussiness_name", bussinessName?.trim() || "");
       }
 
@@ -228,7 +260,7 @@ export default function Register() {
       // setToastMessage("Registering... Please wait while we create your account.");
 
       const response: any = await Service.Auth_Methods.user_regiser(formData);
- 
+
       setItem("credit_id", response?.credit_id);
       setItem("authToken", response?.token);
       setItem("user_type", response?.user_type);
@@ -237,33 +269,35 @@ export default function Register() {
       setItem("is_pharma_approved", response.is_pharma_approved);
       setItem("user", response?.user);
       dispatch(login({ user: response.user, token: response.access_token }));
-      
-  
-if (response?.status == false) {
-  setError(response?.errors)
-  setToastType("error");
 
-  if (response?.errors) {
-const Errors = response?.errors
-    for (const error in Errors) {
-         
+      if (response?.status == false) {
+        setError(response?.errors);
+        setToastType("error");
+
+        if (response?.errors) {
+          const Errors = response?.errors;
+          for (const error in Errors) {
             const element = Errors[error];
-            if(element?.length > 0){
-               setToastType("error");
-              setToastMessage(element[0] ||"Registration Failed! Something went wrong. Please try again.");
-              if(error === "email"){
-               setEmailError(element[0])
-               setEmailCreditError(element[0])
+            if (element?.length > 0) {
+              setToastType("error");
+              setToastMessage(
+                element[0] ||
+                  "Registration Failed! Something went wrong. Please try again."
+              );
+              if (error === "email") {
+                setEmailError(element[0]);
+                setEmailCreditError(element[0]);
               }
             }
-      
+          }
         }
-    
-  }
-}else{
-  setToastType("success");
-setToastMessage(response?.message || "Registration Successful! Your account has been created.");
-}
+      } else {
+        setToastType("success");
+        setToastMessage(
+          response?.message ||
+            "Registration Successful! Your account has been created."
+        );
+      }
       // setToastMessage(response?.message || "Registration Successful! Your account has been created.");
 
       // const cart_data = getItem('cart_data')
@@ -302,34 +336,36 @@ setToastMessage(response?.message || "Registration Successful! Your account has 
       setDepartmentNameCredit("");
       setInvoiceStateEmailCredit("");
       setHealthOrganizationName("");
-      setEmailError("")
-      setEmailCreditError("")
+      setEmailError("");
+      setEmailCreditError("");
       return response;
-    } catch (err:any) {
-      if(err.response?.data?.status == false){
-        setError(err.response?.data?.errors)
-        const Errors =  err.response?.data?.errors
+    } catch (err: any) {
+      if (err.response?.data?.status == false) {
+        setError(err.response?.data?.errors);
+        const Errors = err.response?.data?.errors;
         for (const error in Errors) {
-            const element = Errors[error];
-            if(element?.length > 0){
-               setToastType("error");
-              setToastMessage(element[0] ||"Registration Failed! Something went wrong. Please try again.");
-              if(error === "email"){
-               setEmailError(element[0])
-               setEmailCreditError(element[0])
-              }
+          const element = Errors[error];
+          if (element?.length > 0) {
+            setToastType("error");
+            setToastMessage(
+              element[0] ||
+                "Registration Failed! Something went wrong. Please try again."
+            );
+            if (error === "email") {
+              setEmailError(element[0]);
+              setEmailCreditError(element[0]);
             }
+          }
         }
-    }
+      }
       throw err;
     }
   };
 
-
   const add_delivrey_adress = async () => {
     try {
       const formData = new FormData();
- const user_id: any = getItem("user_id");
+      const user_id: any = getItem("user_id");
       formData.append("credit_id", user_id);
       formData.append("post_code", postCode || "");
       formData.append("address1", addressLine1 || "");
@@ -345,45 +381,55 @@ setToastMessage(response?.message || "Registration Successful! Your account has 
       // setToastType("info");
       // setToastMessage("Adding Address... Please wait while we save your delivery address.");
 
-      const response:any = await Service.Customer_Address_Method.addadress_customer(formData);
+      const response: any =
+        await Service.Customer_Address_Method.addadress_customer(formData);
 
       // console.log("Address Response:", response);
       // setToastType("success");
       // setToastMessage(response?.message || "Address Added! Your delivery address has been saved.");
 
       // const is_pharmaceutical =  getItem("is_pharmaceutical")
-      if (query?.fromcheckout === "true" && query?.hasPharma === 'true' && query?.login === 'false') {
+      if (
+        query?.fromcheckout === "true" &&
+        query?.hasPharma === "true" &&
+        query?.login === "false"
+      ) {
         const temp_user_id: any = getItem("temp_user_id");
         const formData = new FormData();
-        const user_id: any = getItem('user_id');
+        const user_id: any = getItem("user_id");
         formData.append("user_id", user_id);
         formData.append("temp_user_id", temp_user_id);
         const tempResponse: any = await Service.Cart_Method.tempUserIdUpdate(
-            formData
+          formData
         );
-        const user_type: any = getItem("user_type")
-        if(user_type !== "customer_credit"){
+        const user_type: any = getItem("user_type");
+        if (user_type !== "customer_credit") {
           const data = {
-          fromcheckout: true,
-          hasPharma:true,
-          login:false,
-        };
-        console.log("GGGGGGGGGGGGGGGGG", query?.fromcheckout === "true", query?.hasPharma === 'true' , query?.login === 'false');
-        router.push(
-          {
-            pathname: `/login`,
-            query: data,
-          },
-          `/login`,
-          { shallow: true }
-        );}else{
+            fromcheckout: true,
+            hasPharma: true,
+            login: false,
+          };
+          console.log(
+            "GGGGGGGGGGGGGGGGG",
+            query?.fromcheckout === "true",
+            query?.hasPharma === "true",
+            query?.login === "false"
+          );
+          router.push(
+            {
+              pathname: `/login`,
+              query: data,
+            },
+            `/login`,
+            { shallow: true }
+          );
+        } else {
           router.push("/");
         }
-    
-      } else  {
-      router.push("/");
+      } else {
+        router.push("/");
       }
-         
+
       setPostCode("");
       setAddressLine1("");
       setAddressLine2("");
@@ -394,13 +440,14 @@ setToastMessage(response?.message || "Registration Successful! Your account has 
       setCountry({ label: "", value: "" });
 
       return response;
-    } catch (err:any) {
-
-      const errorMessage =
-      err.response?.data?.message;
+    } catch (err: any) {
+      const errorMessage = err.response?.data?.message;
       console.error("Address Error:", err);
       setToastType("error");
-      setToastMessage(errorMessage || "Failed to Add Address! Something went wrong. Please try again.");
+      setToastMessage(
+        errorMessage ||
+          "Failed to Add Address! Something went wrong. Please try again."
+      );
       throw err;
     }
   };
@@ -425,7 +472,9 @@ setToastMessage(response?.message || "Registration Successful! Your account has 
                     <div
                       className="stepper__track-inner"
                       style={{
-                        width: `calc(${(currentStep / (steps.length - 1)) * 100}%)`,
+                        width: `calc(${
+                          (currentStep / (steps.length - 1)) * 100
+                        }%)`,
                       }}
                     ></div>
                   </div>
@@ -433,7 +482,9 @@ setToastMessage(response?.message || "Registration Successful! Your account has 
                     <div
                       key={index}
                       onClick={() => setCurrentStep(index)}
-                      className={`stepper__step ${currentStep === index ? "stepper__step--active" : ""}`}
+                      className={`stepper__step ${
+                        currentStep === index ? "stepper__step--active" : ""
+                      }`}
                       style={{
                         left: `calc(${(index / (steps.length - 1)) * 99}%)`,
                       }}
@@ -441,7 +492,9 @@ setToastMessage(response?.message || "Registration Successful! Your account has 
                       <div
                         className="stepper__circle"
                         style={{
-                          backgroundColor: `${currentStep >= index ? "#005eb8" : "#98A2A2"} `,
+                          backgroundColor: `${
+                            currentStep >= index ? "#005eb8" : "#98A2A2"
+                          } `,
                         }}
                       >
                         <span className="stepper__label">{step.label}</span>
@@ -460,10 +513,10 @@ setToastMessage(response?.message || "Registration Successful! Your account has 
                       options={healthcareOrganizationTypes}
                       onChange={handleSelectChange(setHealthOrganizationType)}
                       value={healthOrganizationType}
-                      required={false}
+                      required={true}
                     />
                   </div>
-
+                  {/* customer register */}
                   {healthOrganizationType?.value !== null &&
                     healthOrganizationType?.value > 2 && (
                       <>
@@ -520,17 +573,16 @@ setToastMessage(response?.message || "Registration Successful! Your account has 
                             }
                             errorTitle={lastNameError}
                           />
-                         
                         </div>
-                       
+
                         <div className="form-input-container">
-                        <LabeledInput
+                          <LabeledInput
                             id="bussinessNameCredit"
                             type="text"
                             placeholder="Bussiness Name"
                             value={bussinessName}
                             label="Bussiness Name"
-                            required={true}
+                            required={false}
                             onChange={(e) =>
                               handleInputChange(
                                 setBussinessName,
@@ -574,26 +626,33 @@ setToastMessage(response?.message || "Registration Successful! Your account has 
                             }
                             errorTitle={passwordError}
                           /> */}
-                           <LabeledInput
-                    id="password"
-                    type={showPassword ? "text" : "password"}
-                    placeholder="Password"
-                    value={password}
-                    label="Password"
-                    required={true}
-                    onChange={(e) =>
-                      handleInputChange(setPassword, [validateRequired], setPasswordError)(e.target.value)
-                    }
-                    password_input={true}
-                    togglePasswordVisibility={()=>togglePasswordVisibility(setShowPassword)}
-                    errorTitle={passwordError}
-                  />
+                          <LabeledInput
+                            id="password"
+                            type={showPassword ? "text" : "password"}
+                            placeholder="Password"
+                            value={password}
+                            label="Password"
+                            required={true}
+                            onChange={(e) =>
+                              handleInputChange(
+                                setPassword,
+                                [validateRequired],
+                                setPasswordError
+                              )(e.target.value)
+                            }
+                            password_input={true}
+                            togglePasswordVisibility={() =>
+                              togglePasswordVisibility(setShowPassword)
+                            }
+                            errorTitle={passwordError}
+                          />
                         </div>
                         <div className="form-input-container">
                           <LabeledPhoneInput
                             id="mobileNumber"
                             label="Mobile Number"
                             value={mobileNumber}
+                            required={true}
                             onChange={(value) =>
                               handleInputChange(
                                 setMobileNumber,
@@ -620,7 +679,9 @@ setToastMessage(response?.message || "Registration Successful! Your account has 
                               )(e.target.value)
                             }
                             password_input={true}
-                    togglePasswordVisibility={()=>togglePasswordVisibility(setShowPasswordConfirm)}
+                            togglePasswordVisibility={() =>
+                              togglePasswordVisibility(setShowPasswordConfirm)
+                            }
                             errorTitle={confirmPasswordError}
                           />
                         </div>
@@ -640,6 +701,7 @@ setToastMessage(response?.message || "Registration Successful! Your account has 
                         </div> */}
                       </>
                     )}
+                  {/* customer Credit */}
                   {healthOrganizationType?.value !== null &&
                     healthOrganizationType?.value <= 2 && (
                       <>
@@ -676,7 +738,6 @@ setToastMessage(response?.message || "Registration Successful! Your account has 
                             }
                             errorTitle={lastNameCreditError}
                           />
-
                         </div>
                         <div className="form-input-container">
                           <LabeledInput
@@ -751,6 +812,7 @@ setToastMessage(response?.message || "Registration Successful! Your account has 
                             id="mobileNumberCredit"
                             label="Mobile Number"
                             value={mobileNumberCredit}
+                            required={true}
                             onChange={(value) =>
                               handleInputChange(
                                 setMobileNumberCredit,
@@ -766,6 +828,7 @@ setToastMessage(response?.message || "Registration Successful! Your account has 
                             id="phoneNumberCredit"
                             label="Phone Number"
                             value={phoneNumberCredit}
+                            required={true}
                             onChange={(value) =>
                               handleInputChange(
                                 setPhoneNumberCredit,
@@ -813,6 +876,7 @@ setToastMessage(response?.message || "Registration Successful! Your account has 
                       type="text"
                       placeholder="Post Code"
                       value={postCode}
+                      required={true}
                       label="Post Code"
                       onChange={(e) =>
                         handleInputChange(
@@ -828,6 +892,7 @@ setToastMessage(response?.message || "Registration Successful! Your account has 
                       type="text"
                       placeholder="Address Line 1"
                       value={addressLine1}
+                      required={true}
                       label="Address Line 1"
                       onChange={(e) =>
                         handleInputChange(
@@ -879,6 +944,7 @@ setToastMessage(response?.message || "Registration Successful! Your account has 
                       type="text"
                       placeholder="Town"
                       value={town}
+                      required={true}
                       label="Town"
                       onChange={(e) =>
                         handleInputChange(
@@ -894,6 +960,7 @@ setToastMessage(response?.message || "Registration Successful! Your account has 
                       type="text"
                       placeholder="City"
                       value={city}
+                      required={true}
                       label="City"
                       onChange={(e) =>
                         handleInputChange(
@@ -924,10 +991,10 @@ setToastMessage(response?.message || "Registration Successful! Your account has 
                     <LabeledSelect
                       id="country"
                       label="Country"
+                      required={true}
                       options={CountryName}
                       onChange={handleSelectChange(setCountry)}
                       value={country}
-                      required={false}
                     />
                   </div>
                   <div className="">
@@ -943,28 +1010,32 @@ setToastMessage(response?.message || "Registration Successful! Your account has 
               )}
 
               <div className="my-2 w-full button-contaioner gap-4">
-                {currentStep === 1 &&   <button
-                  type="submit"
-                  className="secondary-button"
-                  onClick={()=>{
-                    setCurrentStep(0)
-                  }}
-                  // disabled={
-                  //   (currentStep === 0 && !isPersonalDetailsValid) ||
-                  //   (currentStep === 1 && !isDeliveryDetailsValid) ||
-                  //   loading
-                  // }
-                  style={{
-                    // backgroundColor:
+                {currentStep === 1 && (
+                  <button
+                    type="submit"
+                    className="secondary-button"
+                    onClick={() => {
+                      setCurrentStep(0);
+                    }}
+                    // disabled={
                     //   (currentStep === 0 && !isPersonalDetailsValid) ||
-                    //     (currentStep === 1 && !isDeliveryDetailsValid) ||
-                    //     loading
-                    //     ? "#ccc"
-                    //     : undefined
-                  }}
-                >
-                  {"Back"}
-                </button>}
+                    //   (currentStep === 1 && !isDeliveryDetailsValid) ||
+                    //   loading
+                    // }
+                    style={
+                      {
+                        // backgroundColor:
+                        //   (currentStep === 0 && !isPersonalDetailsValid) ||
+                        //     (currentStep === 1 && !isDeliveryDetailsValid) ||
+                        //     loading
+                        //     ? "#ccc"
+                        //     : undefined
+                      }
+                    }
+                  >
+                    {"Back"}
+                  </button>
+                )}
                 <button
                   type="submit"
                   className="primary-button"
@@ -977,10 +1048,10 @@ setToastMessage(response?.message || "Registration Successful! Your account has 
                   style={{
                     backgroundColor:
                       (currentStep === 0 && !isPersonalDetailsValid) ||
-                        (currentStep === 1 && !isDeliveryDetailsValid) ||
-                        loading
+                      (currentStep === 1 && !isDeliveryDetailsValid) ||
+                      loading
                         ? "#ccc"
-                        : undefined
+                        : undefined,
                   }}
                 >
                   {loading ? "Processing..." : "Next"}
@@ -997,7 +1068,6 @@ setToastMessage(response?.message || "Registration Successful! Your account has 
             />
           )}
         </div>
-
       </div>
       <Footer />
     </div>

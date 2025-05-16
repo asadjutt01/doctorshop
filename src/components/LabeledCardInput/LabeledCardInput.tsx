@@ -1,5 +1,6 @@
 import Image from "next/image";
 import React from "react";
+import Asterisk from "../Asterisk/Asterisk";
 
 interface LabeledCardInputProps {
   id: string;
@@ -36,7 +37,7 @@ const LabeledCardInput: React.FC<LabeledCardInputProps> = ({
           className={`form-group__label`}
         >
           {label}
-          {/* {required ? <Asterisk color="red" /> : null} */}
+          {required ? <Asterisk color="red" /> : null}
         </label>
       </div>
       <div className="w-full relative">

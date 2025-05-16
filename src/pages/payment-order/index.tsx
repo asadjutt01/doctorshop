@@ -237,8 +237,8 @@ orderData,
               // console.log('successRespoonse>>>>>>>',"Payment is successful Redirecting to your home...");
               // router.push("/");
             // }
-            const cartList = await getCartList();
-            const cartSummary: any = await getCartSummary();
+            // const cartList = await getCartList();
+            // const cartSummary: any = await getCartSummary();
             // if (cartSummary && cartList) {
             //   dispatch(setCartSummary(cartSummary));
             //   dispatch(setCartsWithList(cartList));

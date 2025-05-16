@@ -3,6 +3,7 @@ import Flatpickr from "react-flatpickr";
 import 'flatpickr/dist/flatpickr.css';
 // import Asterisk from "@/components/Elements/Asterisk/Asterisk";
 import Image from "next/image";
+import Asterisk from "../Asterisk/Asterisk";
 
 interface LabeledDateTimeProps {
     id: string;
@@ -38,7 +39,7 @@ const LabeledDateTime: React.FC<LabeledDateTimeProps> = ({
                     className={`form-group__label`}
                 >
                     {label}
-                    {/* {required ? <Asterisk color="red" /> : null} */}
+                    {required ? <Asterisk color="red" /> : null}
                 </label>
             </div>
 

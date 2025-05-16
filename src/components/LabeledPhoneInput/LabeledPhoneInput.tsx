@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 // import Asterisk from "../Asterisk/Asterisk";
 import "react-phone-number-input/style.css";
+import Asterisk from "../Asterisk/Asterisk";
 interface LabeledPhoneInputProps {
   id: string;
   label: string;
@@ -45,7 +46,7 @@ const LabeledPhoneInput: React.FC<LabeledPhoneInputProps> = ({
           className={`form-group__label`}
         >
           {label}
-          {/* {required ? <Asterisk color="red" /> : null} */}
+          {required ? <Asterisk color="red" /> : null}
         </label>
       </div>
 

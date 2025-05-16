@@ -1,4 +1,5 @@
 import { CardNumberElement, CardExpiryElement, CardCvcElement } from "@stripe/react-stripe-js";
+import Asterisk from "../Asterisk/Asterisk";
 
 interface LabeledStripeInputProps {
   id: string;
@@ -18,7 +19,7 @@ const LabeledStripeInput: React.FC<LabeledStripeInputProps> = ({
       <div className="w-full">
         <label htmlFor={id} className="form-group__label">
           {label}
-          {/* {required ? <Asterisk color="red" /> : null} */}
+          {required ? <Asterisk color="red" /> : null}
         </label>
       </div>
       <div className="w-full">

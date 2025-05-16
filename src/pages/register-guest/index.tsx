@@ -394,6 +394,7 @@ const [loading, setLoading] = useState<boolean>(false);
                       id="mobileNumber"
                       label="Mobile Number"
                       value={mobileNumber}
+                      required={true}
                       onChange={(value) =>
                         handleInputChange(
                           setMobileNumber,
@@ -444,6 +445,7 @@ const [loading, setLoading] = useState<boolean>(false);
                       type="text"
                       placeholder="Post Code"
                       value={postCode}
+                      required={true}
                       label="Post Code"
                       onChange={(e) =>
                         handleInputChange(
@@ -460,6 +462,7 @@ const [loading, setLoading] = useState<boolean>(false);
                       type="text"
                       placeholder="Address Line 1"
                       value={addressLine1}
+                      required={true}
                       label="Address Line 1"
                       onChange={(e) =>
                         handleInputChange(
@@ -512,6 +515,7 @@ const [loading, setLoading] = useState<boolean>(false);
                       type="text"
                       placeholder="Town"
                       value={town}
+                      required={true}
                       label="Town"
                       onChange={(e) =>
                         handleInputChange(
@@ -528,6 +532,7 @@ const [loading, setLoading] = useState<boolean>(false);
                       type="text"
                       placeholder="City"
                       value={city}
+                      required={true}
                       label="City"
                       onChange={(e) =>
                         handleInputChange(
@@ -561,7 +566,7 @@ const [loading, setLoading] = useState<boolean>(false);
                       options={CountryName}
                       onChange={handleSelectChange(setCountry)}
                       value={country}
-                      required={false}
+                      required={true}
                     />
                   </div>
 

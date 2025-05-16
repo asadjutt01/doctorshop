@@ -76,6 +76,8 @@ export default function Index() {
   licenseHolderfirstName&& 
   licenseHolderlastName&& 
   licenseType&& 
+  (licenseType.value !== 8 || licenseName)
+  &&
   licenseNumber&& 
   // licenseName&& 
   licenseRegisterationDate&& 
@@ -273,7 +275,7 @@ export default function Index() {
                     options={TypeofLicense}
                     onChange={handleSelectChange(setLincenseType)}
                     value={licenseType}
-                    required={false}
+                    required={true}
                   />
                   {licenseType?.value < TypeofLicense?.length - 1 && (
                     <LabeledInput
@@ -337,6 +339,8 @@ export default function Index() {
                     label="License Registration Date"
                     type="date"
                     value={licenseRegisterationDate}
+                    required={true}
+
                     onChange={(date: any) => setLicenseRegisterationDate(date)}
                   />
                   <LabeledInput

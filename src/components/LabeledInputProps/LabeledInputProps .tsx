@@ -1,6 +1,7 @@
 import Image from "next/image";
 import React from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import Asterisk from "../Asterisk/Asterisk";
 
 interface LabeledInputProps {
   id: string;
@@ -36,7 +37,7 @@ const LabeledInput: React.FC<LabeledInputProps> = ({
       <div className="w-full">
         <label htmlFor={id} className={`form-group__label`}>
           {label}
-          {/* {required ? <Asterisk color="red" /> : null} */}
+          {required ? <Asterisk color="red" /> : null}
         </label>
       </div>
       <div className="w-full relative">
