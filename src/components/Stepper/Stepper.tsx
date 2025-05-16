@@ -11,7 +11,8 @@ const Stepper: React.FC<StepperProps> = ({
     width = '50%',
     currentStep,
     steps,
-    setCurrentStep }) => {
+    // setCurrentStep 
+}) => {
     return (
         <div className="stepper" style={{ width: width }}>
             <div className="stepper__track">
@@ -24,7 +25,7 @@ const Stepper: React.FC<StepperProps> = ({
                 {steps.map((step, index) => (
                     <div
                         key={index}
-                        onClick={() => setCurrentStep(index)}
+                        // onClick={() => setCurrentStep(index)}
                         className={`stepper__step ${currentStep === index ? "stepper__step--active" : ""}`}
                         style={{ left: `calc(${(index / (steps.length - 1)) * 99}%)` }}
                     >

@@ -27,17 +27,17 @@ const LabeledCardInput: React.FC<LabeledCardInputProps> = ({
   required = false,
   errorTitle,
   disabled = false,
-  cardNumber = false
+  cardNumber = false,
 }) => {
   return (
     <div className="w-full form-group">
       <div className="w-full">
-        <label
-          htmlFor={id}
-          className={`form-group__label`}
-        >
+        <label htmlFor={id} className={`form-group__label relative`}>
           {label}
-          {required ? <Asterisk color="red" /> : null}
+          {required ? (
+            <Asterisk color="red" />
+          ) : //<Asterisk color="blue" required={required} />
+          null}
         </label>
       </div>
       <div className="w-full relative">
@@ -55,49 +55,58 @@ const LabeledCardInput: React.FC<LabeledCardInputProps> = ({
           onChange={onChange}
           required={required}
         />
-        {cardNumber ? (<div className="checkout-payment__card-icons">
-          <Image
-            src="/Visa.svg"
-            alt="Visa"
-            className="checkout-payment__card-icon"
-            width={30}
-            height={20}
-          />
-          <Image
-            src="/MasterCard.svg"
-            alt="M"
-            className="checkout-payment__card-icon"
-            width={30}
-            height={20}
-          />
-          <Image
-            src="/AmericanExpress.svg"
-            alt="AmericanExpress"
-            className="checkout-payment__card-icon"
-            width={30}
-            height={20}
-          />
-          <Image
-            src="/UnionPay_logo.svg"
-            alt="Up"
-            className="checkout-payment__card-icon"
-            width={30}
-            height={20}
-          />
-        </div>) : (<div className="checkout-payment__card-icons">
-          <Image
-            src="/cvv.svg"
-            alt="Visa"
-            className="checkout-payment__card-icon"
-            width={30}
-            height={20}
-          />
-        </div>)}
+        {cardNumber ? (
+          <div className="checkout-payment__card-icons">
+            <Image
+              src="/Visa.svg"
+              alt="Visa"
+              className="checkout-payment__card-icon"
+              width={30}
+              height={20}
+            />
+            <Image
+              src="/MasterCard.svg"
+              alt="M"
+              className="checkout-payment__card-icon"
+              width={30}
+              height={20}
+            />
+            <Image
+              src="/AmericanExpress.svg"
+              alt="AmericanExpress"
+              className="checkout-payment__card-icon"
+              width={30}
+              height={20}
+            />
+            <Image
+              src="/UnionPay_logo.svg"
+              alt="Up"
+              className="checkout-payment__card-icon"
+              width={30}
+              height={20}
+            />
+          </div>
+        ) : (
+          <div className="checkout-payment__card-icons">
+            <Image
+              src="/cvv.svg"
+              alt="Visa"
+              className="checkout-payment__card-icon"
+              width={30}
+              height={20}
+            />
+          </div>
+        )}
         {errorTitle && (
-          <span className="text-red-500 text-xxxs w-full p-1 mb-0" style={{
-            color:"red",
-            fontSize:"12px"
-          }}>{errorTitle}</span>
+          <span
+            className="text-red-500 text-xxxs w-full p-1 mb-0"
+            style={{
+              color: "red",
+              fontSize: "12px",
+            }}
+          >
+            {errorTitle}
+          </span>
         )}
       </div>
     </div>
@@ -106,7 +115,8 @@ const LabeledCardInput: React.FC<LabeledCardInputProps> = ({
 
 export default LabeledCardInput;
 
-{/* <div className="form-group">
+{
+  /* <div className="form-group">
   <label className="form-group__label" htmlFor="phone">
     Card Number
   </label>
@@ -149,4 +159,5 @@ export default LabeledCardInput;
       />
     </div>
   </div>
-</div> */}
+</div> */
+}

@@ -1,4 +1,8 @@
-import { CardNumberElement, CardExpiryElement, CardCvcElement } from "@stripe/react-stripe-js";
+import {
+  CardNumberElement,
+  CardExpiryElement,
+  CardCvcElement,
+} from "@stripe/react-stripe-js";
 import Asterisk from "../Asterisk/Asterisk";
 
 interface LabeledStripeInputProps {
@@ -17,9 +21,12 @@ const LabeledStripeInput: React.FC<LabeledStripeInputProps> = ({
   return (
     <div className="w-full form-group">
       <div className="w-full">
-        <label htmlFor={id} className="form-group__label">
+        <label htmlFor={id} className={`form-group__label relative`}>
           {label}
-          {required ? <Asterisk color="red" /> : null}
+          {required ? (
+            <Asterisk color="red" />
+          ) : //<Asterisk color="blue" required={required} />
+          null}
         </label>
       </div>
       <div className="w-full">
@@ -29,7 +36,10 @@ const LabeledStripeInput: React.FC<LabeledStripeInputProps> = ({
           {id === "card-cvc" && <CardCvcElement className="w-full" />}
         </div>
         {errorTitle && (
-          <span className="text-red-500 text-xxxs w-full p-1 mb-0" style={{ color: "red", fontSize: "12px" }}>
+          <span
+            className="text-red-500 text-xxxs w-full p-1 mb-0"
+            style={{ color: "red", fontSize: "12px" }}
+          >
             {errorTitle}
           </span>
         )}

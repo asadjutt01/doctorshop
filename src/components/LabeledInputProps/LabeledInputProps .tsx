@@ -14,7 +14,7 @@ interface LabeledInputProps {
   required?: boolean;
   errorTitle?: string;
   disabled?: boolean;
-  password_input?:boolean;
+  password_input?: boolean;
   togglePasswordVisibility?: any;
 }
 // import Asterisk from "../Asterisk/Asterisk";
@@ -35,9 +35,12 @@ const LabeledInput: React.FC<LabeledInputProps> = ({
   return (
     <div className="w-full form-group">
       <div className="w-full">
-        <label htmlFor={id} className={`form-group__label`}>
+        <label htmlFor={id} className={`form-group__label relative`}>
           {label}
-          {required ? <Asterisk color="red" /> : null}
+          {required ? (
+            <Asterisk color="red" />
+          ) : //<Asterisk color="blue" required={required} />
+          null}
         </label>
       </div>
       <div className="w-full relative">
@@ -55,21 +58,25 @@ const LabeledInput: React.FC<LabeledInputProps> = ({
           onChange={onChange}
           required={required}
         />
-     {password_input && (
-  <div
-    className="calendar-icon absolute top-1/2 right-2 -translate-y-1/2 cursor-pointer"
-    onClick={togglePasswordVisibility}
-  >
-      {type === "password" ? <FaEyeSlash  size={22}/> : <FaEye size={22}/>}
-  </div>
-)}
+        {password_input && (
+          <div
+            className="calendar-icon absolute top-1/2 right-2 -translate-y-1/2 cursor-pointer"
+            onClick={togglePasswordVisibility}
+          >
+            {type === "password" ? (
+              <FaEyeSlash size={22} />
+            ) : (
+              <FaEye size={22} />
+            )}
+          </div>
+        )}
         {errorTitle && (
           <p
             className="text-red-500 text-xxxs w-full p-1 mb-0"
             style={{
               color: "red",
               fontSize: "12px",
-              lineHeight:"10px !important"
+              lineHeight: "10px !important",
             }}
           >
             {errorTitle}

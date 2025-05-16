@@ -481,7 +481,7 @@ export default function Register() {
                   {steps.map((step, index) => (
                     <div
                       key={index}
-                      onClick={() => setCurrentStep(index)}
+                      // onClick={() => setCurrentStep(index)}
                       className={`stepper__step ${
                         currentStep === index ? "stepper__step--active" : ""
                       }`}

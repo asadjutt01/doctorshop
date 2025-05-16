@@ -10,7 +10,7 @@ interface LabeledPhoneInputProps {
   placeholder?: string;
   required?: boolean;
   errorTitle?: string;
-  className?:string;
+  className?: string;
   disabled?: boolean;
   labelTextColor?: any;
 }
@@ -28,7 +28,7 @@ const LabeledPhoneInput: React.FC<LabeledPhoneInputProps> = ({
   disabled = false,
 }) => {
   const [PhoneInput, setPhoneInput] = useState<any>(null);
-  
+
   useEffect(() => {
     import("react-phone-number-input").then((module) => {
       setPhoneInput(() => module.default);
@@ -37,16 +37,15 @@ const LabeledPhoneInput: React.FC<LabeledPhoneInputProps> = ({
 
   if (!PhoneInput) return <div>Loading phone input...</div>;
 
-  
   return (
     <div className="w-full form-group">
       <div className="w-full">
-        <label
-          htmlFor={id}
-          className={`form-group__label`}
-        >
+        <label htmlFor={id} className={`form-group__label relative`}>
           {label}
-          {required ? <Asterisk color="red" /> : null}
+          {required ? (
+            <Asterisk color="red" />
+          ) : //<Asterisk color="blue" required={required} />
+          null}
         </label>
       </div>
 
@@ -64,18 +63,23 @@ const LabeledPhoneInput: React.FC<LabeledPhoneInputProps> = ({
               ? `form-group__input ${className} disabled:pointer-events-none bg-disabled`
               : `form-group__input ${className}`
           }
-        inputClassName={
+          inputClassName={
             disabled
-            ? `form-group__input ${className} disabled:pointer-events-none bg-disabled`
-            : `form-group__input ${className}`
-        }
+              ? `form-group__input ${className} disabled:pointer-events-none bg-disabled`
+              : `form-group__input ${className}`
+          }
         />
 
         {errorTitle && (
-          <span className="text-red-500 text-xxxs w-full p-1 mb-0" style={{
-            color: "red",
-            fontSize: "12px"
-          }}>{errorTitle}</span>
+          <span
+            className="text-red-500 text-xxxs w-full p-1 mb-0"
+            style={{
+              color: "red",
+              fontSize: "12px",
+            }}
+          >
+            {errorTitle}
+          </span>
         )}
       </div>
     </div>
